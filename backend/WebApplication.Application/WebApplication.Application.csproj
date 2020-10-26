@@ -7,12 +7,8 @@
   <ItemGroup>
     <Folder Include="Movies\Commands\" />
     <Folder Include="Movies\Queries\" />
-    <Folder Include="Meetings\Commands\" />
-    <Folder Include="Meetings\Queries\" />
     <Folder Include="Meals\Commands\" />
     <Folder Include="Meals\Queries\" />
-    <Folder Include="Groups\Commands\" />
-    <Folder Include="Groups\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
