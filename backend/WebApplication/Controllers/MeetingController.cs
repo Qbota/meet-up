@@ -7,13 +7,13 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using WebApplication.Application.Meals.Models;
 using WebApplication.Application.Meetings.Commands;
 using WebApplication.Application.Meetings.Models;
 using WebApplication.Application.Meetings.Queries;
 
 namespace WebApplication.Controllers
 {
-    [Route("api/meet-up/meeting")]
     [ApiController]
     public class MeetingController : ControllerBase
     {
@@ -69,5 +69,7 @@ namespace WebApplication.Controllers
         {
             return Ok(await _mediator.Send(updateMeetingCommand));
         }
+
+
     }
 }

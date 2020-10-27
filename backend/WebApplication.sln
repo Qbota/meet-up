@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplication\WebApplication.csproj", "{7BF966D2-BA18-48E8-854A-2936B1DC651C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication.Application", "WebApplication.Application\WebApplication.Application.csproj", "{57067E9B-9C6D-44FD-9D2E-D92BDA9AE6BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication.Application", "WebApplication.Application\WebApplication.Application.csproj", "{57067E9B-9C6D-44FD-9D2E-D92BDA9AE6BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication.Mongo", "WebApplication.Mongo\WebApplication.Mongo.csproj", "{ADAB065B-8A8D-4E1E-A40A-1EF30FBDC282}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{57067E9B-9C6D-44FD-9D2E-D92BDA9AE6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57067E9B-9C6D-44FD-9D2E-D92BDA9AE6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57067E9B-9C6D-44FD-9D2E-D92BDA9AE6BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADAB065B-8A8D-4E1E-A40A-1EF30FBDC282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAB065B-8A8D-4E1E-A40A-1EF30FBDC282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAB065B-8A8D-4E1E-A40A-1EF30FBDC282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADAB065B-8A8D-4E1E-A40A-1EF30FBDC282}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

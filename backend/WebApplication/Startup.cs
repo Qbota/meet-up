@@ -12,8 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WebApplication.Application.Users.Commands;
 using WebApplication.Configuration;
 using WebApplication.Middleware;
+using WebApplication.Mongo;
+using WebApplication.Mongo.Services;
 
 namespace WebApplication
 {
@@ -29,9 +32,13 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var assembly = typeof(CreateUserCommand).GetTypeInfo().Assembly;
+            services.AddMediatR(assembly);
             services.AddControllers();
-            services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddSwaggerGen();
+            services.Configure<MongoConfiguration>(Configuration.GetSection("MongoConfiguration"));
+            services.AddSingleton<MongoDBContext>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
         }
 

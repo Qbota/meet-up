@@ -12,7 +12,6 @@ using WebApplication.Application.Groups.Queries;
 
 namespace WebApplication.Controllers
 {
-    [Route("api/meet-up/group")]
     [ApiController]
     public class GroupController : ControllerBase
     {
