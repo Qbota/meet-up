@@ -15,6 +15,7 @@ using WebApplication.Application.Meetings.Queries;
 namespace WebApplication.Controllers
 {
     [ApiController]
+    [Route("api/meet-up/meeting")]
     public class MeetingController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -24,7 +25,6 @@ namespace WebApplication.Controllers
             _mediator = mediator;
         }
         [HttpGet]
-        [Route("api/meet-up/meeting")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(IEnumerable<Meeting>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -34,7 +34,7 @@ namespace WebApplication.Controllers
         }
         [HttpGet]
         [Produces("application/json")]
-        [Route("api/meet-up/meeting/{meetingId}")]
+        [Route("{meetingId}")]
         [ProducesResponseType(typeof(Meeting), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetMeetingByIdAsync([FromRoute]string meetingId)
@@ -42,7 +42,6 @@ namespace WebApplication.Controllers
             return Ok(await _mediator.Send(new GetMeetingQuery { Id = meetingId }));
         }
         [HttpPost]
-        [Route("api/meet-up/meeting/create-meeting")]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -52,7 +51,6 @@ namespace WebApplication.Controllers
             return Ok(id);
         }
         [HttpDelete]
-        [Route("api/meet-up/meeting/delete-meeting/{meetingId}")]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -60,8 +58,7 @@ namespace WebApplication.Controllers
         {
             return Ok(await _mediator.Send(new DeleteMeetingCommand { Id = meetingId }));
         }
-        [HttpPost]
-        [Route("api/meet-up/meeting/update-meeting/{meetingId}")]
+        [HttpPut]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

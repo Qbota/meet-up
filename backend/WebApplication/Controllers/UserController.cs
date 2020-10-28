@@ -13,6 +13,7 @@ using WebApplication.Application.Users.Queries;
 namespace WebApplication.Controllers
 {
     [ApiController]
+    [Route("api/meet-up/user")]
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -23,7 +24,6 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        [Route("api/meet-up/user")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(IEnumerable<User>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -33,7 +33,7 @@ namespace WebApplication.Controllers
         }
         [HttpGet]
         [Produces("application/json")]
-        [Route("api/meet-up/user/{userId}")]
+        [Route("{userId}")]
         [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUserByIdAsync([FromRoute]string userId)
@@ -41,7 +41,6 @@ namespace WebApplication.Controllers
             return Ok(await _mediator.Send(new GetUserQuery { Id = userId}));
         }
         [HttpPost]
-        [Route("api/meet-up/user/create-user")]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -51,7 +50,6 @@ namespace WebApplication.Controllers
             return Ok(id);
         }
         [HttpDelete]
-        [Route("api/meet-up/user/delete-user/{userId}")]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -59,8 +57,7 @@ namespace WebApplication.Controllers
         {
             return Ok(await _mediator.Send(new DeleteUserCommand { Id = userId }));
         }
-        [HttpPost]
-        [Route("api/meet-up/user/update-user/{userId}")]
+        [HttpPut]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
