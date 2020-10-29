@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using WebApplication.Mongo.Models;
 
-namespace WebApplication.Mongo.Services
+namespace WebApplication.Mongo.Repositories
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<User>> GetUsersAsync();
-        Task<User> GetUserAsync(string id);
-        Task AddUserAsync(User user);
+        Task<IEnumerable<UserDO>> GetUsersAsync();
+        Task<UserDO> GetUserByIdAsync(string id);
+        Task AddUserAsync(UserDO user);
+        Task UpdateUserAsync(UserDO user);
+        Task DeleteUserAsync(string id);
     }
 }

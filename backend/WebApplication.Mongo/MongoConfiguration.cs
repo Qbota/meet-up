@@ -7,7 +7,9 @@ namespace WebApplication.Mongo
 {
     public class MongoConfiguration : IOptions<MongoConfiguration>
     {
-        public string CollectionName { get; set; }
+        public string UserCollectionName { get; set; }
+        public string GroupCollectionName { get; set; }
+        public string MeetingCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
 

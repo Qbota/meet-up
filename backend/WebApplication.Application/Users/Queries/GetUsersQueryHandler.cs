@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebApplication.Application.Users.Models;
-using WebApplication.Mongo.Services;
+using WebApplication.Mongo.Repositories;
 
 namespace WebApplication.Application.Users.Queries
 {

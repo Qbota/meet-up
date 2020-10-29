@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using WebApplication.Application.Users.Commands;
-using WebApplication.Configuration;
 using WebApplication.Middleware;
 using WebApplication.Mongo;
-using WebApplication.Mongo.Services;
+using WebApplication.Mongo.Repositories;
 
 namespace WebApplication
 {
@@ -36,9 +32,13 @@ namespace WebApplication
             services.AddMediatR(assembly);
             services.AddControllers();
             services.AddSwaggerGen();
+
             services.Configure<MongoConfiguration>(Configuration.GetSection("MongoConfiguration"));
             services.AddSingleton<MongoDBContext>();
+
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IMeetingRepository, MeetingRepository>();
 
         }
 

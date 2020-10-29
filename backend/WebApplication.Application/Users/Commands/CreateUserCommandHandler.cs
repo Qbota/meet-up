@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebApplication.Mongo;
-using WebApplication.Mongo.Services;
+using WebApplication.Mongo.Models;
+using WebApplication.Mongo.Repositories;
 
 namespace WebApplication.Application.Users.Commands
 {
@@ -18,7 +19,7 @@ namespace WebApplication.Application.Users.Commands
         }
         public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new WebApplication.Mongo.User
+            var user = new UserDO
             {
                 Login = "test",
                 Name = "IamTest"

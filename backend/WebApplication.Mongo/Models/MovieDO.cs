@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApplication.Mongo.Models;
+using System.Text;
 
-namespace WebApplication.Application.Movies.Models
+namespace WebApplication.Mongo.Models
 {
-    public class MovieDto
+    public class MovieDo
     {
         public string ID { get; private set; }
         public string Title { get; set; }
@@ -14,7 +12,5 @@ namespace WebApplication.Application.Movies.Models
         public double Rating { get; set; }
         public MovieGenre Genre { get; set; }
         public IEnumerable<string> Actors { get; set; }
-
     }
-
 }

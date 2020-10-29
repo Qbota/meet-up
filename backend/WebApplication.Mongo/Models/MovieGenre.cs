@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebApplication.Application.Movies.Models
+namespace WebApplication.Mongo.Models
 {
     public enum MovieGenre
     {
