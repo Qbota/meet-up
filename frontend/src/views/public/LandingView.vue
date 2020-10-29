@@ -1,11 +1,6 @@
 <template>
   <div class="fill-height">
-    <v-app-bar flat dense color="primary">
-      <v-spacer/>
-      <v-btn class="ml-5; mr-5" text to="/login">Login</v-btn>
-      <v-btn class="ml-5; mr-5" text to="/register">Register</v-btn>
-      <v-spacer/>
-    </v-app-bar>
+      <PublicNavbarComponent/>
     <v-content>
       <v-row justify="center" align="center">
         <v-col cols="8">
@@ -32,8 +27,10 @@
 </template>
 
 <script>
+import PublicNavbarComponent from "@/components/PublicNavbarComponent";
 export default {
 name: "LandingView",
+  components: {PublicNavbarComponent},
   data: () => ({
     carousel: 0,
     colors: [

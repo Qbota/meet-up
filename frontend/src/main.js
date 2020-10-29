@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
-import {makeServer} from '../mock/mockServer'
+import {makeServer} from './mock/mockServer'
 
 if (process.env.NODE_ENV === 'development') {
   makeServer()
