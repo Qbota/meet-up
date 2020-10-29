@@ -7,7 +7,7 @@ using WebApplication.Application.Groups.Models;
 namespace WebApplication.Application.Groups.Queries
 {
     
-    public class GetGroupQuery : IRequest<Group>
+    public class GetGroupQuery : IRequest<GroupDto>
     {
         public string Id { get; set; }
     }

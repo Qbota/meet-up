@@ -8,11 +8,11 @@ using WebApplication.Application.Groups.Models;
 
 namespace WebApplication.Application.Groups.Queries
 {
-    public class GetGroupQueryHandler : IRequestHandler<GetGroupQuery, Group>
+    public class GetGroupQueryHandler : IRequestHandler<GetGroupQuery, GroupDto>
     {
-        public async Task<Group> Handle(GetGroupQuery getGroupQuery, CancellationToken cancellationToken)
+        public async Task<GroupDto> Handle(GetGroupQuery getGroupQuery, CancellationToken cancellationToken)
         {
-            return new Group();
+            return new GroupDto();
         }
     }
 }

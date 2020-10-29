@@ -24,21 +24,23 @@ namespace WebApplication.Controllers
         }
         [HttpGet]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(IEnumerable<Group>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<GroupDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetGroupsAsync([FromQuery] GetGroupsQuery getGroupsQuery)
         {
             return Ok(await _mediator.Send(getGroupsQuery));
         }
+
         [HttpGet]
         [Produces("application/json")]
         [Route("{groupId}")]
-        [ProducesResponseType(typeof(Group), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(GroupDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetGroupByIdAsync([FromRoute]string groupId)
         {
             return Ok(await _mediator.Send(new GetGroupQuery { Id = groupId }));
         }
+
         [HttpPost]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
@@ -48,6 +50,7 @@ namespace WebApplication.Controllers
             var id = await _mediator.Send(createGroupCommand);
             return Ok(id);
         }
+
         [HttpDelete]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -56,6 +59,7 @@ namespace WebApplication.Controllers
         {
             return Ok(await _mediator.Send(new DeleteGroupCommand { Id = groupId }));
         }
+
         [HttpPut]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]

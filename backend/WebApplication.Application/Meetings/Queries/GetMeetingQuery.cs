@@ -6,7 +6,7 @@ using WebApplication.Application.Meetings.Models;
 
 namespace WebApplication.Application.Meetings.Queries
 {
-    public class GetMeetingQuery : IRequest<Meeting>
+    public class GetMeetingQuery : IRequest<MeetingDto>
     {
         public string Id { get; set; }
     }

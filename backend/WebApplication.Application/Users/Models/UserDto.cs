@@ -5,7 +5,7 @@ using WebApplication.Application.Movies.Models;
 
 namespace WebApplication.Application.Users.Models
 {
-    public class User
+    public class UserDto
     {
         public string ID { get; private set; }
         public string Name { get; set; }
@@ -13,13 +13,9 @@ namespace WebApplication.Application.Users.Models
         public IEnumerable<DateTime> AvailableDates { get; set; }
         public IEnumerable<string> GroupIDs { get; set; }
         public IEnumerable<string> MeetingIDs { get; set; }
-        public IEnumerable<Movie> MoviePreferences { get; set; }
-        public IEnumerable<Meal> MealPreferences { get; set; }
-        public IEnumerable<string> Allergens { get; set; }
-        public void SetID(string id)
-        {
-            this.ID = id;
-        }
+        public MoviePreferenceDto MoviePreference { get; set; }
+        public MealPreferenceDto MealPreference { get; set; }
+
         public void SetLogin(string login)
         {
             this.Login = login;

@@ -7,19 +7,14 @@ using WebApplication.Application.Movies.Models;
 
 namespace WebApplication.Application.Meetings.Models
 {
-    public class Meeting
+    public class MeetingDto
     {
         public string ID { get; private set; }
         public string Title { get; set; }
         public string GroupID { get; set; }
-        public DateTime Date { get; set; }
-        public IEnumerable<Movie> MoviePropositions { get; set; }
-        public IEnumerable<Meal> MealsPropositions { get; set; }
+        public IEnumerable<DateTime> DatePropositions { get; set; }
+        public IEnumerable<MovieDto> MoviePropositions { get; set; }
+        public IEnumerable<MealDto> MealsPropositions { get; set; }
 
-
-        public void SetID(string id)
-        {
-            this.ID = id;
-        }
     }
 }

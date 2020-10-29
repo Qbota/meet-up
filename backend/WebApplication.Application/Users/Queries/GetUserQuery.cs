@@ -6,7 +6,7 @@ using WebApplication.Application.Users.Models;
 
 namespace WebApplication.Application.Users.Queries
 {
-    public class GetUserQuery : IRequest<User>
+    public class GetUserQuery : IRequest<UserDto>
     {
         public string Id { get; set; }
     }

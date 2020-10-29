@@ -25,21 +25,23 @@ namespace WebApplication.Controllers
 
         [HttpGet]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(IEnumerable<User>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<UserDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUsersAsync([FromQuery] GetUsersQuery getUsersQuery)
         {
             return Ok(await _mediator.Send(getUsersQuery));
         }
+
         [HttpGet]
         [Produces("application/json")]
         [Route("{userId}")]
-        [ProducesResponseType(typeof(User), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUserByIdAsync([FromRoute]string userId)
         {
             return Ok(await _mediator.Send(new GetUserQuery { Id = userId}));
         }
+
         [HttpPost]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.Created)]
@@ -49,6 +51,7 @@ namespace WebApplication.Controllers
             var id = await _mediator.Send(createUserCommand);
             return Ok(id);
         }
+
         [HttpDelete]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -57,6 +60,7 @@ namespace WebApplication.Controllers
         {
             return Ok(await _mediator.Send(new DeleteUserCommand { Id = userId }));
         }
+
         [HttpPut]
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]

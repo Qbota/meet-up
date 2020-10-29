@@ -6,7 +6,7 @@ using WebApplication.Application.Groups.Models;
 
 namespace WebApplication.Application.Groups.Queries
 {
-    public class GetGroupsQuery : IRequest<IEnumerable<Group>>
+    public class GetGroupsQuery : IRequest<IEnumerable<GroupDto>>
     {
     }
 }

@@ -8,11 +8,11 @@ using WebApplication.Application.Users.Models;
 
 namespace WebApplication.Application.Users.Queries
 {
-    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, User>
+    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDto>
     {
-        public async Task<User> Handle(GetUserQuery getUserQuery, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(GetUserQuery getUserQuery, CancellationToken cancellationToken)
         {
-            return new User();
+            return new UserDto();
         }
     }
 }

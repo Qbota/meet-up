@@ -7,18 +7,13 @@ using WebApplication.Application.Movies.Models;
 
 namespace WebApplication.Application.Groups.Models
 {
-    public class Group
+    public class GroupDto
     {
         public string ID { get; private set; }
-        public string Title { get; set; }
+        public string Name { get; set; }
         public IEnumerable<string> MemberIDs { get; set; }
-        public IEnumerable<Movie> MovieHistory { get; set; }
-        public IEnumerable<Meal> MealsHistory { get; set; }
+        public IEnumerable<MovieDto> MovieHistory { get; set; }
+        public IEnumerable<MealDto> MealsHistory { get; set; }
 
-
-        public void SetID(string id)
-        {
-            this.ID = id;
-        }
     }
 }

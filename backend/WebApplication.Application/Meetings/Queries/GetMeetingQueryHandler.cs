@@ -8,11 +8,11 @@ using WebApplication.Application.Meetings.Models;
 
 namespace WebApplication.Application.Meetings.Queries
 {
-    public class GetMeetingQueryHandler : IRequestHandler<GetMeetingQuery, Meeting>
+    public class GetMeetingQueryHandler : IRequestHandler<GetMeetingQuery, MeetingDto>
     {
-        public async Task<Meeting> Handle(GetMeetingQuery getMeetingQuery, CancellationToken cancellationToken)
+        public async Task<MeetingDto> Handle(GetMeetingQuery getMeetingQuery, CancellationToken cancellationToken)
         {
-            return new Meeting();
+            return new MeetingDto();
         }
     }
 }

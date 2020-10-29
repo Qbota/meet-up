@@ -7,7 +7,7 @@ using WebApplication.Application.Users.Models;
 
 namespace WebApplication.Application.Users.Queries
 {
-     public class GetUsersQuery : IRequest<IEnumerable<User>>
+     public class GetUsersQuery : IRequest<IEnumerable<UserDto>>
     {
     }
 }

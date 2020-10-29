@@ -9,17 +9,17 @@ using WebApplication.Mongo.Services;
 
 namespace WebApplication.Application.Users.Queries
 {
-    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery,IEnumerable<User>>
+    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery,IEnumerable<UserDto>>
     {
         private readonly IUserRepository _userRepository;
         public GetUsersQueryHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
-        public async Task<IEnumerable<User>> Handle(GetUsersQuery getUsersQuery, CancellationToken cancellationToken)
+        public async Task<IEnumerable<UserDto>> Handle(GetUsersQuery getUsersQuery, CancellationToken cancellationToken)
         {
             var users = await _userRepository.GetUsersAsync();
-            return new List<User>();
+            return new List<UserDto>();
         }
     }
 }
