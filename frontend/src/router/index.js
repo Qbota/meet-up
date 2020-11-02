@@ -6,6 +6,7 @@ import MeetingsView from "@/views/private/MeetingsView";
 import AccountView from "@/views/private/AccountView";
 import LoginView from "@/views/public/LoginView";
 import RegisterView from "@/views/public/RegisterView";
+import LandingView from "@/views/public/LandingView";
 
 Vue.use(VueRouter)
 
@@ -41,6 +42,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: RegisterView,
+  },
+  {
+    path: '/',
+    name: 'Landing',
+    component: LandingView
   }
 ]
 

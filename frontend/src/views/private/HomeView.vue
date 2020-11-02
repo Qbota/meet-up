@@ -3,6 +3,7 @@
     <v-navigation-drawer
         expand-on-hover
         absolute
+        color="primary"
     >
       <v-list
           nav
