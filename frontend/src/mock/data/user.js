@@ -1,5 +1,8 @@
 export default {
     id: 12356,
     login: 'test',
-    password: 'test'
+    email: 'test@gmail.com',
+    token: '',
+    moviePreferences: [],
+    foodPreferences: []
 }
