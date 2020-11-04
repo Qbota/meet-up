@@ -10,6 +10,7 @@ export function makeServer({ environment = 'development' } = {}) {
         routes() {
 
             this.namespace = 'api/meet-up'
+            this.routes = 1000
 
             this.post('/user/authenticate', (schema, request) => {
                 let loginCommand = JSON.parse(request.requestBody)

@@ -34,7 +34,7 @@
               <v-text-field label="Password" type="password" v-model="user.password"></v-text-field>
             </v-row>
             <v-row justify="center" class="mb-5">
-              <v-btn color="primary" large @click="loginAction()">
+              <v-btn color="primary" large @click="loginAction()" :loading="isLoading">
                 <div class="px-5">
                   Login
                 </div>
@@ -67,20 +67,24 @@ export default {
       login: '',
       password: ''
     },
-    snackbar: false
+    snackbar: false,
+    isLoading: false
   }),
   methods: {
     async loginAction() {
+      this.isLoading = true
       axios.post(API_URL + '/user/authenticate', this.user, {})
           .then(res => this.handleLoginSuccess(res))
           .catch(() => this.handleLoginFailure())
     },
     handleLoginSuccess(response) {
       this.$store.state.user = response.data
+      this.isLoading = false
       console.log(this.$store.state.user)
       this.$router.push('/home')
     },
     handleLoginFailure() {
+      this.isLoading = false
       this.snackbar = true
     },
     goToLanding() {

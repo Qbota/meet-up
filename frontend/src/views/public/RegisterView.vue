@@ -54,11 +54,27 @@
                   <v-card-actions>
                     <v-btn @click="stepper--">Back</v-btn>
                     <v-spacer/>
-                    <v-btn @click="stepper++">Next</v-btn>
+                    <v-btn @click="stepper++; saveMoviePreferences()">Next</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-stepper-content>
               <v-stepper-content step="3">
+                <v-snackbar
+                    absolute
+                    v-model="snackbar"
+                    color="error"
+                >
+                  Invalid username or password
+                  <template v-slot:action="{ attrs }">
+                    <v-btn
+                        text
+                        v-bind="attrs"
+                        @click="snackbar = false"
+                    >
+                      Close
+                    </v-btn>
+                  </template>
+                </v-snackbar>
                 <v-card class="pa-7" style="margin-left: 20%; margin-right: 20%; margin-bottom: 5%">
                   <v-card-title>
                     Food allergens
@@ -87,7 +103,7 @@
                   <v-card-actions>
                     <v-btn @click="stepper--">Back</v-btn>
                     <v-spacer/>
-                    <v-btn>Confirm</v-btn>
+                    <v-btn @click="registerInApi()" :loading="isLoading">Confirm</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-stepper-content>
@@ -96,12 +112,11 @@
         </v-col>
       </v-row>
     </v-main>
-    <v-dialog v-model="popup" persistent max-width="300">
+    <v-dialog v-model="popup" max-width="400">
       <v-card>
         <v-card-title>
           Choose allergy from list
         </v-card-title>
-        <v-row justify="center">
           <v-list>
             <template v-for="(allergen,i) in allergens">
               <v-list-item v-bind:key="i">
@@ -109,8 +124,6 @@
               </v-list-item>
             </template>
           </v-list>
-        </v-row>
-
         <v-card-actions>
           <v-spacer/>
           <v-btn @click="popup = false">Close</v-btn>
@@ -134,6 +147,7 @@ export default {
   data: function () {
     return {
       stepper: 1,
+      isLoading: false,
       loginDataValid: false,
       movies: [],
       registerCommand: {
@@ -151,6 +165,7 @@ export default {
         'Nuts'
       ],
       popup: false,
+      snackbar: false,
       passwordConfirmation: '',
       emailRules: [
         v => !!v || 'Email is required',
@@ -192,6 +207,39 @@ export default {
       this.registerCommand.foodPreferences = this.registerCommand.foodPreferences.filter(
           x => x !== item
       )
+    },
+    saveMoviePreferences(){
+      this.registerCommand.moviePreferences = this.movies
+          .map(this.mapMoviesToPreferences)
+    },
+    mapMoviesToPreferences(movie){
+      let preference = {
+        id: movie.id,
+        rating: movie.rating
+      };
+      if(preference.rating === undefined){
+        preference.rating = 0
+      }
+      return preference
+    },
+    async registerInApi() {
+      this.isLoading = true
+      axios.post(API_URL + '/user', this.registerCommand, {})
+          .then(res => {
+            this.handleRegisterSuccess(res);
+          })
+          .catch(err => {
+            this.handleRegisterFailure(err);
+          })
+    },
+    handleRegisterFailure: function (err) {
+      console.log(err)
+      this.isLoading = false
+    },
+    handleRegisterSuccess: function (res) {
+      console.log(res)
+      this.isLoading = false
+      this.$store.state.user = res.data
     },
     translateNumberToRating(number) {
       switch (number) {
