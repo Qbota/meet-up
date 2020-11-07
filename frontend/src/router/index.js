@@ -15,6 +15,10 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
+    // beforeEnter: (to, from, next) => {
+    //   if(store.state.user == null) next({name: 'Login'})
+    //   else next()
+    // },
     children: [
       {
         path: 'groups',
