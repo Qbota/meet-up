@@ -98,24 +98,69 @@ class MovieAI():
 
         return True, userRecom
 
+    def combineRatings(self, ratings):
+        '''
+        Params:
+        * ratings - list of dicts with:
+            keys (int) - movieId
+            values (float) - movie ratings
+        '''
+        combinedRatings = {}
+        for userDict in ratings:
+            for film in userDict:
+                r = []
+                for _userDict in ratings:
+                    for _film, _value in _userDict.items():
+                        if film == _film:
+                            r.append(_value)
+                            break
+                if film not in combinedRatings:
+                    if len(r) > 0:
+                        combinedRatings[film] = sum(r)/len(r)
+        return combinedRatings
+
+    def predictCombinedRating(self, ratings, predictConfigDict=None):
+        if predictConfigDict is None:
+            predictConfigDict = \
+                    {"numOfRecomendations": 100,
+                     "maxNumOfNeighbours": 15,
+                     "minNumOfNeighbours": 10}
+        combinedRating = self.combineRatings(ratings)
+        predictedRating = self.predictRatingForUnseenMovies(combinedRating,
+                                                            predictConfigDict)
+        return predictedRating
+
+
+def csvToMovieRatings(filename):
+    '''
+    Params:
+    * filename (str) - filename of csv file with ratings
+    Returns:
+    * ratingDict (dict) - dict of pairs:
+        key (int) - movieId (item)
+        value (float) - movie rating
+    '''
+    ratingDict = {}
+    with open(filename, newline='') as csvfile:
+        ratings_reader = csv.DictReader(csvfile)
+        for row in ratings_reader:
+            if ((row['ratings'] != "") and
+                (float(row['ratings']) > 0) and
+                    (float(row['ratings']) < 6)):
+                ratingDict.update({int(row['item']):
+                                   float(row['ratings'])})
+    return ratingDict
+
 
 if __name__ == "__main__":
     ai = MovieAI(debug=True)
     exampleConfig = {"numOfRecomendations": 100,
                      "maxNumOfNeighbours": 15,
                      "minNumOfNeighbours": 10}
-    jabril_rating_dict = {}
-    with open("jabril-movie-ratings.csv", newline='') as csvfile:
-        ratings_reader = csv.DictReader(csvfile)
-        for row in ratings_reader:
-            if ((row['ratings'] != "") and
-                (float(row['ratings']) > 0) and
-                    (float(row['ratings']) < 6)):
-                jabril_rating_dict.update({int(row['item']):
-                                           float(row['ratings'])})
+    exampleRating1 = csvToMovieRatings("example_user_1.csv")
+    exampleRating2 = csvToMovieRatings("example_user_2.csv")
+    finalRating = ai.combineRatings([exampleRating1, exampleRating2])
+
     result, prediction = \
-        ai.predictRatingForUnseenMovies(jabril_rating_dict, exampleConfig)
-    if result:
-        print(prediction)
-
-
+        ai.predictRatingForUnseenMovies(finalRating, exampleConfig)
+    print(prediction)
