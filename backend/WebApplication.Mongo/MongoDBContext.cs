@@ -22,6 +22,8 @@ namespace WebApplication.Mongo
             var database = client.GetDatabase(_configuration.DatabaseName);
 
             Users = database.GetCollection<UserDO>(_configuration.UserCollectionName);
+            Groups = database.GetCollection<GroupDO>(_configuration.GroupCollectionName);
+            Meetings = database.GetCollection<MeetingDO>(_configuration.MeetingCollectionName);
 
         }
     }

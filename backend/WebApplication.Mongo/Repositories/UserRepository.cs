@@ -22,6 +22,13 @@ namespace WebApplication.Mongo.Repositories
            return await _context.Users.Find(_ => true).ToListAsync();
         }
 
+        public async Task<UserDO> GetUserByLoginAsync(string login)
+        {
+            return await _context.Users
+                            .Find(user => user.Login == login)
+                            .FirstOrDefaultAsync();
+        }
+
         public async Task<UserDO> GetUserByIdAsync(string id)
         {
             return await _context.Users

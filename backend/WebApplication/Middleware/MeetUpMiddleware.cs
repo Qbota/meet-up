@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Security.Authentication;
 using System.Threading.Tasks;
+using WebApplication.Exceptions;
 
 namespace WebApplication.Middleware
 {
@@ -70,6 +71,9 @@ namespace WebApplication.Middleware
                 case NotImplementedException notImplementedException:
                     HandleException(ref problemDetails, notImplementedException, context);
                     break;
+                case AuthorizationException authorizationException:
+                    HandleException(ref problemDetails, authorizationException, context);
+                    break;
                 case AuthenticationException authenticationException:
                     HandleException(ref problemDetails, authenticationException, context);
                     break;
@@ -98,7 +102,12 @@ namespace WebApplication.Middleware
             problemDetails.Status = StatusCodes.Status401Unauthorized;
             problemDetails.Detail = authenticationException.Message;
         }
+        private void HandleException(ref ProblemDetails problemDetails, AuthorizationException authorizationException, HttpContext context)
+        {
+            problemDetails.Title = "Unauthenitcated operation";
+            problemDetails.Status = StatusCodes.Status401Unauthorized;
+            problemDetails.Detail = authorizationException.Message;
+        }
 
-       
     }
 }

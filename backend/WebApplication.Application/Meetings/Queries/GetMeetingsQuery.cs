@@ -8,5 +8,7 @@ namespace WebApplication.Application.Meetings.Queries
 {
     public  class GetMeetingsQuery : IRequest<IEnumerable<MeetingDto>>
     {
+        public string Title { get; set; }
+        public string GroupID { get; set; }
     }
 }

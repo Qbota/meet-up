@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Application.Users.Commands;
@@ -13,6 +14,7 @@ using WebApplication.Application.Users.Queries;
 namespace WebApplication.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/meet-up/user")]
     public class UserController : ControllerBase
     {
@@ -44,6 +46,7 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [Produces("application/json")]
+        [AllowAnonymous]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserCommand createUserCommand)

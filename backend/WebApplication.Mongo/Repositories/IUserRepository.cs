@@ -10,6 +10,7 @@ namespace WebApplication.Mongo.Repositories
     {
         Task<IEnumerable<UserDO>> GetUsersAsync();
         Task<UserDO> GetUserByIdAsync(string id);
+        Task<UserDO> GetUserByLoginAsync(string login);
         Task AddUserAsync(UserDO user);
         Task UpdateUserAsync(UserDO user);
         Task DeleteUserAsync(string id);

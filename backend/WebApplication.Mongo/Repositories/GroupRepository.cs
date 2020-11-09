@@ -25,7 +25,7 @@ namespace WebApplication.Mongo.Repositories
         public async Task<GroupDO> GetGroupByIdAsync(string id)
         {
             return await _context.Groups
-                            .Find(user => user.ID == id)
+                            .Find(group => group.ID == id)
                             .FirstOrDefaultAsync();
         }
 
@@ -36,13 +36,12 @@ namespace WebApplication.Mongo.Repositories
 
         public async Task UpdateGroupAsync(GroupDO group)
         {
-            await _context.Groups.ReplaceOneAsync(Builders<GroupDO>.Filter.Eq("_id", group.ID), group);
+            await _context.Groups.ReplaceOneAsync(x => x.ID == group.ID, group);
         }
 
         public async Task DeleteGroupAsync(string id)
         {
-            var objectId = new ObjectId(id);
-            await _context.Groups.DeleteOneAsync(Builders<GroupDO>.Filter.Eq("_id", objectId));
+            await _context.Groups.DeleteOneAsync(Builders<GroupDO>.Filter.Eq("id", id));
         }
     }
 }

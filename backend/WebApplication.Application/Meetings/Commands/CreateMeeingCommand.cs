@@ -7,5 +7,7 @@ namespace WebApplication.Application.Meetings.Commands
 {
     public class CreateMeetingCommand : IRequest<string>
     {
+        public string Title { get; set; }
+        public string GroupID { get; set; }
     }
 }

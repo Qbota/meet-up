@@ -8,5 +8,7 @@ namespace WebApplication.Application.Groups.Queries
 {
     public class GetGroupsQuery : IRequest<IEnumerable<GroupDto>>
     {
+        public string Name { get; set; }
+        public IEnumerable<string> MemberIDs { get; set; }
     }
 }
