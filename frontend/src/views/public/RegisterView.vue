@@ -238,6 +238,7 @@ export default {
     },
     handleRegisterSuccess: function (res) {
       console.log(res)
+      this.$router.push('/home')
       this.isLoading = false
       this.$store.state.user = res.data
     },
