@@ -43,13 +43,12 @@ namespace WebApplication.Mongo.Repositories
 
         public async Task UpdateUserAsync(UserDO user)
         {
-            await _context.Users.ReplaceOneAsync(Builders<UserDO>.Filter.Eq("_id", user.ID), user);
+            await _context.Users.ReplaceOneAsync(x => x.ID == user.ID, user); 
         }
 
         public  async Task DeleteUserAsync(string id)
         {
-            var objectId = new ObjectId(id);
-            await _context.Users.DeleteOneAsync(Builders<UserDO>.Filter.Eq("_id", objectId));
+            await _context.Users.DeleteOneAsync(Builders<UserDO>.Filter.Eq("id", id));
         }
     }
 }

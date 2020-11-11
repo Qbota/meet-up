@@ -2,33 +2,20 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebApplication.Application.Authorization;
-using WebApplication.Mongo.Models;
-using WebApplication.Mongo.Repositories;
 
 namespace WebApplication.Application.Refresh
 {
     public class RefreshCommandHandler : IRequestHandler<RefreshCommand, JWTAuthResult>
     {
         private readonly IJWTService _jWTService;
-        private readonly IUserRepository _userRepository;
-        private readonly IHashService _hashService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         public RefreshCommandHandler(
-            IJWTService jWTService,
-            IUserRepository userRepository,
-            IHashService hashService,
-            IHttpContextAccessor httpContextAccessor)
+            IJWTService jWTService)
         {
             _jWTService = jWTService;
-            _userRepository = userRepository;
-            _hashService = hashService;
-            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<JWTAuthResult> Handle(RefreshCommand request, CancellationToken cancellationToken)
         {

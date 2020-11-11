@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.AspNetCore.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using WebApplication.Application.Authorization;
 using WebApplication.Application.Users.Models;
 using WebApplication.Mongo.Models;
 using WebApplication.Mongo.Repositories;
@@ -15,13 +14,20 @@ namespace WebApplication.Application.Users.Queries
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public GetUserQueryHandler(IUserRepository userRepository, IMapper mapper)
+        private readonly IAuthorizationService _authorizationService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public GetUserQueryHandler(
+            IUserRepository userRepository, 
+            IMapper mapper,
+            IAuthorizationService authorizationService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
             _mapper = mapper;
         }
         public async Task<UserDto> Handle(GetUserQuery getUserQuery, CancellationToken cancellationToken)
         {
+            _authorizationService.AuthorizeAccessOrThrowAsync(_httpContextAccessor.HttpContext,getUserQuery.Id);
             var user = await _userRepository.GetUserByIdAsync(getUserQuery.Id);
             var mappedUser = _mapper.Map<UserDO, UserDto>(user);
             return mappedUser;

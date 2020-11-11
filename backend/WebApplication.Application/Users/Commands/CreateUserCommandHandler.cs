@@ -44,7 +44,7 @@ namespace WebApplication.Application.Users.Commands
                 MealPreference = new MealPreferenceDO { Allergens = request.Allergens},
                 MoviePreference = new MoviePreferenceDO { Movies = request.Movies?.Select(x => _mapper.Map<MovieDto, MovieDo>(x)) },
                 Salt = salt,
-        };
+             };
             await _userRepository.AddUserAsync(user);
             return _jWTService.GenerateTokens(user);
         }

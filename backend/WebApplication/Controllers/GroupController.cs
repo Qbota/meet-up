@@ -14,7 +14,7 @@ using WebApplication.Application.Groups.Queries;
 namespace WebApplication.Controllers
 {
     [ApiController]
-    //[Authorize]
+    [Authorize]
     [Route("api/meet-up/group")]
     public class GroupController : ControllerBase
     {
