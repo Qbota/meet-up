@@ -8,7 +8,6 @@ using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 using WebApplication.Application.Authorization;
-using WebApplication.Exceptions;
 using WebApplication.Mongo.Repositories;
 
 namespace WebApplication.Middleware
