@@ -1,41 +1,47 @@
 <template>
+  <div>
   <v-simple-table height="300px">
     <template v-slot:default>
       <thead>
-        <tr>
-          <th class="text-left">
-            Title
-          </th>
-          <th class="text-left">
-            Rating
-          </th>
-          <th>
-            Edit rating
-          </th>
+      <tr>
+        <th class="text-left">
+          Title
+        </th>
+        <th class="text-left">
+          Rating
+        </th>
+        <th>
+          Edit rating
+        </th>
 
-        </tr>
+      </tr>
       </thead>
       <tbody>
-        <tr
+      <tr
           v-for="movie in userMoviePrefs"
           :key="movie.title"
-        >
-          <td>{{ movie.title }}</td>
-          <td>{{ movie.rating }}</td>
-          <td>
-            <v-btn
-      color="primary"
-      dark
-      @click.stop="dialog = true"
-    >
-      Edit rate
-    </v-btn>
+      >
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.rating }}</td>
+        <td>
+          <v-btn
+              color="primary"
+              dark
+              @click="editMovie(movie)"
+          >
+            Edit rate
+          </v-btn>
 
+        </td>
+      </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
     <v-dialog
-      v-model="dialog"
-      max-width="290"
+        v-model="dialog"
+        max-width="290"
     >
-      <v-card v-bind:key="movie.title">
+      <v-card>
         <v-card-title class="headline">
           Change movie rate
         </v-card-title>
@@ -45,10 +51,9 @@
         </v-card-text>
 
         <v-card-actions>
-            <v-btn
-            color="green darken-1"
-            text
-            @click="updateRank(movie)"
+          <v-btn
+              color="green darken-1"
+              text
           >
             0
           </v-btn>
@@ -56,33 +61,25 @@
           <v-spacer></v-spacer>
 
           <v-btn
-            color="green darken-1"
-            text
-            @click="dialog = false"
+              color="green darken-1"
+              text
+              @click="dialog = false"
           >
             Disagree
           </v-btn>
 
           <v-btn
-            color="green darken-1"
-            text
-            @click="dialog = false"
+              color="green darken-1"
+              text
+              @click="dialog = false"
           >
             Agree
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-          </td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
-
-
-  
+  </div>
 </template>
-
 
 
 <script>
@@ -91,21 +88,26 @@ import axios from 'axios'
 
 
 export default {
-name: "MoviePreferencesComponent",
+  name: "MoviePreferencesComponent",
   created() {
     this.fetchPrefs()
   },
-  data: function (){
+  data: function () {
     return {
-      //Add here properties like this
       userMoviePrefs: [],
-      dialog: false
+      dialog: false,
+      rating: 5
     }
   },
   methods: {
     //add here methods
-    example(){
+    example() {
       console.log('hi')
+    },
+    editMovie(movie){
+      console.log(movie.title)
+      movie.rating = this.rating
+      this.dialog = true
     },
     async fetchPrefs() {
       axios.get(API_URL + '/userMoviePrefs')
