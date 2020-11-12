@@ -148,15 +148,11 @@ export default {
   created() {
     this.fetchGroups()
     this.fetchInvites()
+    this.fetchNames()
   },
   data: () => ({
     groups: [],
-    users: [
-        'kuba@test.pl',
-        'gosia@test.pl',
-        'karol@test.pl',
-        'krzysiek@test.pl'
-    ],
+    users: [],
     icons: [
         'fas fa-bicycle',
         'fas fa-baseball-ball',
@@ -221,6 +217,10 @@ export default {
     fetchInvites(){
       axios.get(API_URL + '/invites')
         .then(res => this.invites = res.data)
+    },
+    fetchNames(){
+      axios.get(API_URL + '/names')
+        .then(res => this.users = res.data)
     },
     closeInfoDialog(){
       this.infoDialog = false

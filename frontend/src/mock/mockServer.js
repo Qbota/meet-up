@@ -2,6 +2,7 @@ import {Response, Server} from 'miragejs'
 import user from './data/user'
 import movies from './data/movies'
 import invites from "@/mock/data/invites";
+import names from "@/mock/data/names";
 
 export function makeServer({environment = 'development'} = {}) {
 
@@ -51,6 +52,10 @@ export function makeServer({environment = 'development'} = {}) {
 
             this.get('/invites', () => {
                 return new Response(200, {}, invites)
+            })
+
+            this.get('/names', () => {
+                return new Response(200, {}, names)
             })
 
             this.post('/invites', (schema, request) => {
