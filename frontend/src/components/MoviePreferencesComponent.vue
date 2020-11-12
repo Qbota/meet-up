@@ -71,7 +71,7 @@
           <v-btn
               color="green darken-1"
               text
-              @click="dialog = false"
+              @click="updateRank()"
           >
             Agree
           </v-btn>
@@ -96,6 +96,7 @@ export default {
     return {
       userMoviePrefs: [],
       dialog: false,
+      selectedMovie: null,
       rating: 5
     }
   },
@@ -106,16 +107,16 @@ export default {
     },
     editMovie(movie){
       console.log(movie.title)
-      movie.rating = this.rating
+      this.selectedMovie = movie
       this.dialog = true
     },
     async fetchPrefs() {
       axios.get(API_URL + '/userMoviePrefs')
           .then(res => this.userMoviePrefs = res.data)
     },
-    updateRank(movie) {
-      console.log(movie.title);
-      movie.rating = 5;
+    updateRank() {
+      this.selectedMovie.rating = 5
+      this.dialog = false
       //for (i in this.userMoviePrefs) {
       //  if (i.title === title){
       //    i.rating = rank;
