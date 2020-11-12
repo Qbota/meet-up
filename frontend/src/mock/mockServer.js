@@ -1,6 +1,7 @@
 import {Response, Server} from 'miragejs'
 import user from './data/user'
 import movies from './data/movies'
+import prefs from './data/userMoviePrefs'
 
 export function makeServer({ environment = 'development' } = {}) {
 
@@ -28,6 +29,10 @@ export function makeServer({ environment = 'development' } = {}) {
             this.get('/movies', () => {
                 console.log(movies)
                 return new Response(200, {}, movies)
+            })
+
+            this.get('/userMoviePrefs', () =>{
+                return new Response(200, {}, prefs)
             })
 
         }
