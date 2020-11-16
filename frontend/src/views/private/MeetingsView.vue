@@ -18,31 +18,135 @@
           <v-icon>mdi-chevron-right</v-icon>
         </v-btn>
       </v-row>
-
-
       <v-sheet height="600">
-      <v-calendar ref="calendar" v-model="focus" type="month" :events="meetings">
-
-      </v-calendar>
+        <v-calendar ref="calendar" v-model="focus" type="month" :events="meetings" @click:event="showDetailsDialog"/>
       </v-sheet>
+      <v-row class="mx-3" justify="end">
+        <v-btn @click="showCreateDialog()">Create meeting</v-btn>
+      </v-row>
     </v-container>
+    <v-dialog v-model="inboxDialog" max-width="400pt">
+      <v-card class="px-5">
+        <v-card-title>
+          Group Invites
+        </v-card-title>
+        <v-list dense>
+          <template v-for="invite in invites">
+            <v-list-item v-bind:key="invite.sender">
+              <v-list-item-icon><v-icon>fas fa-user-plus</v-icon></v-list-item-icon>
+              <v-list-item-content>
+                User {{invite.organizer}} invited you to meeting: {{invite.title}}!
+              </v-list-item-content>
+              <v-btn icon ><v-icon>fas fa-check</v-icon></v-btn>
+              <v-btn icon ><v-icon>fas fa-times</v-icon></v-btn>
+            </v-list-item>
+          </template>
+        </v-list>
+        <v-card-actions>
+          <v-btn @click="closeInboxDialog()">Close</v-btn>
+          <v-spacer/>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="createDialog" max-width="400pt">
+      <CreateMeetingComponent @closeEvent="closeCreateDialog()"/>
+    </v-dialog>
+    <v-dialog v-model="detailsDialog" max-width="400pt">
+      <MeetingDetailsComponent :meeting="selectedEvent" @closeEvent="closeDetailsDialog"/>
+    </v-dialog>
+    <v-btn
+        fab
+        color="primary"
+        top
+        right
+        absolute
+        style="margin-top: 20pt"
+        @click="showInboxDialog()"
+    >
+      <v-icon>mdi-message</v-icon>
+    </v-btn>
   </v-main>
 </template>
 
 <script>
+import axios from "axios";
+import {API_URL} from "@/config/consts";
+import CreateMeetingComponent from "@/components/CreateMeetingComponent";
+import MeetingDetailsComponent from "@/components/MeetingDetailsComponent";
+
 export default {
-name: "MeetingsView",
+  name: "MeetingsView",
+  components: {MeetingDetailsComponent, CreateMeetingComponent},
   data: () => ({
     focus: '',
+    inboxDialog: false,
+    createDialog: false,
+    detailsDialog: false,
+    selectedEvent: {
+      name: '',
+      start: new Date()
+    },
+    invites: [
+      {
+        organizer: 'test@test.pl',
+        title: 'Meeting title',
+        accepted: false
+      }
+    ],
     meetings: [{
       name: 'Test Meeting',
       start: new Date()
     }]
   }),
   methods: {
-    setToday () {
+    setToday() {
       this.focus = ''
-    }
+    },
+    acceptInvite(invite){
+      invite.accepted = true
+      axios.post(API_URL + '/meeting/invite', invite, {})
+    },
+    denyInvite(invite){
+      invite.accepted = false
+      axios.post(API_URL + '/meeting/invite', invite, {})
+    },
+    showInboxDialog(){
+      this.inboxDialog = true
+    },
+    closeInboxDialog(){
+      this.inboxDialog = false
+    },
+    showDetailsDialog({event}){
+      this.selectedEvent = event
+      this.detailsDialog = true
+    },
+    closeDetailsDialog(){
+      this.detailsDialog = false
+    },
+    showCreateDialog(){
+      this.createDialog = true
+    },
+    closeCreateDialog(){
+      this.createDialog = false
+    },
   }
 }
+/*
+1. Organizator tworzy meeting
+  - wybiera dzień/dni
+  - opis
+  - tytuł
+2. Dodaje ludzi po mailu
+3. Rejestracja meetingu -> api
+4. Dodanie do kalendarza <- api
+
+1. Okno meetingu (in progress)
+  - podanie preferencji żywieniowych
+  - podanie preferencji filmowych
+  - wypisanie
+  - klepnięcie (tylko organizator)
+2. Okno meetingu (read only)
+
+1. Skrzynka zaproszeń analogicznie do grup
+ */
 </script>

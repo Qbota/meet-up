@@ -74,7 +74,7 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="12">
-            <v-autocomplete chips deletable-chips multiple v-model="createdGroup.members" :items="users"></v-autocomplete>
+            <v-autocomplete chips deletable-chips multiple v-model="createdGroup.members" :items="users"/>
           </v-col>
         </v-row>
         <v-card-actions>

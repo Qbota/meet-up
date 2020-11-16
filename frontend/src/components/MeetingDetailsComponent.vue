@@ -1,11 +1,22 @@
 <template>
-  <v-content>
-    Meeting details
-  </v-content>
+  <v-card>
+    <v-card-title>
+      {{meeting.name}}
+    </v-card-title>
+    <v-btn @click="raiseCloseEvent">Close</v-btn>
+  </v-card>
 </template>
 
 <script>
 export default {
-name: "MeetingDetailsComponent"
+name: "MeetingDetailsComponent",
+  props: {
+    meeting: Object
+  },
+  methods: {
+    raiseCloseEvent(){
+      this.$emit('closeEvent')
+    }
+  }
 }
 </script>
