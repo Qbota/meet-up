@@ -5,7 +5,7 @@
         Create group
       </v-card-title>
       <v-row justify="center">
-        <v-text-field label="Meeting title" v-model="meeting.title"/>
+        <v-text-field label="Meeting title" v-model="meeting.name"/>
       </v-row>
       <v-row justify="center">
         <v-text-field label="Meeting description" v-model="meeting.description"/>
@@ -32,7 +32,7 @@
       <v-card-actions>
         <v-btn @click="raiseCloseEvent">Close</v-btn>
         <v-spacer/>
-        <v-btn>Create Meeting</v-btn>
+        <v-btn @click="registerMeeting()">Create Meeting</v-btn>
       </v-card-actions>
     </v-container>
   </v-card>
@@ -48,9 +48,10 @@ export default {
   },
   data: function () {
     return {
+      menu: false,
       users: [],
       meeting: {
-        title: '',
+        name: '',
         description: '',
         dates: [],
         members: [],
@@ -70,6 +71,19 @@ export default {
     async fetchUsers(){
       axios.get(API_URL + '/names')
           .then(res => this.users = res.data)
+    },
+    async registerMeeting(){
+      axios.post(API_URL + '/meeting', this.meeting, {})
+        .then(() => this.raiseMeetingRegisteredEvent())
+    },
+    raiseMeetingRegisteredEvent(){
+      this.meeting = {
+        title: '',
+        description: '',
+        dates: [],
+        members: [],
+      }
+      this.$emit('registeredEvent')
     }
   }
 }

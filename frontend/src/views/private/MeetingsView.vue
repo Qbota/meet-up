@@ -49,7 +49,7 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="createDialog" max-width="400pt">
-      <CreateMeetingComponent @closeEvent="closeCreateDialog()"/>
+      <CreateMeetingComponent @closeEvent="closeCreateDialog()" @registeredEvent="fetchMeetings(); closeCreateDialog()"/>
     </v-dialog>
     <v-dialog v-model="detailsDialog" max-width="400pt">
       <MeetingDetailsComponent :meeting="selectedEvent" @closeEvent="closeDetailsDialog"/>
@@ -77,6 +77,9 @@ import MeetingDetailsComponent from "@/components/MeetingDetailsComponent";
 export default {
   name: "MeetingsView",
   components: {MeetingDetailsComponent, CreateMeetingComponent},
+  created() {
+    this.fetchMeetings()
+  },
   data: () => ({
     focus: '',
     inboxDialog: false,
@@ -93,12 +96,13 @@ export default {
         accepted: false
       }
     ],
-    meetings: [{
-      name: 'Test Meeting',
-      start: new Date()
-    }]
+    meetings: []
   }),
   methods: {
+    async fetchMeetings(){
+      axios.get(API_URL + '/meeting')
+        .then(res => this.meetings = res.data)
+    },
     setToday() {
       this.focus = ''
     },

@@ -3,6 +3,7 @@ import user from './data/user'
 import movies from './data/movies'
 import invites from "@/mock/data/invites";
 import names from "@/mock/data/names";
+import meetings from "@/mock/data/meetings";
 
 export function makeServer({environment = 'development'} = {}) {
 
@@ -21,6 +22,7 @@ export function makeServer({environment = 'development'} = {}) {
                     members: ['kuba@test.pl']
                 }
             ]
+            this.meetingsList = [...meetings]
 
             this.post('/user/authenticate', (schema, request) => {
                 let loginCommand = JSON.parse(request.requestBody)
@@ -64,6 +66,22 @@ export function makeServer({environment = 'development'} = {}) {
                 console.log(invite)
                 return new Response(201, {} , {})
             })
+
+            this.get('/meeting', () => {
+                console.log(this.meetingsList)
+                return new Response(200, {}, this.meetingsList)
+            })
+
+            this.post('/meeting', (schema, request) => {
+                let meeting = JSON.parse(request.requestBody)
+                let start = meeting.dates[0]
+                meeting.start = Date.parse(start)
+                this.meetingsList.push(meeting)
+                return new Response(201, {},{})
+            })
+
+
+
 
         }
     })
