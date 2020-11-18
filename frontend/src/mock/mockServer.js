@@ -1,11 +1,13 @@
 import {Response, Server} from 'miragejs'
 import user from './data/user'
 import movies from './data/movies'
+import prefs from './data/userMoviePrefs'
 import invites from "@/mock/data/invites";
 import names from "@/mock/data/names";
 import meetings from "@/mock/data/meetings";
 import movieGenres from "@/mock/data/movieGenres";
 import foodTypes from "@/mock/data/foodTypes";
+
 
 export function makeServer({environment = 'development'} = {}) {
 
@@ -42,6 +44,10 @@ export function makeServer({environment = 'development'} = {}) {
             this.get('/movies', () => {
                 console.log(movies)
                 return new Response(200, {}, movies)
+            })
+
+            this.get('/userMoviePrefs', () =>{
+                return new Response(200, {}, prefs)
             })
 
             this.get('/movie/genre', () => {
@@ -89,9 +95,6 @@ export function makeServer({environment = 'development'} = {}) {
                 this.meetingsList.push(meeting)
                 return new Response(201, {},{})
             })
-
-
-
 
         }
     })
