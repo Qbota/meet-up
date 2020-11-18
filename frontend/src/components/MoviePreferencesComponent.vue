@@ -39,7 +39,7 @@
   </v-simple-table>
     <v-dialog
         v-model="dialog"
-        max-width="290"
+        max-width="600"
     >
       <v-card>
         <v-card-title class="headline">
@@ -51,14 +51,10 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn
-              color="green darken-1"
-              text
-          >
-            0
-          </v-btn>
 
-          <v-spacer></v-spacer>
+            <v-rating v-model="newRating" clearable dense size="25" length="10" hover/>
+
+          <v-spacer>          </v-spacer>
 
           <v-btn
               color="green darken-1"
@@ -71,7 +67,7 @@
           <v-btn
               color="green darken-1"
               text
-              @click="updateRank()"
+              @click="updateRank(newRating)"
           >
             Agree
           </v-btn>
@@ -97,7 +93,7 @@ export default {
       userMoviePrefs: [],
       dialog: false,
       selectedMovie: null,
-      rating: 5
+      newRating: 5
     }
   },
   methods: {
@@ -114,14 +110,10 @@ export default {
       axios.get(API_URL + '/userMoviePrefs')
           .then(res => this.userMoviePrefs = res.data)
     },
-    updateRank() {
-      this.selectedMovie.rating = 5
+    updateRank(newRating) {
+      console.log(this.$store.state.user)
+      this.selectedMovie.rating = newRating
       this.dialog = false
-      //for (i in this.userMoviePrefs) {
-      //  if (i.title === title){
-      //    i.rating = rank;
-      //  }
-      //}
     }
 
   }
