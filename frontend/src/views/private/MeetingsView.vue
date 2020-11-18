@@ -136,14 +136,6 @@ export default {
   }
 }
 /*
-1. Organizator tworzy meeting
-  - wybiera dzień/dni
-  - opis
-  - tytuł
-2. Dodaje ludzi po mailu
-3. Rejestracja meetingu -> api
-4. Dodanie do kalendarza <- api
-
 1. Okno meetingu (in progress)
   - podanie preferencji żywieniowych
   - podanie preferencji filmowych

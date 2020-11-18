@@ -55,6 +55,7 @@ export default {
         description: '',
         dates: [],
         members: [],
+        organizer: 'organizerLogin'
       }
     }
   },
