@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebApplication.Exceptions
+namespace WebApplication.Application.Exceptions
 {
     public class AuthorizationException : Exception
     {

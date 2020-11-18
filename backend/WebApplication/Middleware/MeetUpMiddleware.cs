@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Security.Authentication;
 using System.Threading.Tasks;
-using WebApplication.Exceptions;
+using WebApplication.Application.Exceptions;
 
 namespace WebApplication.Middleware
 {
