@@ -29,7 +29,7 @@ namespace WebApplication.Application.Users.Commands
         }
         public async Task<string> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeAccessOrThrowAsync(_httpContextAccessor.HttpContext, request.Id);
+            _authorizationService.AuthorizeAccessOrThrow(_httpContextAccessor.HttpContext, request.Id);
             var user = await _userRepository.GetUserByIdAsync(request.Id);
             var changes = _mapper.Map<UserDO>(request);
             var updated = _mapper.Map(user, changes);

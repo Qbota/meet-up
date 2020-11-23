@@ -24,7 +24,7 @@ namespace WebApplication.Application.Groups.Commands
         }
         public async Task<string> Handle(DeleteGroupCommand request, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeGroupAccessOrThrowAsync(_httpContextAccessor.HttpContext, request.Id);
+            _authorizationService.AuthorizeGroupAccessOrThrow(_httpContextAccessor.HttpContext, request.Id);
             await _groupRepository.DeleteGroupAsync(request.Id);
             return request.Id;
         }

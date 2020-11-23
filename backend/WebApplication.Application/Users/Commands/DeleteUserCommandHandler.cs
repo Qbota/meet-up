@@ -24,7 +24,7 @@ namespace WebApplication.Application.Users.Commands
         }
         public async Task<string> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeAccessOrThrowAsync(_httpContextAccessor.HttpContext, request.Id);
+            _authorizationService.AuthorizeAccessOrThrow(_httpContextAccessor.HttpContext, request.Id);
             await _userRepository.DeleteUserAsync(request.Id);
             return request.Id;
         }

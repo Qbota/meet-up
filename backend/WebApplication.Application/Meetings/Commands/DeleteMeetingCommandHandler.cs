@@ -24,7 +24,7 @@ namespace WebApplication.Application.Meetings.Commands
         }
         public async Task<string> Handle(DeleteMeetingCommand request, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeMeetingAccessOrThrowAsync(_httpContextAccessor.HttpContext, request.Id);
+            _authorizationService.AuthorizeMeetingAccessOrThrow(_httpContextAccessor.HttpContext, request.Id);
             await _meetingRepository.DeleteMeetingAsync(request.Id);
             return request.Id;
         }

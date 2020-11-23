@@ -13,7 +13,7 @@ namespace WebApplication.Mongo.Models
         public string ID { get; private set; }
         public string Name { get; set; }
         public IEnumerable<string> MemberIDs { get; set; }
-        public IEnumerable<MovieDo> MovieHistory { get; set; }
-        public IEnumerable<MealDo> MealsHistory { get; set; }
+        public IEnumerable<MovieDO> MovieHistory { get; set; }
+        public IEnumerable<MealDO> MealsHistory { get; set; }
     }
 }

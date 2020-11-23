@@ -39,7 +39,7 @@ namespace WebApplication.Application.Groups.Queries
             {
                 SearchByParams(ref groups, getGroupsQuery);
                 var list = groups.Select(x => _mapper.Map<GroupDto>(x)).ToList();
-                _authorizationService.FilterResultByUserRightsAsync(_httpContextAccessor.HttpContext, ref list);
+                _authorizationService.FilterResultByUserRights(_httpContextAccessor.HttpContext, ref list);
                 return list;
             }
             return new List<GroupDto>();

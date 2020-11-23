@@ -32,7 +32,7 @@ namespace WebApplication.Application.Meetings.Commands
         }
         public async Task<string> Handle(CreateMeetingCommand request, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeGroupAccessOrThrowAsync(_httpContextAccessor.HttpContext, request.GroupID);
+            _authorizationService.AuthorizeGroupAccessOrThrow(_httpContextAccessor.HttpContext, request.GroupID);
             var meeting = _mapper.Map<MeetingDO>(request);
             await _meetingRepository.AddMeetingAsync(meeting);
             return meeting.ID;

@@ -32,7 +32,7 @@ namespace WebApplication.Application.Groups.Queries
         }
         public async Task<GroupDto> Handle(GetGroupQuery getGroupQuery, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeGroupAccessOrThrowAsync(_httpContextAccessor.HttpContext, getGroupQuery.Id);
+            _authorizationService.AuthorizeGroupAccessOrThrow(_httpContextAccessor.HttpContext, getGroupQuery.Id);
             var group = await _groupRepository.GetGroupByIdAsync(getGroupQuery.Id);
             var mappedGroup = _mapper.Map<GroupDO, GroupDto>(group);
             return mappedGroup;

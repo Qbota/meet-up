@@ -4,6 +4,8 @@ using System.Text;
 using AutoMapper;
 using WebApplication.Application.Groups.Commands;
 using WebApplication.Application.Groups.Models;
+using WebApplication.Application.Invitations.Commands;
+using WebApplication.Application.Invitations.Models;
 using WebApplication.Application.Meals.Models;
 using WebApplication.Application.Meetings.Commands;
 using WebApplication.Application.Meetings.Models;
@@ -22,11 +24,11 @@ namespace WebApplication.Application
             CreateMap<UserDO, UserDO>();
             CreateMap<UpdateUserCommand, UserDO>();
 
-            CreateMap<MovieDto, MovieDo>();
+            CreateMap<MovieDto, MovieDO>();
             CreateMap<MoviePreferenceDto, MoviePreferenceDO>();
 
             CreateMap<MealPreferenceDto, MealPreferenceDO>();
-            CreateMap<MealDto, MealDo>();
+            CreateMap<MealDto, MealDO>();
 
             CreateMap<GroupDO, GroupDto>();
             CreateMap<GroupDO, GroupDO>();
@@ -37,6 +39,9 @@ namespace WebApplication.Application
             CreateMap<MeetingDO, MeetingDO>();
             CreateMap<CreateMeetingCommand, MeetingDO>();
             CreateMap<UpdateMeetingCommand, MeetingDO>();
+
+            CreateMap<InvitationDO, InvitationDto>();
+            CreateMap<InviteCommand, InvitationDO>();
         }
     }
 }

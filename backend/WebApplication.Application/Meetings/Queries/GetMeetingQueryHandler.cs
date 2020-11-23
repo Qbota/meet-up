@@ -30,7 +30,7 @@ namespace WebApplication.Application.Meetings.Queries
         }
         public async Task<MeetingDto> Handle(GetMeetingQuery getMeetingQuery, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeMeetingAccessOrThrowAsync(_httpContextAccessor.HttpContext, getMeetingQuery.Id);
+            _authorizationService.AuthorizeMeetingAccessOrThrow(_httpContextAccessor.HttpContext, getMeetingQuery.Id);
             var meeting = await _meetingRepository.GetMeetingByIdAsync(getMeetingQuery.Id);
             var mappedMeeting = _mapper.Map<MeetingDO, MeetingDto>(meeting);
             return mappedMeeting;

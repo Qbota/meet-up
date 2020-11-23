@@ -10,10 +10,10 @@ namespace WebApplication.Application.Authorization
 {
     public interface IAuthorizationService
     {
-        void AuthorizeGroupAccessOrThrowAsync(HttpContext httpContext, string groupId);
-        void AuthorizeAccessOrThrowAsync(HttpContext httpContext, string userId);
-        void FilterResultByUserRightsAsync(HttpContext httpContext, ref List<GroupDto> groups);
-        void AuthorizeMeetingAccessOrThrowAsync(HttpContext httpContext, string meetingId);
-        void FilterResultByUserRightsAsync(HttpContext httpContext, ref List<MeetingDto> meetings);
+        void AuthorizeGroupAccessOrThrow(HttpContext httpContext, string groupId);
+        void AuthorizeAccessOrThrow(HttpContext httpContext, string userId);
+        void FilterResultByUserRights(HttpContext httpContext, ref List<GroupDto> groups);
+        void AuthorizeMeetingAccessOrThrow(HttpContext httpContext, string meetingId);
+        void FilterResultByUserRights(HttpContext httpContext, ref List<MeetingDto> meetings);
     }
 }

@@ -12,7 +12,7 @@ namespace WebApplication.Application.Authorization
 {
     public class AuthorizationService : IAuthorizationService
     {
-        public void AuthorizeGroupAccessOrThrowAsync(HttpContext httpContext, string groupId)
+        public void AuthorizeGroupAccessOrThrow(HttpContext httpContext, string groupId)
         {
             var user = httpContext.Items["Account"] as UserDO;
             if (user == null || !user.GroupIDs.Contains(groupId))
@@ -20,7 +20,7 @@ namespace WebApplication.Application.Authorization
                 throw new AuthorizationException("No access to this group");
             }
         }
-        public void AuthorizeAccessOrThrowAsync(HttpContext httpContext, string userId)
+        public void AuthorizeAccessOrThrow(HttpContext httpContext, string userId)
         {
             var user = httpContext.Items["Account"] as UserDO;
             if (user == null || !String.Equals(user.ID, userId))
@@ -29,7 +29,7 @@ namespace WebApplication.Application.Authorization
             } 
         }
 
-        public void FilterResultByUserRightsAsync(HttpContext httpContext, ref List<GroupDto> groups)
+        public void FilterResultByUserRights(HttpContext httpContext, ref List<GroupDto> groups)
         {
             var user = httpContext.Items["Account"] as UserDO;
             if (user is null)
@@ -39,7 +39,7 @@ namespace WebApplication.Application.Authorization
             groups = groups.Where(x => user.GroupIDs.Contains(x.ID)).ToList();
         }
 
-        public void AuthorizeMeetingAccessOrThrowAsync(HttpContext httpContext, string meetingId)
+        public void AuthorizeMeetingAccessOrThrow(HttpContext httpContext, string meetingId)
         {
             var user = httpContext.Items["Account"] as UserDO;
             if (user == null || !user.MeetingIDs.Contains(meetingId))
@@ -48,7 +48,7 @@ namespace WebApplication.Application.Authorization
             }
         }
 
-        public void FilterResultByUserRightsAsync(HttpContext httpContext, ref List<MeetingDto> meetings)
+        public void FilterResultByUserRights(HttpContext httpContext, ref List<MeetingDto> meetings)
         {
             var user = httpContext.Items["Account"] as UserDO;
             if (user is null)

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebApplication.Mongo.Models
 {
-    public class MovieDo
+    public class MovieDO
     {
         public string ID { get; private set; }
         public string Title { get; set; }

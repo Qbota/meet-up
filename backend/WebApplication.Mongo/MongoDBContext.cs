@@ -12,6 +12,7 @@ namespace WebApplication.Mongo
         public IMongoCollection<UserDO> Users { get; private set; }
         public IMongoCollection<GroupDO> Groups { get; private set; }
         public IMongoCollection<MeetingDO> Meetings { get; private set; }
+        public IMongoCollection<InvitationDO> Invitations { get; private set; }
 
         private readonly MongoConfiguration _configuration;
 
@@ -24,7 +25,7 @@ namespace WebApplication.Mongo
             Users = database.GetCollection<UserDO>(_configuration.UserCollectionName);
             Groups = database.GetCollection<GroupDO>(_configuration.GroupCollectionName);
             Meetings = database.GetCollection<MeetingDO>(_configuration.MeetingCollectionName);
-
+            Invitations = database.GetCollection<InvitationDO>(_configuration.InvitationCollectionName);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace WebApplication.Application.Users.Queries
         }
         public async Task<UserDto> Handle(GetUserQuery getUserQuery, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeAccessOrThrowAsync(_httpContextAccessor.HttpContext,getUserQuery.Id);
+            _authorizationService.AuthorizeAccessOrThrow(_httpContextAccessor.HttpContext,getUserQuery.Id);
             var user = await _userRepository.GetUserByIdAsync(getUserQuery.Id);
             var mappedUser = _mapper.Map<UserDO, UserDto>(user);
             return mappedUser;

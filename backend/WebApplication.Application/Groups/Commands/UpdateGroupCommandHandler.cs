@@ -31,7 +31,7 @@ namespace WebApplication.Application.Groups.Commands
         }
         public async Task<string> Handle(UpdateGroupCommand request, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeGroupAccessOrThrowAsync(_httpContextAccessor.HttpContext, request.ID);
+            _authorizationService.AuthorizeGroupAccessOrThrow(_httpContextAccessor.HttpContext, request.ID);
             var group = await _groupRepository.GetGroupByIdAsync(request.ID);
             var changes = _mapper.Map<GroupDO>(request);
             var updated = _mapper.Map(changes, group);

@@ -26,6 +26,7 @@ namespace WebApplication.Controllers
         {
             _mediator = mediator;
         }
+
         [HttpGet]
         [Produces("application/json")]
         [ProducesResponseType(typeof(IEnumerable<MeetingDto>), (int)HttpStatusCode.OK)]
@@ -72,7 +73,5 @@ namespace WebApplication.Controllers
         {
             return Ok(await _mediator.Send(updateMeetingCommand));
         }
-
-
     }
 }

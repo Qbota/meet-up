@@ -35,7 +35,7 @@ namespace WebApplication.Application.Meetings.Queries
             var meetings = await _meetingRepository.GetMeetingsAsync();
             SearchByParams(ref meetings, getMeetingsQuery);
             var list = meetings.Select(x => _mapper.Map<MeetingDO, MeetingDto>(x)).ToList();
-            _authorizationService.FilterResultByUserRightsAsync(_httpContextAccessor.HttpContext, ref list);
+            _authorizationService.FilterResultByUserRights(_httpContextAccessor.HttpContext, ref list);
             return list;
         }
 
