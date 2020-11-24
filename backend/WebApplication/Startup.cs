@@ -60,6 +60,18 @@ namespace WebApplication
             services.AddScoped<Application.Authorization.IAuthorizationService, AuthorizationService>();
             services.AddHostedService<JWTRefreshTokenCache>();
             services.AddHttpContextAccessor();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("VueCorsPolicy", builder =>
+                {
+                    builder
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .AllowAnyOrigin()
+                    .WithOrigins("https://localhost:8080");
+                });
+            });
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -99,6 +111,7 @@ namespace WebApplication
 
             // app.UseHttpsRedirection();
 
+            app.UseCors("VueCorsPolicy");
             app.UseRouting();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
