@@ -1,6 +1,5 @@
 <template>
-  <v-card>
-    <p>Date preferences</p>
+  <v-card class="px-1">
               <v-btn
               color="green darken-1"
               text

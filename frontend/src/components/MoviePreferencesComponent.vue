@@ -1,6 +1,6 @@
 <template>
-  <div>
-  <v-simple-table height="300px">
+  <v-card height="400px">
+  <v-simple-table height="350px">
     <template v-slot:default>
       <thead>
       <tr>
@@ -74,7 +74,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>
+  </v-card>
 </template>
 
 
