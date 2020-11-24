@@ -12,3 +12,4 @@ def find_meals():
 
     #MAKE PREDICTION BASED ON prefs and RETURN THEM
     return json.dumps({'1': 'example meal'})
+
