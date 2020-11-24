@@ -33,6 +33,7 @@ class MealSelector():
             if item['strArea'] not in areas:
                 areas.append(item['strArea'])
                 print(item['strArea'])
+        self.areas = areas
         print()
 
     def _displayAllTags(self):
@@ -60,6 +61,7 @@ class MealSelector():
                         ingredient is not None and ingredient != "":
                     ingredients.append(ingredient)
                     print(ingredient)
+        self.ingredients = ingredient
         print()
 
     def _createAllergenFreeTempCollection(self, allergens):
@@ -88,6 +90,20 @@ class MealSelector():
             mealsAmmount = len(mealsList)
         shuffle(mealsList)
         return mealsList[0:mealsAmmount]
+
+    def recommendMeals(self, allergens, cusines, mealsAmmount):
+        self._createAllergenFreeTempCollection(allergens)
+        meals = self.recommendMeals(cusines, mealsAmmount)
+        mealsDict = {str(i): meals[i] for i in range(0, len(meals))}
+        return mealsDict
+
+    def parseResuest(self, prefs):
+        try:
+            prefs.split(',')
+        except Exception as e:
+            print("Exception {} occured".format(e))
+            self._displayAllAreas()
+            return ([], self.areas, 5)
 
 
 if __name__ == "__main__":

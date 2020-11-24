@@ -1,15 +1,15 @@
 from flask import Flask, request
 import json
 
-#import MEAL PICKER
+from mealSelector import MealSelector
 
 app = Flask(__name__)
 
 @app.route('/')
 def find_meals():
     prefs = request.json
-    #print(prefs)
-
-    #MAKE PREDICTION BASED ON prefs and RETURN THEM
-    return json.dumps({'1': 'example meal'})
-
+    print(prefs)
+    selector = MealSelector()
+    allergens, cusines, mealsAmmount = selector.parseResuest(prefs)
+    data = selector.recommendMeals(allergens, cusines, mealsAmmount)
+    return json.dumps(data)
