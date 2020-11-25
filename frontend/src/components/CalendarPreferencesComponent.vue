@@ -1,37 +1,45 @@
 <template>
   <v-card class="px-1">
-              <v-btn
-              color="green darken-1"
-              text
-              @click="logPick()"
-          >
-            Pick date
-          </v-btn>
     <v-row>
       <v-col>
+        <v-btn
+            icon
+            class="ma-2"
+            @click="$refs.calendar.prev()"
+        >
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn
+            color="green darken-1"
+            text
+            @click="saveDatePreference()"
+        >
+          Save
+        </v-btn>
+        <v-btn
+            icon
+            class="ma-2"
+            @click="$refs.calendar.next()"
+        >
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
         <v-sheet height="500" width="800">
           <v-calendar
-            :now="today"
-            :value="today"
+              ref="calendar"
+            v-model="today"
             color="primary"
-            @mouseenter="dosth()"
+              @click:day="changePreferenceOf"
           >
-            <v-date-picker v-model="date" />
-            <template v-slot:day="{ past, date }">
+            <template v-slot:day="{ date }">
               <v-row
-                class="fill-height"
+                justify="center"
               >
-                <template v-if="past && tracked[date]">
-                  <v-sheet
-                    v-for="(percent, i) in tracked[date]"
-                    :key="i"
-                    :title="category[i]"
-                    :color="colors[i]"
-                    :width="`${percent}%`"
-                    height="100%"
-                    tile
-                  ></v-sheet>
-                </template>
+                <div v-if="pickedDates.includes(date)">
+                  <v-icon>fas fa-check</v-icon>
+                </div>
+                <div v-else>
+                  <v-icon>fas fa-times</v-icon>
+                </div>
               </v-row>
             </template>
           </v-calendar>
@@ -48,18 +56,19 @@
   export default {
     name: "CalendarPreferencesComponent",
     data: () => ({
-      today: new Date().Date,
-      date: null,
-      tracked: {},
-      colors: ['#1867c0', '#fb8c00', '#000000'],
-      category: ['Good', 'Maybe', 'Bad'],
+      today: new Date(),
+      pickedDates: []
     }),
     methods: {
-      dosth() {
-        console.log("hello")
+      saveDatePreference(){
+        console.log(this.pickedDates)
       },
-      logPick() {
-        console.log(this.date)
+      changePreferenceOf(day){
+        if(!this.pickedDates.includes(day.date)){
+          this.pickedDates.push(day.date)
+        }else{
+          this.pickedDates = this.pickedDates.filter(date => date !== day.date)
+        }
       }
     }
   }
