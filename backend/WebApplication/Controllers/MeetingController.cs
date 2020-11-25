@@ -16,7 +16,7 @@ using WebApplication.Application.Meetings.Queries;
 namespace WebApplication.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
     [Route("api/meet-up/meeting")]
     public class MeetingController : ControllerBase
     {

@@ -78,7 +78,10 @@ export default {
   name: "MeetingsView",
   components: {MeetingDetailsComponent, CreateMeetingComponent},
   created() {
+    this.token = localStorage.getItem("token");
+    this.user = this.$store.state.user
     this.fetchMeetings()
+    this.fetchInvites()
   },
   data: () => ({
     focus: '',
@@ -90,17 +93,26 @@ export default {
       start: new Date()
     },
     invites: [
-      {
-        organizer: 'test@test.pl',
-        title: 'Meeting title',
-        accepted: false
-      }
     ],
     meetings: []
   }),
   methods: {
     async fetchMeetings(){
-      axios.get(API_URL + '/meeting')
+      axios.create({
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
+      .get(API_URL + '/meeting')
+        .then(res => this.meetings = res.data)
+    },
+    async fetchInvites(){
+      axios.create({
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
+      .get(API_URL + '/invitation/' + this.user.id)
         .then(res => this.meetings = res.data)
     },
     setToday() {

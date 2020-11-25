@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Application.Users.Commands;
@@ -14,7 +15,8 @@ using WebApplication.Application.Users.Queries;
 namespace WebApplication.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
+    [EnableCors("VueCorsPolicy")]
     [Route("api/meet-up/user")]
     public class UserController : ControllerBase
     {
@@ -32,6 +34,15 @@ namespace WebApplication.Controllers
         public async Task<IActionResult> GetUsersAsync([FromQuery] GetUsersQuery getUsersQuery)
         {
             return Ok(await _mediator.Send(getUsersQuery));
+        }
+        [HttpGet]
+        [Route("names")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(IEnumerable<UserNameDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetUsersNamesAsync()
+        {
+            return Ok(await _mediator.Send(new GetUsersNamesQuery()));
         }
 
         [HttpGet]

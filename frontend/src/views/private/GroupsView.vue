@@ -146,6 +146,8 @@ import {API_URL} from "@/config/consts";
 export default {
   name: "GroupSelectionView",
   created() {
+     this.token = localStorage.getItem("token");
+    this.user = this.$store.state.user
     this.fetchGroups()
     this.fetchInvites()
     this.fetchNames()
@@ -161,16 +163,8 @@ export default {
         'fas fa-dollar-sign'
     ],
     createdGroup: {
-      name: '',
-      description: '',
-      icon: '',
-      members: []
     },
     selectedGroup: {
-      name: '',
-      description: '',
-      icon: '',
-      members: []
     },
     invites: [],
     createDialog: false,
@@ -186,37 +180,66 @@ export default {
       this.infoDialog = true
     },
     closeCreateDialog(){
-      this.createdGroup = {
-        name: '',
-        description: '',
-        icon: '',
-        members: []
-      }
+      //create group
       this.createDialog = false
     },
-    fetchGroups(){
-      axios.get( API_URL + '/group')
+    async fetchGroups(){
+      axios.create({
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
+      .get(API_URL + '/group')
         .then(res => this.groups = res.data)
     },
     createGroup(){
-      axios.post(API_URL + '/group', this.createdGroup,{})
+      axios.create({
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
+      .post(API_URL + '/group', this.createdGroup,{})
         .then(res => {
           console.log(res.data.createdGroup)
           this.groups.push(res.data.createdGroup)
         })
       this.closeCreateDialog()
     },
+     async fetchInvites(){
+      axios.create({
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
+      .get(API_URL + '/invitation/' + this.user.id)
+        .then(res => this.meetings = res.data)
+    },
+    setToday() {
+      this.focus = ''
+    },
     acceptInvite(invite){
-      invite.accepted = true
-      axios.post(API_URL + '/invites', invite, {})
+      let command = {
+        invitationId: invite.id,
+        decision: true
+      }
+      axios.create({
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
+      .put(API_URL + '/invitation', command, {})
     },
     denyInvite(invite){
-      invite.accepted = false
-      axios.post(API_URL + '/invites', invite, {})
-    },
-    fetchInvites(){
-      axios.get(API_URL + '/invites')
-        .then(res => this.invites = res.data)
+      let command = {
+        invitationId: invite.id,
+        decision: false
+      }
+      axios.create({
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
+      .put(API_URL + '/invitation', command, {})
     },
     fetchNames(){
       axios.get(API_URL + '/names')

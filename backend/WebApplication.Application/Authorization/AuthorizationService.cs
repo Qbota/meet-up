@@ -55,7 +55,7 @@ namespace WebApplication.Application.Authorization
             {
                 throw new AuthorizationException("No access to groups");
             }
-            meetings = meetings.Where(x => user.MeetingIDs.Contains(x.ID)).ToList();
+            meetings = meetings?.Where(x => user.MeetingIDs.Contains(x.ID))?.ToList();
         }
     }
 }

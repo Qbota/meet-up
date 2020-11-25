@@ -73,14 +73,16 @@ export default {
   methods: {
     async loginAction() {
       this.isLoading = true
-      axios.post(API_URL + '/user/authenticate', this.user, {})
+      axios.post(API_URL + '/login', this.user, {})
           .then(res => this.handleLoginSuccess(res))
           .catch(() => this.handleLoginFailure())
     },
-    handleLoginSuccess(response) {
-      this.$store.state.user = response.data
+    handleLoginSuccess(res) {
+      localStorage.setItem('token',res.data.accessToken)
+      localStorage.setItem('refreshToken',res.data.refreshToken.tokenString)
       this.isLoading = false
       console.log(this.$store.state.user)
+      this.getUser(res.data.refreshToken.userId,res.data.accessToken)
       this.$router.push('/home')
     },
     handleLoginFailure() {
@@ -92,6 +94,15 @@ export default {
     },
     goToRegister() {
       this.$router.push('/register')
+    },
+    getUser(id, token){
+      axios.create({
+        headers: {
+            'Authorization': 'Bearer '+ token
+        }
+     })
+      .get( API_URL + '/user/'+ id)
+      .then(res => this.$store.state.user = res.data)
     },
   }
 }

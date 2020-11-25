@@ -19,8 +19,8 @@
               <v-stepper-content step="1">
                 <v-card class="pa-7" style="margin-left: 20%; margin-right: 20%; margin-bottom: 5%">
                   <v-form v-model="loginDataValid">
-                    <v-text-field label="Email" v-model="registerCommand.email" :rules="emailRules"></v-text-field>
-                    <v-text-field label="Login" v-model="registerCommand.login" :rules="loginRules"></v-text-field>
+                    <v-text-field label="Email" v-model="registerCommand.login" :rules="emailRules"></v-text-field>
+                    <v-text-field label="Name" v-model="registerCommand.name" :rules="loginRules"></v-text-field>
                     <v-text-field label="Password" v-model="registerCommand.password" :rules="passwordRules"
                                   type="password"></v-text-field>
                     <v-text-field label="Confirm password" v-model="passwordConfirmation" :rules="passwordConfirmRules"
@@ -152,10 +152,10 @@ export default {
       movies: [],
       registerCommand: {
         login: '',
-        email: '',
+        name: '',
         password: '',
-        moviePreferences: [],
-        foodPreferences: []
+       // movies: [],
+        //allergens: []
       },
       allergens: [
         'Vegetarian',
@@ -201,7 +201,7 @@ export default {
     },
     async fetchMoviesToRate() {
       axios.get(API_URL + '/movies')
-          .then(res => this.movies = res.data)
+         .then(res => this.movies = res.data)
     },
     removeFromPreferences(item) {
       this.registerCommand.foodPreferences = this.registerCommand.foodPreferences.filter(
@@ -209,8 +209,8 @@ export default {
       )
     },
     saveMoviePreferences(){
-      this.registerCommand.moviePreferences = this.movies
-          .map(this.mapMoviesToPreferences)
+      //this.registerCommand.movies = this.movies
+          //.map(this.mapMoviesToPreferences)
     },
     mapMoviesToPreferences(movie){
       let preference = {
@@ -238,9 +238,11 @@ export default {
     },
     handleRegisterSuccess: function (res) {
       console.log(res)
-      this.$router.push('/home')
       this.isLoading = false
-      this.$store.state.user = res.data
+      //this.$store.state.user = 
+      localStorage.setItem('token',res.data.accessToken)
+      localStorage.setItem('refreshToken',res.data.refreshToken.tokenString)
+      this.$router.push('/home')
     },
     translateNumberToRating(number) {
       switch (number) {

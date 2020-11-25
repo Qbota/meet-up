@@ -42,7 +42,7 @@ namespace WebApplication.Application.Users.Commands
                 Name = request.Name,
                 Password = _hashService.GetPasswordHash(request.Password, out byte[] salt),
                 MealPreference = new MealPreferenceDO { Allergens = request.Allergens},
-                MoviePreference = new MoviePreferenceDO { Movies = request.Movies?.Select(x => _mapper.Map<MovieDto, MovieDO>(x)) },
+                MoviePreference = new MoviePreferenceDO { Movies = request.Movies},
                 Salt = salt,
              };
             await _userRepository.AddUserAsync(user);

@@ -1,1 +1,1 @@
-export let API_URL = 'http://localhost:8080/api/meet-up'
+export let API_URL = 'http://localhost:5000/api/meet-up'

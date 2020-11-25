@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Application;
@@ -14,6 +15,7 @@ using WebApplication.Application.Refresh;
 namespace WebApplication.Controllers
 {
     [ApiController]
+    [EnableCors("VueCorsPolicy")]
     public class LoginController : ControllerBase
     {
         private readonly IMediator _mediator;

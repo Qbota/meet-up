@@ -21,13 +21,16 @@ namespace WebApplication.Application
         public MappingProfiles()
         {
             CreateMap<UserDO, UserDto>();
+            CreateMap<UserDO, UserNameDto>();
             CreateMap<UserDO, UserDO>();
             CreateMap<UpdateUserCommand, UserDO>();
 
             CreateMap<MovieDto, MovieDO>();
             CreateMap<MoviePreferenceDto, MoviePreferenceDO>();
+            CreateMap<MoviePreferenceDO, MoviePreferenceDto>();
 
             CreateMap<MealPreferenceDto, MealPreferenceDO>();
+            CreateMap<MealPreferenceDO, MealPreferenceDto>();
             CreateMap<MealDto, MealDO>();
 
             CreateMap<GroupDO, GroupDto>();

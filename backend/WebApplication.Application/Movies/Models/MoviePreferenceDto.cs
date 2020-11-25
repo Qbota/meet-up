@@ -9,7 +9,7 @@ namespace WebApplication.Application.Movies.Models
     {
         public IEnumerable<string> Actors { get; set; }
         public IEnumerable<string> Directors { get; set; }
-        public IEnumerable<MovieDto> Movies { get; set; }
+        public Dictionary<string, double> Movies { get; set; }
         public IEnumerable<MovieGenre> MovieGenres { get; set; }
         
     }

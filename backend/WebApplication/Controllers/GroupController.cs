@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Application.Groups.Commands;
@@ -14,7 +15,8 @@ using WebApplication.Application.Groups.Queries;
 namespace WebApplication.Controllers
 {
     [ApiController]
-    [Authorize]
+    [EnableCors("VueCorsPolicy")]
+    //[Authorize]
     [Route("api/meet-up/group")]
     public class GroupController : ControllerBase
     {

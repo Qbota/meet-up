@@ -67,9 +67,9 @@ namespace WebApplication
                     builder
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowCredentials()
-                    .AllowAnyOrigin()
-                    .WithOrigins("https://localhost:8080");
+                    // .AllowCredentials()
+                    .AllowAnyOrigin();
+                    //.WithOrigins("https://localhost:8080");
                 });
             });
             services.AddAuthentication(x =>
@@ -111,8 +111,9 @@ namespace WebApplication
 
             // app.UseHttpsRedirection();
 
-            app.UseCors("VueCorsPolicy");
+            
             app.UseRouting();
+            app.UseCors("VueCorsPolicy");
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

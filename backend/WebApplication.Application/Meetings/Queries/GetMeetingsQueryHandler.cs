@@ -29,6 +29,8 @@ namespace WebApplication.Application.Meetings.Queries
         {
             _meetingRepository = meetingRepository;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+            _authorizationService = authorizationService;
         }
         public async Task<IEnumerable<MeetingDto>> Handle(GetMeetingsQuery getMeetingsQuery, CancellationToken cancellationToken)
         {

@@ -8,7 +8,10 @@ import LoginView from "@/views/public/LoginView";
 import RegisterView from "@/views/public/RegisterView";
 import LandingView from "@/views/public/LandingView";
 
+
 Vue.use(VueRouter)
+
+
 
 const routes = [
   {

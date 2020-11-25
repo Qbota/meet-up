@@ -23,9 +23,17 @@ namespace WebApplication.Application.Invitations.Commands
         }
         public async Task<string> Handle(InviteCommand request, CancellationToken cancellationToken)
         {
-            var invitation = _mapper.Map<InvitationDO>(request);
-            await _invitationRepository.AddInvitationAsync(invitation);
-            return invitation.Id;
+            foreach (var id in request.UsersId)
+            {
+                await _invitationRepository.AddInvitationAsync(new InvitationDO
+                {
+                    GroupId = request.GroupId,
+                    GroupName = request.GroupName,
+                    SenderName = request.SenderName,
+                    UserId = id
+                });
+            }
+            return "";
         }
     }
 }

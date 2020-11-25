@@ -24,10 +24,11 @@ namespace WebApplication.Application.Users.Queries
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<UserDto> Handle(GetUserQuery getUserQuery, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeAccessOrThrow(_httpContextAccessor.HttpContext,getUserQuery.Id);
+            //_authorizationService.AuthorizeAccessOrThrow(_httpContextAccessor.HttpContext,getUserQuery.Id);
             var user = await _userRepository.GetUserByIdAsync(getUserQuery.Id);
             var mappedUser = _mapper.Map<UserDO, UserDto>(user);
             return mappedUser;

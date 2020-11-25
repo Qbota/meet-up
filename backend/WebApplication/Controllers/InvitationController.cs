@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Application.Invitations.Commands;
@@ -14,7 +15,8 @@ using WebApplication.Application.Invitations.Queries;
 namespace WebApplication.Controllers
 {
     [ApiController]
-    [Authorize]
+    [EnableCors("VueCorsPolicy")]
+    //[Authorize]
     [Route("api/meet-up/invitation")]
     public class InvitationController : ControllerBase
     {
@@ -25,12 +27,13 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
+        [Route("{userId}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(IEnumerable<InvitationDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetUserInvitationsAsync([FromQuery] GetUserInvitationsQuery getUserInvitationsQuery)
+        public async Task<IActionResult> GetUserInvitationsAsync([FromRoute] string userId )
         {
-            return Ok(await _mediator.Send(getUserInvitationsQuery));
+            return Ok(await _mediator.Send(new GetUserInvitationsQuery() { UserId = userId}));
         }
 
 

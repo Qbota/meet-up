@@ -10,6 +10,6 @@ namespace WebApplication.Application.Invitations.Commands
         public string SenderName { get; set; }
         public string GroupId { get; set; }
         public string GroupName { get; set; }
-        public string UserId { get; set; }
+        public List<string> UsersId { get; set; }
     }
 }
