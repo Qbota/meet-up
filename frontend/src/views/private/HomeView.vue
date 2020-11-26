@@ -1,8 +1,9 @@
 <template>
-  <v-content>
+  <v-main>
     <v-navigation-drawer
         expand-on-hover
         absolute
+        permanent
         color="primary"
     >
       <v-list nav dense>
@@ -35,7 +36,7 @@
     <v-container>
       <router-view/>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 
 <script>
@@ -45,6 +46,8 @@ export default {
   methods: {
     logout() {
       this.$store.state.user = null
+      this.$store.state.refreshToken = ''
+      this.$store.state.accessToken = ''
       this.$router.push('/')
     }
   }

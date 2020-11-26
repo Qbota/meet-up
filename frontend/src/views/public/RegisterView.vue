@@ -19,9 +19,9 @@
               <v-stepper-content step="1">
                 <v-card class="pa-7" style="margin-left: 20%; margin-right: 20%; margin-bottom: 5%">
                   <v-form v-model="loginDataValid">
-                    <v-text-field label="Email" v-model="registerCommand.login" :rules="emailRules"></v-text-field>
-                    <v-text-field label="Name" v-model="registerCommand.name" :rules="loginRules"></v-text-field>
-                    <v-text-field label="Password" v-model="registerCommand.password" :rules="passwordRules"
+                    <v-text-field label="Login" v-model="registerCommand.Login" :rules="loginRules"></v-text-field>
+                    <v-text-field label="Name" v-model="registerCommand.Name" :rules="nameRules"></v-text-field>
+                    <v-text-field label="Password" v-model="registerCommand.Password" :rules="passwordRules"
                                   type="password"></v-text-field>
                     <v-text-field label="Confirm password" v-model="passwordConfirmation" :rules="passwordConfirmRules"
                                   type="password"></v-text-field>
@@ -81,7 +81,7 @@
                   </v-card-title>
                   <v-row justify="center">
                     <v-list flat>
-                      <template v-for="(preference,i) in registerCommand.foodPreferences">
+                      <template v-for="(preference,i) in registerCommand.Allergens">
                         <v-list-item v-bind:key="i">
                           <v-list-item-content>
                             {{ preference }}
@@ -117,13 +117,13 @@
         <v-card-title>
           Choose allergy from list
         </v-card-title>
-          <v-list>
-            <template v-for="(allergen,i) in allergens">
-              <v-list-item v-bind:key="i">
-                <v-checkbox v-model="registerCommand.foodPreferences" :label="allergen" :value="allergen"/>
-              </v-list-item>
-            </template>
-          </v-list>
+        <v-list>
+          <template v-for="(allergen,i) in allergens">
+            <v-list-item v-bind:key="i">
+              <v-checkbox v-model="registerCommand.Allergens" :label="allergen" :value="allergen"/>
+            </v-list-item>
+          </template>
+        </v-list>
         <v-card-actions>
           <v-spacer/>
           <v-btn @click="popup = false">Close</v-btn>
@@ -151,25 +151,26 @@ export default {
       loginDataValid: false,
       movies: [],
       registerCommand: {
-        login: '',
-        name: '',
-        password: '',
-       // movies: [],
-        //allergens: []
+        Login: 'test2',
+        Name: 'test2 name',
+        Password: 'test123!',
+        Movies: {},
+        Allergens: []
       },
       allergens: [
-        'Vegetarian',
-        'Vegan',
-        'Lactose',
-        'Gluten',
-        'Nuts'
+        'dairy',
+        'eggs',
+        'seaFood',
+        'nuts',
+        'soy',
+        'wheat',
+        'meat'
       ],
       popup: false,
       snackbar: false,
-      passwordConfirmation: '',
-      emailRules: [
-        v => !!v || 'Email is required',
-        v => (v && this.testEmailAgainstRegex(v)) || 'Email must match pattern: email@gmail.com'
+      passwordConfirmation: 'test123!',
+      nameRules: [
+        v => !!v || 'Name is required',
       ],
       loginRules: [
         v => !!v || 'Login is required',
@@ -183,7 +184,7 @@ export default {
       ],
       passwordConfirmRules: [
         v => !!v || 'Please confirm password',
-        v => (v && v === this.registerCommand.password) || 'Passwords are not matching'
+        v => (v && v === this.registerCommand.Password) || 'Passwords are not matching'
       ]
     }
   },
@@ -201,26 +202,15 @@ export default {
     },
     async fetchMoviesToRate() {
       axios.get(API_URL + '/movies')
-         .then(res => this.movies = res.data)
+          .then(res => this.movies = res.data)
     },
     removeFromPreferences(item) {
-      this.registerCommand.foodPreferences = this.registerCommand.foodPreferences.filter(
+      this.registerCommand.Allergens = this.registerCommand.Allergens.filter(
           x => x !== item
       )
     },
-    saveMoviePreferences(){
-      //this.registerCommand.movies = this.movies
-          //.map(this.mapMoviesToPreferences)
-    },
-    mapMoviesToPreferences(movie){
-      let preference = {
-        id: movie.id,
-        rating: movie.rating
-      };
-      if(preference.rating === undefined){
-        preference.rating = 0
-      }
-      return preference
+    saveMoviePreferences() {
+      this.movies.forEach(movie => this.registerCommand.Movies[movie.id.toString()] = movie.rating)
     },
     async registerInApi() {
       this.isLoading = true
@@ -238,10 +228,10 @@ export default {
     },
     handleRegisterSuccess: function (res) {
       console.log(res)
+      this.$store.state.accessToken = res.data.accessToken
+      this.$store.state.refreshToken = res.data.refreshToken.tokenString
+      this.$store.state.user = res.data.user
       this.isLoading = false
-      //this.$store.state.user = 
-      localStorage.setItem('token',res.data.accessToken)
-      localStorage.setItem('refreshToken',res.data.refreshToken.tokenString)
       this.$router.push('/home')
     },
     translateNumberToRating(number) {

@@ -78,11 +78,10 @@ export default {
           .catch(() => this.handleLoginFailure())
     },
     handleLoginSuccess(res) {
-      localStorage.setItem('token',res.data.accessToken)
-      localStorage.setItem('refreshToken',res.data.refreshToken.tokenString)
+      this.$store.state.accessToken = res.data.accessToken
+      this.$store.state.refreshToken = res.data.refreshToken.tokenString
+      this.$store.state.user = res.data.user
       this.isLoading = false
-      console.log(this.$store.state.user)
-      this.getUser(res.data.refreshToken.userId,res.data.accessToken)
       this.$router.push('/home')
     },
     handleLoginFailure() {

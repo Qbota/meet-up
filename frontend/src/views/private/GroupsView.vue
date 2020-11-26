@@ -5,14 +5,14 @@
         <template v-for="group in groups">
           <v-card v-bind:key="group.name" class="pl-3 pr-3 ms-5 mb-10 d-flex flex-column" height="200pt" width="150pt">
             <v-card-title>
-              {{group.name}}
+              {{ group.name }}
             </v-card-title>
             <v-card-subtitle>
-              {{group.description}}
+              {{ group.description }}
             </v-card-subtitle>
             <v-row justify="center">
               <v-icon x-large class="mt-5 mb-5">
-                {{group.icon}}
+                {{ group.icon }}
               </v-icon>
             </v-row>
             <v-card-actions class="mt-6">
@@ -27,9 +27,9 @@
           </v-card-title>
           <v-row justify="center" align="center">
             <v-btn fab color="primary" @click="showCreatDialog()">
-            <v-icon x-large>
-              mdi-plus
-            </v-icon>
+              <v-icon x-large>
+                mdi-plus
+              </v-icon>
             </v-btn>
           </v-row>
         </v-card>
@@ -64,8 +64,9 @@
         </v-row>
         <v-row class="mb-5" justify="center">
           <template v-for="icon in icons">
-            <v-btn @click="createdGroup.icon = icon" :disabled="createdGroup.icon === icon" large icon v-bind:key="icon">
-              <v-icon>{{icon}}</v-icon>
+            <v-btn @click="createdGroup.icon = icon" :disabled="createdGroup.icon === icon" large icon
+                   v-bind:key="icon">
+              <v-icon>{{ icon }}</v-icon>
             </v-btn>
           </template>
         </v-row>
@@ -74,7 +75,8 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="12">
-            <v-autocomplete chips deletable-chips multiple v-model="createdGroup.members" :items="users"/>
+            <v-autocomplete chips deletable-chips multiple v-model="createdGroup.members" :items="users"
+                            item-text="name" item-value="id"/>
           </v-col>
         </v-row>
         <v-card-actions>
@@ -89,18 +91,24 @@
         <v-card-title>
           Group Invites
         </v-card-title>
-          <v-list dense>
-            <template v-for="invite in invites">
-              <v-list-item v-bind:key="invite.sender">
-                <v-list-item-icon><v-icon>fas fa-user-plus</v-icon></v-list-item-icon>
-                <v-list-item-content>
-                  User {{invite.sender}} invited you to group {{invite.groupName}}!
-                </v-list-item-content>
-                <v-btn icon @click="acceptInvite(invite)"><v-icon>fas fa-check</v-icon></v-btn>
-                <v-btn icon @click="denyInvite(invite)"><v-icon>fas fa-times</v-icon></v-btn>
-              </v-list-item>
-            </template>
-          </v-list>
+        <v-list dense>
+          <template v-for="invite in invites">
+            <v-list-item v-bind:key="invite.sender">
+              <v-list-item-icon>
+                <v-icon>fas fa-user-plus</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                User {{ invite.sender }} invited you to group {{ invite.groupName }}!
+              </v-list-item-content>
+              <v-btn icon @click="acceptInvite(invite)">
+                <v-icon>fas fa-check</v-icon>
+              </v-btn>
+              <v-btn icon @click="denyInvite(invite)">
+                <v-icon>fas fa-times</v-icon>
+              </v-btn>
+            </v-list-item>
+          </template>
+        </v-list>
         <v-card-actions>
           <v-btn @click="closeInboxDialog()">Close</v-btn>
           <v-spacer/>
@@ -116,7 +124,7 @@
           {{ selectedGroup.description }}
         </v-card-subtitle>
         <v-row justify="center">
-          <v-icon x-large>{{selectedGroup.icon}}</v-icon>
+          <v-icon x-large>{{ selectedGroup.icon }}</v-icon>
         </v-row>
         <v-row justify="center">
           <h2>Group members</h2>
@@ -125,7 +133,7 @@
           <v-list>
             <template v-for="member in selectedGroup.members">
               <v-list-item v-bind:key="member">
-                {{member}}
+                {{ member }}
               </v-list-item>
             </template>
           </v-list>
@@ -146,53 +154,53 @@ import {API_URL} from "@/config/consts";
 export default {
   name: "GroupSelectionView",
   created() {
-     this.token = localStorage.getItem("token");
+    this.token = this.$store.state.accessToken;
     this.user = this.$store.state.user
     this.fetchGroups()
     this.fetchInvites()
     this.fetchNames()
   },
-  data: () => ({
-    groups: [],
-    users: [],
-    icons: [
+  data: function () {
+    return {
+      groups: [],
+      users: [],
+      icons: [
         'fas fa-bicycle',
         'fas fa-baseball-ball',
         'fas fa-bone',
         'fas fa-bolt',
         'fas fa-dollar-sign'
-    ],
-    createdGroup: {
-    },
-    selectedGroup: {
-    },
-    invites: [],
-    createDialog: false,
-    infoDialog: false,
-    inboxDialog: false
-  }),
+      ],
+      createdGroup: {},
+      selectedGroup: {},
+      invites: [],
+      createDialog: false,
+      infoDialog: false,
+      inboxDialog: false
+    }
+  },
   methods: {
-    showCreatDialog(){
+    showCreatDialog() {
       this.createDialog = true
     },
-    showInfoDialog(group){
+    showInfoDialog(group) {
       this.selectedGroup = group
       this.infoDialog = true
     },
-    closeCreateDialog(){
+    closeCreateDialog() {
       //create group
       this.createDialog = false
     },
-    async fetchGroups(){
+    async fetchGroups() {
       axios.create({
         headers: {
-            'Authorization': 'Bearer '+ this.token
+          'Authorization': 'Bearer ' + this.token
         }
       })
-      .get(API_URL + '/group')
-        .then(res => this.groups = res.data)
+          .get(API_URL + '/group')
+          .then(res => this.groups = res.data)
     },
-    createGroup(){
+    createGroup() {
       axios.create({
         headers: {
             'Authorization': 'Bearer '+ this.token
@@ -205,53 +213,55 @@ export default {
         })
       this.closeCreateDialog()
     },
-     async fetchInvites(){
+    async fetchInvites() {
       axios.create({
         headers: {
-            'Authorization': 'Bearer '+ this.token
+          'Authorization': 'Bearer ' + this.token
         }
       })
-      .get(API_URL + '/invitation/' + this.user.id)
-        .then(res => this.meetings = res.data)
+          .get(API_URL + '/invitation/' + this.user.id)
+          .then(res => this.meetings = res.data)
     },
     setToday() {
       this.focus = ''
     },
-    acceptInvite(invite){
+    acceptInvite(invite) {
       let command = {
         invitationId: invite.id,
         decision: true
       }
       axios.create({
         headers: {
-            'Authorization': 'Bearer '+ this.token
+          'Authorization': 'Bearer ' + this.token
         }
       })
-      .put(API_URL + '/invitation', command, {})
+          .put(API_URL + '/invitation', command, {})
     },
-    denyInvite(invite){
+    denyInvite(invite) {
       let command = {
         invitationId: invite.id,
         decision: false
       }
       axios.create({
         headers: {
-            'Authorization': 'Bearer '+ this.token
+          'Authorization': 'Bearer ' + this.token
         }
       })
-      .put(API_URL + '/invitation', command, {})
+          .put(API_URL + '/invitation', command, {})
     },
-    fetchNames(){
-      axios.get(API_URL + '/names')
-        .then(res => this.users = res.data)
+    fetchNames() {
+      axios.get(API_URL + '/user/names')
+          .then(res =>
+              this.users = res.data
+          )
     },
-    closeInfoDialog(){
+    closeInfoDialog() {
       this.infoDialog = false
     },
-    showInboxDialog(){
+    showInboxDialog() {
       this.inboxDialog = true
     },
-    closeInboxDialog(){
+    closeInboxDialog() {
       this.inboxDialog = false
     }
   }

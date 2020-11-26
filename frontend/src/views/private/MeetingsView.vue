@@ -78,7 +78,7 @@ export default {
   name: "MeetingsView",
   components: {MeetingDetailsComponent, CreateMeetingComponent},
   created() {
-    this.token = localStorage.getItem("token");
+    this.token = this.$store.state.accessToken
     this.user = this.$store.state.user
     this.fetchMeetings()
     this.fetchInvites()
@@ -147,14 +147,4 @@ export default {
     },
   }
 }
-/*
-1. Okno meetingu (in progress)
-  - podanie preferencji żywieniowych
-  - podanie preferencji filmowych
-  - wypisanie
-  - klepnięcie (tylko organizator)
-2. Okno meetingu (read only)
-
-1. Skrzynka zaproszeń analogicznie do grup
- */
 </script>

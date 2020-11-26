@@ -7,7 +7,9 @@ import AccountView from "@/views/private/AccountView";
 import LoginView from "@/views/public/LoginView";
 import RegisterView from "@/views/public/RegisterView";
 import LandingView from "@/views/public/LandingView";
-
+import axios from "axios";
+import {API_URL} from "@/config/consts";
+import store from '@/store/index'
 
 Vue.use(VueRouter)
 
@@ -18,25 +20,25 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
-    // beforeEnter: (to, from, next) => {
-    //   if(store.state.user == null) next({name: 'Login'})
-    //   else next()
-    // },
+    beforeEnter: (to, from, next) => refreshToken(to, from, next),
     children: [
       {
         path: 'groups',
         name: 'groups',
         component: GroupsView,
+        beforeEnter: (to, from, next) => refreshToken(to, from, next)
       },
       {
         path: 'meetings',
         name: 'meetings',
         component: MeetingsView,
+        beforeEnter: (to, from, next) => refreshToken(to, from, next)
       },
       {
         path: 'account',
         name: 'account',
         component: AccountView,
+        beforeEnter: (to, from, next) => refreshToken(to, from, next)
       }
     ]
   },
@@ -56,6 +58,29 @@ const routes = [
     component: LandingView
   }
 ]
+
+function refreshToken(to, from, next){
+  console.log('refreshing token')
+  const token = store.state.accessToken
+  const refreshToken = store.state.refreshToken
+  if(token != null && refreshToken != null)
+  {
+    let refreshCommand =  {
+      accessToken: token,
+      refreshToken: refreshToken
+    };
+    axios.post(API_URL + '/refresh', refreshCommand, {})
+        .then(res => {
+          store.state.accessToken = res.data.accessToken
+          store.state.refreshToken = res.data.refreshToken.tokenString
+        })
+        .catch(() => {
+          //localStorage.clear();
+          //log user out
+        })
+  }
+  next()
+}
 
 const router = new VueRouter({
   mode: 'history',

@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WebApplication.Application.Authorization;
 using WebApplication.Application.Movies.Models;
+using WebApplication.Application.Users.Models;
 using WebApplication.Mongo;
 using WebApplication.Mongo.Models;
 using WebApplication.Mongo.Repositories;
@@ -46,7 +47,10 @@ namespace WebApplication.Application.Users.Commands
                 Salt = salt,
              };
             await _userRepository.AddUserAsync(user);
-            return _jWTService.GenerateTokens(user);
+            var authResult = _jWTService.GenerateTokens(user);
+            authResult.User = _mapper.Map<UserDO, UserDto>(user);
+            return authResult;
         }
+        
     }
 }
