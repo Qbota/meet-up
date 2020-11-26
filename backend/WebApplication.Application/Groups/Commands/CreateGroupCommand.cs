@@ -13,5 +13,7 @@ namespace WebApplication.Application.Groups.Commands
         public IEnumerable<string> MemberIDs { get; set; }
         public IEnumerable<MovieDto> MovieHistory { get; set; }
         public IEnumerable<MealDto> MealsHistory { get; set; }
+        public string Description { get; set; }
+        public string Icon { get; set; }
     }
 }

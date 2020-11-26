@@ -5,11 +5,11 @@
       {{ meeting.name }}
     </v-card-title>
     <v-card-subtitle>
-      {{ meeting.description }}
+      {{ meeting.Description }}
     </v-card-subtitle>
     <v-row justify="center">
       Meeting will take place on: {{ new Date(meeting.start).toDateString() }}<br>
-      If you have any questions, ask organizer: {{ meeting.organizer }}
+      If you have any questions, ask organizer: {{ meeting.Organizer }}
     </v-row>
     <v-divider class="mt-2 mb-2"/>
     <v-row justify="center">
@@ -17,7 +17,7 @@
     </v-row>
     <v-row justify="center">
       <v-list>
-        <v-list-item v-for="(member, index) in meeting.members" :key="index">
+        <v-list-item v-for="(member, index) in meeting.Members" :key="index">
           {{ member }}
         </v-list-item>
       </v-list>

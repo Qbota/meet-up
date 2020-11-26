@@ -3,12 +3,12 @@
     <v-container>
       <v-row justify="center">
         <template v-for="group in groups">
-          <v-card v-bind:key="group.name" class="pl-3 pr-3 ms-5 mb-10 d-flex flex-column" height="200pt" width="150pt">
+          <v-card v-bind:key="group.Name" class="pl-3 pr-3 ms-5 mb-10 d-flex flex-column" height="200pt" width="150pt">
             <v-card-title>
-              {{ group.name }}
+              {{ group.Name }}
             </v-card-title>
             <v-card-subtitle>
-              {{ group.description }}
+              {{ group.Description }}
             </v-card-subtitle>
             <v-row justify="center">
               <v-icon x-large class="mt-5 mb-5">
@@ -53,10 +53,10 @@
         </v-card-title>
         <v-row justify="center">
           <v-col cols="6">
-            <v-text-field label="Group name" v-model="createdGroup.name"></v-text-field>
+            <v-text-field label="Group name" v-model="createdGroup.Name"></v-text-field>
           </v-col>
           <v-col cols="6">
-            <v-text-field label="Group Description" v-model="createdGroup.description"></v-text-field>
+            <v-text-field label="Group Description" v-model="createdGroup.Description"></v-text-field>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -64,7 +64,7 @@
         </v-row>
         <v-row class="mb-5" justify="center">
           <template v-for="icon in icons">
-            <v-btn @click="createdGroup.icon = icon" :disabled="createdGroup.icon === icon" large icon
+            <v-btn @click="createdGroup.Icon = icon" :disabled="createdGroup.Icon === icon" large icon
                    v-bind:key="icon">
               <v-icon>{{ icon }}</v-icon>
             </v-btn>
@@ -75,7 +75,7 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="12">
-            <v-autocomplete chips deletable-chips multiple v-model="createdGroup.members" :items="users"
+            <v-autocomplete chips deletable-chips multiple v-model="createdGroup.MemberIDs" :items="users"
                             item-text="name" item-value="id"/>
           </v-col>
         </v-row>
@@ -118,20 +118,20 @@
     <v-dialog v-model="infoDialog" max-width="400pt">
       <v-card class="px-5">
         <v-card-title>
-          {{ selectedGroup.name }}
+          {{ selectedGroup.Name }}
         </v-card-title>
         <v-card-subtitle>
-          {{ selectedGroup.description }}
+          {{ selectedGroup.Description }}
         </v-card-subtitle>
         <v-row justify="center">
-          <v-icon x-large>{{ selectedGroup.icon }}</v-icon>
+          <v-icon x-large>{{ selectedGroup.Icon }}</v-icon>
         </v-row>
         <v-row justify="center">
           <h2>Group members</h2>
         </v-row>
         <v-row justify="center">
           <v-list>
-            <template v-for="member in selectedGroup.members">
+            <template v-for="member in selectedGroup.MembersIDs">
               <v-list-item v-bind:key="member">
                 {{ member }}
               </v-list-item>
@@ -171,8 +171,18 @@ export default {
         'fas fa-bolt',
         'fas fa-dollar-sign'
       ],
-      createdGroup: {},
-      selectedGroup: {},
+      createdGroup: {
+        Name: '',
+        Description: '',
+        Icon: '',
+        MemberIDs: []
+      },
+      selectedGroup: {
+        Name: '',
+        Description: '',
+        Icon: '',
+        MembersIDs: []
+      },
       invites: [],
       createDialog: false,
       infoDialog: false,
@@ -198,9 +208,10 @@ export default {
         }
       })
           .get(API_URL + '/group')
-          .then(res => this.groups = res.data)
+          .then(res => console.log(res))
     },
     createGroup() {
+      console.log(this.createdGroup)
       axios.create({
         headers: {
             'Authorization': 'Bearer '+ this.token
@@ -208,10 +219,10 @@ export default {
       })
       .post(API_URL + '/group', this.createdGroup,{})
         .then(res => {
-          console.log(res.data.createdGroup)
-          this.groups.push(res.data.createdGroup)
+          console.log(res.data)
+          this.fetchGroups()
         })
-      this.closeCreateDialog()
+      // this.closeCreateDialog()
     },
     async fetchInvites() {
       axios.create({

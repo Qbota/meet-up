@@ -6,6 +6,7 @@ using System.Security.Authentication;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using WebApplication.Application.Authorization;
 using WebApplication.Application.Users.Models;
 using WebApplication.Mongo.Models;
@@ -18,21 +19,27 @@ namespace WebApplication.Application.Login
         private readonly IJWTService _jWTService;
         private readonly IUserRepository _userRepository;
         private readonly IHashService _hashService;
+        private readonly IMapper _mapper;
         public LoginCommandHandler(
             IJWTService jWTService,
             IUserRepository userRepository, 
-            IHashService hashService)
+            IHashService hashService,
+            IMapper mapper)
+           
         {
             _jWTService = jWTService;
             _userRepository = userRepository;
             _hashService = hashService;
+            _mapper = mapper;
         }
         public async Task<JWTAuthResult> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             UserDO user = await GetUserByCredentials(request);
             if (user != null)
             {
-                return _jWTService.GenerateTokens(user);
+                var result = _jWTService.GenerateTokens(user);
+                result.User = _mapper.Map<UserDO, UserDto>(user);
+                return result;
             }
             throw new AuthenticationException();
         }

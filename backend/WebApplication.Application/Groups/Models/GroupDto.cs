@@ -11,6 +11,8 @@ namespace WebApplication.Application.Groups.Models
     {
         public string ID { get; private set; }
         public string Name { get; set; }
+        public string Icon { get; set; }
+        public string Description { get; set; }
         public IEnumerable<string> MemberIDs { get; set; }
         public IEnumerable<MovieDto> MovieHistory { get; set; }
         public IEnumerable<MealDto> MealsHistory { get; set; }
