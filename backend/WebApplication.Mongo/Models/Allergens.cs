@@ -6,8 +6,12 @@ namespace WebApplication.Mongo.Models
 {
     public enum Allergens
     {
-        milk,
-        nut,
-        mushrooms
+    dairy,
+    eggs,
+    seaFood,
+    nuts,
+    soy,
+    wheat,
+    meat
     }
 }
