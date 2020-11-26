@@ -2,7 +2,7 @@
   <v-content>
     <v-navigation-drawer
         expand-on-hover
-        absolute
+        permanent
         color="primary"
     >
       <v-list nav dense>
