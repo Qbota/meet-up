@@ -3,6 +3,7 @@
     <v-navigation-drawer
         expand-on-hover
         permanent
+        app
         color="primary"
     >
       <v-list nav dense>
