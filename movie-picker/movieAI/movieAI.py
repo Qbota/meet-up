@@ -130,6 +130,14 @@ class MovieAI():
                                                             predictConfigDict)
         return predictedRating
 
+    def filterPredictedRating(self, predictedRating, genresDict):
+        return None
+
+    def generateMovieRecommendation(self, ratingList, genresDict):
+        predictedRating = predictCombinedRating(ratingList)
+
+
+
 
 def csvToMovieRatings(filename):
     '''
