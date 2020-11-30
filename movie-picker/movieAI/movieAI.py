@@ -3,6 +3,7 @@ import dload
 import pandas as pd
 import lenskit.datasets as ds
 import csv
+import random
 from lenskit.algorithms import Recommender
 from lenskit.algorithms.user_knn import UserUser
 from datetime import datetime
@@ -10,7 +11,7 @@ from datetime import datetime
 
 DATASET = 'ml-latest-small/'
 DATASET_LINK = "http://files.grouplens.org/datasets/movielens/ml-latest-small.zip"
-
+MOVIES_IN_RESPONSE = 10
 
 def setCwdToWhereScriptIs():
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -126,17 +127,44 @@ class MovieAI():
                      "maxNumOfNeighbours": 15,
                      "minNumOfNeighbours": 10}
         combinedRating = self.combineRatings(ratings)
-        predictedRating = self.predictRatingForUnseenMovies(combinedRating,
-                                                            predictConfigDict)
-        return predictedRating
+        return self.predictRatingForUnseenMovies(combinedRating,
+                                                 predictConfigDict)
 
     def filterPredictedRating(self, predictedRating, genresDict):
-        return None
+        movieIds = []
+        for genre, ammount in genresDict.items():
+            movieIds.extend(self._filterSingleGenre(genre,
+                                                    ammount,
+                                                    predictedRating))
+
+        if len(movieIds) < MOVIES_IN_RESPONSE:
+            moviesToAddAmmount = MOVIES_IN_RESPONSE - len(movieIds)
+            for film in predictedRating['item']:
+                if film not in movieIds:
+                    movieIds.append(film)
+                    moviesToAddAmmount -= 1
+                    if moviesToAddAmmount <= 0:
+                        break
+        random.shuffle(movieIds)
+        return movieIds[:MOVIES_IN_RESPONSE]
+
+    def _filterSingleGenre(self, genre, ammount, predictedRating):
+        movieIds = []
+        for film in predictedRating['item']:
+            movieId = film
+            row = self.movieDataset.movies.loc[movieId]
+            if genre in row['genres']:
+                movieIds.append(movieId)
+                if len(movieIds) >= ammount:
+                    return movieIds
+        return movieIds
 
     def generateMovieRecommendation(self, ratingList, genresDict):
-        predictedRating = predictCombinedRating(ratingList)
-
-
+        res, predictedRating = self.predictCombinedRating(ratingList)
+        if res:
+            return self.filterPredictedRating(predictedRating, genresDict)
+        else:
+            return None
 
 
 def csvToMovieRatings(filename):
@@ -171,4 +199,7 @@ if __name__ == "__main__":
 
     result, prediction = \
         ai.predictRatingForUnseenMovies(finalRating, exampleConfig)
-    print(prediction)
+    #print(prediction)
+    lastPred = ai.filterPredictedRating(prediction, {'Adventure': 1,
+                                                     'Comedy': 2})
+    print(lastPred)

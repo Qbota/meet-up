@@ -5,9 +5,13 @@ import movieAI
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def make_predictions():
     predictions_set = request.json
     ai = movieAI.MovieAI()
-    res, predictions = ai.predictRatingForUnseenMovies(predictions_set['ratings'], predictions_set['config'])
+    predictions = ai.generateMovieRecommendation(predictions_set['ratings'],
+                                                 predictions_set['config'])
+    if predictions is None:
+        return 404
     return json.dumps(predictions)
