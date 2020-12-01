@@ -90,10 +90,10 @@ class MealSelector():
         shuffle(mealsList)
         return mealsList[0:mealsAmmount]
 
-    def recommendMeals(self, allergens, cusines, mealsAmmount=5):
+    def recommendMeals(self, allergens, cusines, mealsAmmount):
         self._createAllergenFreeTempCollection(allergens)
         meals = self._recommendMeals(cusines, mealsAmmount)
-        meals.sort(key=lambda meal: cusines[meal['cusine']])
+        meals.sort(key=lambda meal: cusines[meal['strArea']])
         return meals
 
 
