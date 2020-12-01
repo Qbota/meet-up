@@ -19,6 +19,13 @@ namespace WebApplication.Mongo.Repositories
             return await _context.Meetings.Find(_ => true).ToListAsync();
         }
 
+        public async Task<IEnumerable<MeetingDO>> GetMeetingsByGroupIdAsync(string groupId)
+        {
+            return await _context.Meetings
+                            .Find(meeting => meeting.GroupID == groupId)
+                            .ToListAsync();
+        }
+
         public async Task<MeetingDO> GetMeetingByIdAsync(string id)
         {
             return await _context.Meetings

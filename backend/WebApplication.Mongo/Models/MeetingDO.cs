@@ -13,6 +13,7 @@ namespace WebApplication.Mongo.Models
         public string ID { get; private set; }
         public string Title { get; set; }
         public string GroupID { get; set; }
+        public string OrganiserID { get; set; }
         public IEnumerable<DateTime> DatePropositions { get; set; }
         public IEnumerable<MovieDO> MoviePropositions { get; set; }
         public IEnumerable<MealDO> MealsPropositions { get; set; }

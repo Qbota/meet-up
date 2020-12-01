@@ -2,8 +2,13 @@
   <v-main>
     <v-navigation-drawer
         expand-on-hover
+<<<<<<< HEAD
         absolute
         permanent
+=======
+        permanent
+        app
+>>>>>>> 623f8a4ba0c404dc30aa3d61079037349db856e7
         color="primary"
     >
       <v-list nav dense>

@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApplication.Mongo.Models;
@@ -21,7 +22,12 @@ namespace WebApplication.Mongo.Repositories
         {
            return await _context.Users.Find(_ => true).ToListAsync();
         }
-
+        public async Task<IEnumerable<UserDO>> GetUsersByGroupIdAsync(string groupId)
+        {
+            return await _context.Users
+                            .Find(user => user.GroupIDs.Contains(groupId))
+                            .ToListAsync();
+        }
         public async Task<UserDO> GetUserByLoginAsync(string login)
         {
             return await _context.Users

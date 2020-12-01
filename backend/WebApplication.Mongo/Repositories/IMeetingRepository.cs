@@ -10,6 +10,7 @@ namespace WebApplication.Mongo.Repositories
     {
         Task<IEnumerable<MeetingDO>> GetMeetingsAsync();
         Task<MeetingDO> GetMeetingByIdAsync(string id);
+        Task<IEnumerable<MeetingDO>> GetMeetingsByGroupIdAsync(string groupId);
         Task AddMeetingAsync(MeetingDO meeting);
         Task UpdateMeetingAsync(MeetingDO meeting);
         Task DeleteMeetingAsync(string id);

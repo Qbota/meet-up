@@ -9,5 +9,6 @@ namespace WebApplication.Application.Meetings.Commands
     {
         public string Title { get; set; }
         public string GroupID { get; set; }
+        public string OrganiserID { get; set; }
     }
 }

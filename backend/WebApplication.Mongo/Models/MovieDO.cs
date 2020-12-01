@@ -11,7 +11,7 @@ namespace WebApplication.Mongo.Models
         public string Director { get; set; }
         public double Rating { get; set; }
         public MovieGenre Genre { get; set; }
-        public IEnumerable<string> Actors { get; set; }
         public string Poster { get; set; }
+        public bool IsBasicSet { get; set; }
     }
 }

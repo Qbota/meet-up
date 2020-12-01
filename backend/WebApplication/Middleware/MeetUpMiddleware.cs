@@ -77,6 +77,9 @@ namespace WebApplication.Middleware
                 case AuthenticationException authenticationException:
                     HandleException(ref problemDetails, authenticationException, context);
                     break;
+                case NotFoundException notFoundException:
+                    HandleException(ref problemDetails, notFoundException, context);
+                    break;
                 default:
                     problemDetails.Title = "An unexpected error occured";
                     problemDetails.Status = StatusCodes.Status500InternalServerError;
@@ -108,6 +111,11 @@ namespace WebApplication.Middleware
             problemDetails.Status = StatusCodes.Status401Unauthorized;
             problemDetails.Detail = authorizationException.Message;
         }
-
+        private void HandleException(ref ProblemDetails problemDetails, NotFoundException notFoundException, HttpContext context)
+        {
+            problemDetails.Title = "Object not found";
+            problemDetails.Status = StatusCodes.Status404NotFound;
+            problemDetails.Detail = notFoundException.Message;
+        }
     }
 }

@@ -52,6 +52,7 @@ namespace WebApplication
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IMeetingRepository, MeetingRepository>();
             services.AddScoped<IInvitationRepository, InvitationRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
 
             var jwtTokenConfig = Configuration.GetSection("jwtTokenConfig").Get<JWTConfiguration>();
             services.AddSingleton(jwtTokenConfig);

@@ -36,14 +36,13 @@ namespace WebApplication.Application.Users.Commands
         }
         public async Task<JWTAuthResult> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            //add validation
             var user = new UserDO
             {
                 Login = request.Login,
                 Name = request.Name,
                 Password = _hashService.GetPasswordHash(request.Password, out byte[] salt),
                 MealPreference = new MealPreferenceDO { Allergens = request.Allergens},
-                MoviePreference = new MoviePreferenceDO { Movies = request.Movies},
+                MoviePreference = new MoviePreferenceDO { Ratings = request.Movies},
                 Salt = salt,
              };
             await _userRepository.AddUserAsync(user);

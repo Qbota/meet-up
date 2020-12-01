@@ -14,6 +14,7 @@ namespace WebApplication.Mongo.Models
         public string Name { get; set; }
         public string Icon { get; set; }
         public string Description { get; set; }
+        public string OrganiserID { get; set; }
         public IEnumerable<string> MemberIDs { get; set; }
         public IEnumerable<MovieDO> MovieHistory { get; set; }
         public IEnumerable<MealDO> MealsHistory { get; set; }

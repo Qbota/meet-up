@@ -10,6 +10,7 @@ namespace WebApplication.Mongo.Repositories
     {
         Task<IEnumerable<GroupDO>> GetGroupsAsync();
         Task<GroupDO> GetGroupByIdAsync(string id);
+        Task<List<GroupDO>> GetGroupByUserIdAsync(string userId);
         Task AddGroupAsync(GroupDO group);
         Task UpdateGroupAsync(GroupDO group);
         Task DeleteGroupAsync(string id);
