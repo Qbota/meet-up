@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WebApplication.Application.AIs
 {
-    public class DataPickerService : IDatePickerService
+    public class DatePickerService : IDatePickerService
     {
         public List<DateTime> PickDate(List<DateTime> selectedDates)
         {

@@ -9,6 +9,6 @@ namespace WebApplication.Application.Movies.Models
     {
         public MovieDto Movies { get; set; }
         public Dictionary<string, double> Ratings { get; set; }
-        public IEnumerable<MovieGenre> MovieGenres { get; set; }
+        public IEnumerable<string> MovieGenres { get; set; }
     }
 }

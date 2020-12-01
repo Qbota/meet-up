@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WebApplication.Application.AIs
 {
-    interface IDatePickerService
+    public interface IDatePickerService
     {
         List<DateTime> PickDate(List<DateTime> selectedDates);
     }

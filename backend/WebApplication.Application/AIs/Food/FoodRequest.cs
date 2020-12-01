@@ -4,7 +4,10 @@ using System.Text;
 
 namespace WebApplication.Application.AIs.Food
 {
-    class FoodRequest
+    public class FoodRequest
     {
+        public List<string> Allergens { get; set; }
+        public Dictionary<string, int> Cusines {get; set;}
+        public int MealsAmount { get; set; }
     }
 }

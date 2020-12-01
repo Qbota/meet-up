@@ -31,19 +31,28 @@ namespace WebApplication.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(IEnumerable<MovieDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetMovieRecomendationsAsync([FromQuery] GetMovieRecomendationQuery getMovieRecomendationQuery)
+        public async Task<IActionResult> GetMovieRecomendationsAsync([FromRoute]string meetingId)
         {
-            return Ok(await _mediator.Send(getMovieRecomendationQuery));
+            return Ok(await _mediator.Send(new GetMovieRecomendationQuery { MeetingID = meetingId}));
         }
 
         [HttpGet]
         [Route("meal")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(MealDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<MealDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetMealRecomendationAsync([FromQuery] GetMealRecomendationQuery getMealRecomendationQuery)
+        public async Task<IActionResult> GetMealRecomendationAsync([FromRoute]string meetingId)
         {
-            return Ok(await _mediator.Send(getMealRecomendationQuery));
+            return Ok(await _mediator.Send(new GetMealRecomendationQuery { MeetingID = meetingId}));
+        }
+        [HttpGet]
+        [Route("date")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(IEnumerable<DateTime>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetDateRecomendationAsync([FromRoute]string meetingId)
+        {
+            return Ok(await _mediator.Send(new GetDateRecomendationQuery {MeetingID = meetingId }));
         }
 
     }

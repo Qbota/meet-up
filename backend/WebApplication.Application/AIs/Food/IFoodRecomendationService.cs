@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using WebApplication.Mongo.Models;
 
 namespace WebApplication.Application.AIs
 {
-    class IFoodRecomendationService
+    public interface IFoodRecomendationService 
     {
+        Task<IEnumerable<MealDO>> GetMealRecomendations(List<MealPreferenceDO> mealPreferences);
     }
 }

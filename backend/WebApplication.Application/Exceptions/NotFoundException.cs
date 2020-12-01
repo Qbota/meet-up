@@ -4,7 +4,16 @@ using System.Text;
 
 namespace WebApplication.Application.Exceptions
 {
-    class NotFoundException
+    public class NotFoundException : Exception
     {
+        public NotFoundException()
+        {
+
+        }
+        public NotFoundException(string message)
+         : base(message)
+        {
+        }
+
     }
 }

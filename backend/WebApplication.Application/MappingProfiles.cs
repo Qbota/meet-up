@@ -26,12 +26,14 @@ namespace WebApplication.Application
             CreateMap<UpdateUserCommand, UserDO>();
 
             CreateMap<MovieDto, MovieDO>();
+            CreateMap<MovieDO, MovieDto>();
             CreateMap<MoviePreferenceDto, MoviePreferenceDO>();
             CreateMap<MoviePreferenceDO, MoviePreferenceDto>();
 
             CreateMap<MealPreferenceDto, MealPreferenceDO>();
             CreateMap<MealPreferenceDO, MealPreferenceDto>();
             CreateMap<MealDto, MealDO>();
+            CreateMap<MealDO, MealDto>();
 
             CreateMap<GroupDO, GroupDto>();
             CreateMap<GroupDO, GroupDO>();

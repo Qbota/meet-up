@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using WebApplication.Application;
+using WebApplication.Application.AIs;
 using WebApplication.Application.Authorization;
 using WebApplication.Application.Users.Commands;
 using WebApplication.Middleware;
@@ -53,6 +54,10 @@ namespace WebApplication
             services.AddScoped<IMeetingRepository, MeetingRepository>();
             services.AddScoped<IInvitationRepository, InvitationRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();
+
+            services.AddScoped<IDatePickerService, DatePickerService>();
+            services.AddScoped<IFoodRecomendationService, FoodRecomendationService>();
+            services.AddScoped<IMovieRecomendationService, MovieRecomendationService>();
 
             var jwtTokenConfig = Configuration.GetSection("jwtTokenConfig").Get<JWTConfiguration>();
             services.AddSingleton(jwtTokenConfig);
