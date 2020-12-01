@@ -5,7 +5,7 @@ from mealSelector import MealSelector
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/recomendation')
 def find_meals():
     prefs = request.json
     print(prefs)

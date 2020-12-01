@@ -6,12 +6,12 @@ import movieAI
 app = Flask(__name__)
 
 
-@app.route('/predict/')
+@app.route('/recomendation')
 def make_predictions():
     predictions_set = request.json
     ai = movieAI.MovieAI()
-    predictions = ai.generateMovieRecommendation(predictions_set['ratings'],
-                                                 predictions_set['genres'])
+    predictions = ai.generateMovieRecommendation(predictions_set['Ratings'],
+                                                 predictions_set['Genres'])
     if predictions is None:
         return Response(status=204)
     movieInfo = ai.getMovieDetails(predictions)

@@ -12,8 +12,8 @@ namespace WebApplication.Application.Movies.Models
         public string Title { get; set; }
         public string Director { get; set; }
         public double Rating { get; set; }
-        public MovieGenre Genre { get; set; }
-        public IEnumerable<string> Actors { get; set; }
+        public List<string> Genres { get; set; }
+        public string Date { get; set; }
         public string Poster { get; set; }
     }
 

@@ -40,13 +40,13 @@ namespace WebApplication.Application.Recomendations.Queries
         }
         public async Task<IEnumerable<MovieDto>> Handle(GetMovieRecomendationQuery request, CancellationToken cancellationToken)
         {
-            /*_authorizationService.AuthorizeMeetingAccessOrThrow(_httpContextAccessor.HttpContext, request.MeetingID);
+            _authorizationService.AuthorizeMeetingAccessOrThrow(_httpContextAccessor.HttpContext, request.MeetingID);
             var meeting = await _meetingRepository.GetMeetingByIdAsync(request.MeetingID);
             if (meeting is null)
                 throw new NotFoundException();
             var users = await _userRepository.GetUsersByGroupIdAsync(meeting.GroupID);
-            var preferences = users.Select(x => x.MoviePreference).ToList();*/
-            var meals = await _movieRecomendationService.GetMovieRecomendations(null);//preferences);
+            var preferences = users.Select(x => x.MoviePreference).ToList();
+            var meals = await _movieRecomendationService.GetMovieRecomendations(preferences);
             return meals.Select(x => _mapper.Map<MovieDto>(x)).ToList();
         }
     }

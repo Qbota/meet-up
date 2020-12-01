@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -16,8 +17,7 @@ namespace WebApplication.Application.AIs
         private const string _uri = "http://localhost:5004";
         public async Task<IEnumerable<MovieDO>> GetMovieRecomendations(List<MoviePreferenceDO> moviePreferences)
         {
-            //var request = GenerateMovieRequest(moviePreferences);
-            var request = GetMockRequest();
+            var request = GenerateMovieRequest(moviePreferences);
             return await GetRecomendationFromAIAsync(request);
         }
 
@@ -54,8 +54,48 @@ namespace WebApplication.Application.AIs
                 string resultContent = await result.Content.ReadAsStringAsync();
                 array = JArray.Parse(resultContent);
             }
-            throw new NotImplementedException();
+            return GetMovieList(array);
         }
+
+        private List<MovieDO> GetMovieList(JArray array)
+        {
+            var list = new List<MovieDO>();
+            if (array != null && array.Any())
+            {
+                foreach (var element in array)
+                {
+                    list.Add(new MovieDO
+                    {
+                        ID = element.Value<string>("id"),
+                        Title = element.Value<string>("title") ,
+                        Genres = GetGenres(element.Value<string>("genres")),
+                        Date = element.Value<string>("releaseDate"),
+                        Poster = element.Value<string>("posterPath"),
+                        Rating = GetRating(element.Value<string>("voteAverage")),
+                        IsBasicSet = false
+                    });
+                }
+            }
+            return list;
+        }
+
+        private double GetRating(string rating)
+        {
+            double result = 0;
+            if (rating != null && Double.TryParse(rating, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
+            {
+                return result;
+            }
+            return 0;
+        }
+
+        private List<string> GetGenres(string genresArray)
+        {
+            genresArray = genresArray.Trim(new Char[] { '[', ']', '\'', ' ' });
+            List<string> result = genresArray.Split(new char[] { ',' }).ToList();
+            return result;
+        }
+
         private MovieRequest GenerateMovieRequest(List<MoviePreferenceDO> moviePreferences)
         {
             var ratings = new List<Dictionary<string, double>>();
