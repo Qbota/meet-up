@@ -14,4 +14,5 @@ def make_predictions():
                                                  predictions_set['config'])
     if predictions is None:
         return 404
-    return json.dumps(predictions)
+    movieInfo = ai.getMovieDetails(predictions)
+    return json.dumps(movieInfo)

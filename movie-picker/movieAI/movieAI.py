@@ -7,11 +7,12 @@ import random
 from lenskit.algorithms import Recommender
 from lenskit.algorithms.user_knn import UserUser
 from datetime import datetime
-
+from pymongo import MongoClient
 
 DATASET = 'ml-latest-small/'
 DATASET_LINK = "http://files.grouplens.org/datasets/movielens/ml-latest-small.zip"
 MOVIES_IN_RESPONSE = 10
+
 
 def setCwdToWhereScriptIs():
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -166,6 +167,15 @@ class MovieAI():
         else:
             return None
 
+    def getMovieDetails(self, predictions):
+        myClient = MongoClient('mongodb://localhost:27017/')
+        myDb = myClient["movieDatabase"]
+        myCol = myDb["movieCollection"]
+        movieDetails = []
+        for prediction in predictions:
+            movieDetails.append(myCol.find_one({'id': str(prediction)}))
+        return movieDetails
+
 
 def csvToMovieRatings(filename):
     '''
@@ -203,3 +213,4 @@ if __name__ == "__main__":
     lastPred = ai.filterPredictedRating(prediction, {'Adventure': 1,
                                                      'Comedy': 2})
     print(lastPred)
+    print(ai.getMovieDetails(lastPred))
