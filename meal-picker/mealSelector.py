@@ -88,6 +88,9 @@ class MealSelector():
             print("Could not find that many meals: {}".format(mealsAmmount))
             mealsAmmount = len(mealsList)
         shuffle(mealsList)
+        for i in range(0, len(mealsList)):
+            mealsList[i].pop('_id', None)
+
         return mealsList[0:mealsAmmount]
 
     def recommendMeals(self, allergens, cusines, mealsAmmount):
