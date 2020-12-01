@@ -8,6 +8,7 @@ COLLECTION = "mealsCollection"
 ALLERGEN_FREE_COLLECTION = "allergenFreeMealsCollection"
 FIRST_INGREDIENT = 1
 LAST_INGREDIENT = 21
+DEF_MEAL_AMMOUNT = 10
 
 
 class MealSelector():
@@ -78,6 +79,8 @@ class MealSelector():
 
     def _recommendMeals(self, cusines, mealsAmmount):
         mealsList = []
+        if mealsAmmount is None:
+            mealsAmmount = DEF_MEAL_AMMOUNT
         for item in self.noAllergenCol.find():
             if any(cusine in item['strArea'] for cusine in cusines.keys()):
                 mealsList.append(item)
