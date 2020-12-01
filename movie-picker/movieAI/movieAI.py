@@ -109,6 +109,7 @@ class MovieAI():
         '''
         combinedRatings = {}
         for userDict in ratings:
+            print(ratings)
             for film in userDict:
                 r = []
                 for _userDict in ratings:
@@ -118,7 +119,7 @@ class MovieAI():
                             break
                 if film not in combinedRatings:
                     if len(r) > 0:
-                        combinedRatings[film] = sum(r)/len(r)
+                        combinedRatings[int(film)] = sum(r)/len(r)
         return combinedRatings
 
     def predictCombinedRating(self, ratings, predictConfigDict=None):
@@ -173,7 +174,9 @@ class MovieAI():
         myCol = myDb["movieCollection"]
         movieDetails = []
         for prediction in predictions:
-            movieDetails.append(myCol.find_one({'id': str(prediction)}))
+            temp = myCol.find_one({'id': str(prediction)})
+            temp.pop("_id", None)
+            movieDetails.append(temp)
         return movieDetails
 
 
