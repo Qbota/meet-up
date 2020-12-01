@@ -15,7 +15,6 @@ def make_predictions():
     if predictions is None:
         return Response(status=204)
     movieInfo = ai.getMovieDetails(predictions)
-    print(movieInfo)
     return json.dumps(movieInfo)
 
 
