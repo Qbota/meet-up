@@ -176,6 +176,8 @@ class MovieAI():
         for prediction in predictions:
             temp = myCol.find_one({'id': str(prediction)})
             temp.pop("_id", None)
+            temp['posterPath'] = \
+                "https://image.tmdb.org/t/p/w500" + temp['posterPath']
             movieDetails.append(temp)
         return movieDetails
 
