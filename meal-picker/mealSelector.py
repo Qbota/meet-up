@@ -8,6 +8,7 @@ COLLECTION = "mealsCollection"
 ALLERGEN_FREE_COLLECTION = "allergenFreeMealsCollection"
 FIRST_INGREDIENT = 1
 LAST_INGREDIENT = 21
+DEF_MEAL_AMMOUNT = 10
 
 
 class MealSelector():
@@ -78,6 +79,8 @@ class MealSelector():
 
     def _recommendMeals(self, cusines, mealsAmmount):
         mealsList = []
+        if mealsAmmount is None:
+            mealsAmmount = DEF_MEAL_AMMOUNT
         for item in self.noAllergenCol.find():
             if any(cusine in item['strArea'] for cusine in cusines.keys()):
                 mealsList.append(item)
@@ -85,12 +88,15 @@ class MealSelector():
             print("Could not find that many meals: {}".format(mealsAmmount))
             mealsAmmount = len(mealsList)
         shuffle(mealsList)
+        for i in range(0, len(mealsList)):
+            mealsList[i].pop('_id', None)
+
         return mealsList[0:mealsAmmount]
 
-    def recommendMeals(self, allergens, cusines, mealsAmmount=5):
+    def recommendMeals(self, allergens, cusines, mealsAmmount):
         self._createAllergenFreeTempCollection(allergens)
         meals = self._recommendMeals(cusines, mealsAmmount)
-        meals.sort(key=lambda meal: cusines[meal['cusine']])
+        meals.sort(key=lambda meal: cusines[meal['strArea']])
         return meals
 
 

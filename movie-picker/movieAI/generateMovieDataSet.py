@@ -4,6 +4,8 @@ import os
 import tmdbsimple as tmdb
 from datetime import datetime
 import apiKey
+import json
+from pymongo import MongoClient
 
 TMDB_API_KEY = apiKey.TMDB_API_KEY
 
@@ -55,7 +57,28 @@ def combineDataset(mDb):
     return mDb
 
 
+def loadToMongo(file):
+    myClient = MongoClient('mongodb://localhost:27017/')
+    myDb = myClient["movieDatabase"]
+    myCol = myDb["movieCollection"]
+    movieDict = {}
+    with open(file) as f:
+        data = json.load(f)
+        for key, value in data.items():
+            for _key, _value in value.items():
+                if _key not in movieDict.keys():
+                    movieDict[_key] = {}
+                movieDict[_key][key] = _value
+    for key, value in movieDict.items():
+        elementToMongo = {}
+        elementToMongo['id'] = key
+        for _key, _value in value.items():
+            elementToMongo[_key] = _value
+        myCol.insert_one(elementToMongo)
+
+
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     result = combineDataset(generateLinks())
     result.to_json("movieDataset.json")
+    loadToMongo("movieDataset.json")

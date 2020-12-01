@@ -1,2 +1,2 @@
 set FLASK_APP=mealService.py
-flask run --host 127.0.0.1 --port 5002
+python -m flask run --host 127.0.0.1 --port 5002
