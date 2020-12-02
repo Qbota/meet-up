@@ -86,11 +86,13 @@ import axios from 'axios'
 export default {
   name: "MoviePreferencesComponent",
   created() {
+    this.token =  this.$store.state.accessToken
+    this.user = this.$store.state.user
     this.fetchPrefs()
   },
   data: function () {
     return {
-      userMoviePrefs: [],
+      userMoviePrefs: user.MoviePreference.Ratings,
       dialog: false,
       selectedMovie: null,
       newRating: 5
@@ -105,10 +107,6 @@ export default {
       console.log(movie.title)
       this.selectedMovie = movie
       this.dialog = true
-    },
-    async fetchPrefs() {
-      axios.get(API_URL + '/userMoviePrefs')
-          .then(res => this.userMoviePrefs = res.data)
     },
     updateRank(newRating) {
       console.log(this.$store.state.user)

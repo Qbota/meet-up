@@ -201,7 +201,7 @@ export default {
       return passwordPattern.test(password)
     },
     async fetchMoviesToRate() {
-      axios.get(API_URL + '/movies')
+      axios.get(API_URL + '/movie')
           .then(res => this.movies = res.data)
     },
     removeFromPreferences(item) {

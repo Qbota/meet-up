@@ -35,7 +35,7 @@
             <v-list-item v-bind:key="invite.sender">
               <v-list-item-icon><v-icon>fas fa-user-plus</v-icon></v-list-item-icon>
               <v-list-item-content>
-                User {{invite.organizer}} invited you to meeting: {{invite.title}}!
+                User {{invite.senderName}} invited you to group: {{invite.groupName}}!
               </v-list-item-content>
               <v-btn icon ><v-icon>fas fa-check</v-icon></v-btn>
               <v-btn icon ><v-icon>fas fa-times</v-icon></v-btn>
@@ -98,33 +98,45 @@ export default {
   }),
   methods: {
     async fetchMeetings(){
-      axios.create({
-        headers: {
+      axios.get(API_URL + '/meeting', {
+       headers: {
             'Authorization': 'Bearer '+ this.token
-        }
+        } 
       })
-      .get(API_URL + '/meeting')
         .then(res => this.meetings = res.data)
     },
     async fetchInvites(){
-      axios.create({
+      axios.get(API_URL + '/invitation/' + this.user.id, {
         headers: {
             'Authorization': 'Bearer '+ this.token
         }
       })
-      .get(API_URL + '/invitation/' + this.user.id)
         .then(res => this.meetings = res.data)
     },
     setToday() {
       this.focus = ''
     },
     acceptInvite(invite){
-      invite.accepted = true
-      axios.post(API_URL + '/meeting/invite', invite, {})
+      let command = {
+        invitationId: invite.id,
+        decision: true
+      }
+      axios.put(API_URL + '/invitation', command, {
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
     },
     denyInvite(invite){
-      invite.accepted = false
-      axios.post(API_URL + '/meeting/invite', invite, {})
+      let command = {
+        invitationId: invite.id,
+        decision: false
+      }
+      axios.put(API_URL + '/invitation', command, {
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
     },
     showInboxDialog(){
       this.inboxDialog = true
@@ -147,4 +159,14 @@ export default {
     },
   }
 }
+/*
+1. Okno meetingu (in progress)
+  - podanie preferencji żywieniowych
+  - podanie preferencji filmowych
+  - wypisanie
+  - klepnięcie (tylko organizator)
+2. Okno meetingu (read only)
+
+1. Skrzynka zaproszeń analogicznie do grup
+ */
 </script>

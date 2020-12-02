@@ -6,7 +6,7 @@ namespace WebApplication.Mongo.Models
 {
     public class MealPreferenceDO
     {
-        public IEnumerable<string> Cuisines { get; set; }
+        public IEnumerable<string> Cousines { get; set; }
         public IEnumerable<string> Allergens { get; set; }
     }
 }

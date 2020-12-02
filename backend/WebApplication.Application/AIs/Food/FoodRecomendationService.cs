@@ -64,7 +64,7 @@ namespace WebApplication.Application.AIs
             foreach (var preference in mealPreferences)
             {
                 allergens.AddRange(preference.Allergens);
-                AddCouisnes(ref cousines, preference.Cuisines.ToList());
+                AddCouisnes(ref cousines, preference.Cousines.ToList());
             }
             return new FoodRequest
             {

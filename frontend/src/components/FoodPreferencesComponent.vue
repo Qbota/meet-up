@@ -35,6 +35,10 @@
 <script>
 export default {
   name: "FoodPreferencesComponent",
+  created() {
+    this.token =  this.$store.state.accessToken
+    this.user = this.$store.state.user
+    },
   data: function () {
     return {
       cuisines: [
@@ -73,14 +77,18 @@ export default {
         'wheat',
         'meat'
       ],
-      selectedCuisines: [],
-      selectedAllergies: []
+      selectedCuisines: user.MealPreference.Cousines,
+      selectedAllergies: user.MealPreference.Allergens
     }
   },
   methods: {
     savePreferences(){
-      console.log(this.selectedCuisines)
-      console.log(this.selectedAllergies)
+        user.MealPreference.Cousines = this.selectedCuisines
+        user.MealPreference.Allergens = this.Allergens
+        axios.put(API_URL + '/user', user, {
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }})
     }
   }
 }
