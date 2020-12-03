@@ -6,10 +6,10 @@
         <v-col cols="6">
             <v-simple-table height="300px" dense>
               <tbody>
-              <tr v-for="(cuisine, index) in cuisines" :key="index">
-                <td>{{cuisine}}</td>
+              <tr v-for="(cousine, index) in cousines" :key="index">
+                <td>{{cousine}}</td>
                 <td>
-                  <v-checkbox dense v-model="selectedCuisines" :value="cuisine"></v-checkbox>
+                  <v-checkbox dense v-model="selectedCousines" :value="cousine"></v-checkbox>
                 </td>
               </tr>
               </tbody>
@@ -33,15 +33,20 @@
 </template>
 
 <script>
+import axios from "axios";
+import {API_URL} from "@/config/consts";
+
 export default {
   name: "FoodPreferencesComponent",
   created() {
     this.token =  this.$store.state.accessToken
     this.user = this.$store.state.user
+    this.selectedCousines = this.user.mealPreference.cousines
+    this.selectedAllergies = this.user.mealPreference.allergens
     },
   data: function () {
     return {
-      cuisines: [
+      cousines: [
         'Tunisian',
         'British',
         'Moroccan',
@@ -77,15 +82,15 @@ export default {
         'wheat',
         'meat'
       ],
-      selectedCuisines: user.MealPreference.Cousines,
-      selectedAllergies: user.MealPreference.Allergens
+      selectedCousines: [],
+      selectedAllergies: []
     }
   },
   methods: {
     savePreferences(){
-        user.MealPreference.Cousines = this.selectedCuisines
-        user.MealPreference.Allergens = this.Allergens
-        axios.put(API_URL + '/user', user, {
+        this.user.mealPreference.cousines = this.selectedCousines
+        this.user.mealPreference.allergens = this.selectedAllergies
+        axios.put(API_URL + '/user', this.user, {
         headers: {
             'Authorization': 'Bearer '+ this.token
         }})

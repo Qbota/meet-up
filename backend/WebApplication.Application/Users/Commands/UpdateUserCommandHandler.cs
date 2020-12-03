@@ -38,7 +38,19 @@ namespace WebApplication.Application.Users.Commands
             _authorizationService.AuthorizeAccessOrThrow(_httpContextAccessor.HttpContext, request.Id);
             var user = await _userRepository.GetUserByIdAsync(request.Id);
             var changes = _mapper.Map<UserDO>(request);
-            var updated = _mapper.Map(user, changes);
+            var updated = new UserDO
+            {
+                ID = user.ID,
+                Login = user.Login,
+                Salt = user.Salt,
+                Password = user.Password,
+                Name = String.IsNullOrEmpty(changes.Name) ? user.Name : changes.Name,
+                AvailableDates = changes.AvailableDates ?? user.AvailableDates,
+                GroupIDs = changes.GroupIDs ?? user.GroupIDs,
+                MeetingIDs = changes.MeetingIDs ?? user.MeetingIDs,
+                MealPreference = changes.MealPreference != null ? changes.MealPreference : user.MealPreference,
+                MoviePreference = changes.MoviePreference != null ? changes.MoviePreference : user.MoviePreference
+            };
             await _userRepository.UpdateUserAsync(updated);
             await UpdateGroupsAsync(request.Id, request.GroupIDs);
             return request.Id;

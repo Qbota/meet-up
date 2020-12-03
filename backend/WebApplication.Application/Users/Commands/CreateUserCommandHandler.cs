@@ -41,8 +41,15 @@ namespace WebApplication.Application.Users.Commands
                 Login = request.Login,
                 Name = request.Name,
                 Password = _hashService.GetPasswordHash(request.Password, out byte[] salt),
-                MealPreference = new MealPreferenceDO { Allergens = request.Allergens},
-                MoviePreference = new MoviePreferenceDO { Ratings = request.Movies},
+                MealPreference = new MealPreferenceDO {
+                    Allergens = request.Allergens ?? new List<string>(),
+                    Cousines = new List<string>() },
+                MoviePreference = new MoviePreferenceDO {
+                    Ratings = request.Movies ?? new Dictionary<string, double>(),
+                    MovieGenres = new List<string>() },
+                AvailableDates = new List<DateTime>(),
+                GroupIDs = new List<string>(),
+                MeetingIDs = new List<string>(),
                 Salt = salt,
              };
             await _userRepository.AddUserAsync(user);

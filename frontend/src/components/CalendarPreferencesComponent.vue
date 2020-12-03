@@ -61,15 +61,16 @@ import {API_URL} from "@/config/consts";
     created() {
     this.token =  this.$store.state.accessToken
     this.user = this.$store.state.user
+    this.pickedDates = this.user.availableDates
     },
     data: () => ({
       today: new Date(),
-      pickedDates: user.AvailableDates
+      pickedDates: []
     }),
     methods: {
       saveDatePreference(){
-        user.AvailableDates = this.pickedDates
-        axios.put(API_URL + '/user', user, {
+        this.user.availableDates = this.pickedDates
+        axios.put(API_URL + '/user', this.user, {
         headers: {
             'Authorization': 'Bearer '+ this.token
         }})
