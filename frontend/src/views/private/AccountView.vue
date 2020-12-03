@@ -5,7 +5,7 @@
         <FoodPreferencesComponent/>
       </v-col>
       <v-col cols="6">
-        <MoviePreferencesComponent/>
+<!--        <MoviePreferencesComponent/>-->
       </v-col>
     </v-row>
     <v-row justify="center">
@@ -17,9 +17,8 @@
 <script>
 import CalendarPreferencesComponent from "@/components/CalendarPreferencesComponent";
 import FoodPreferencesComponent from "@/components/FoodPreferencesComponent";
-import MoviePreferencesComponent from "@/components/MoviePreferencesComponent";
 export default {
 name: "AccountView",
-  components: {MoviePreferencesComponent, FoodPreferencesComponent, CalendarPreferencesComponent}
+  components: {FoodPreferencesComponent, CalendarPreferencesComponent}
 }
 </script>

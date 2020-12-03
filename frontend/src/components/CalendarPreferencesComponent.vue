@@ -59,21 +59,28 @@ import {API_URL} from "@/config/consts";
   export default {
     name: "CalendarPreferencesComponent",
     created() {
-    this.token =  this.$store.state.accessToken
-    this.user = this.$store.state.user
-    this.pickedDates = this.user.availableDates
+      this.token =  this.$store.state.accessToken
+      this.user = this.$store.state.user
+      this.pickedDates = this.user.availableDates.map(dateTime => this.mapToDate(dateTime))
     },
     data: () => ({
       today: new Date(),
       pickedDates: []
     }),
     methods: {
+      mapToDate(dateTime){
+        if(dateTime.includes('T')){
+          return dateTime.split('T')[0]
+        }
+        return dateTime
+      },
       saveDatePreference(){
         this.user.availableDates = this.pickedDates
+        console.log(this.user)
         axios.put(API_URL + '/user', this.user, {
         headers: {
             'Authorization': 'Bearer '+ this.token
-        }})
+        }}).then(res => console.log(res))
       },
       changePreferenceOf(day){
         if(!this.pickedDates.includes(day.date)){

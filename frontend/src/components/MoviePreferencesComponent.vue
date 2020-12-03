@@ -79,8 +79,6 @@
 
 
 <script>
-import {API_URL} from "@/config/consts";
-import axios from 'axios'
 
 
 export default {
@@ -92,7 +90,7 @@ export default {
   },
   data: function () {
     return {
-      userMoviePrefs: user.MoviePreference.Ratings,
+      userMoviePrefs: this.user.MoviePreference.Ratings,
       dialog: false,
       selectedMovie: null,
       newRating: 5
