@@ -47,8 +47,8 @@ namespace WebApplication.Application.Meetings.Commands
 
         private async Task UpdateUserAsync(UserDO user, List<DateTime> dates)
         {
-            user.AvailableDates.ToList().AddRange(dates);
-            user.AvailableDates = user.AvailableDates.Distinct();
+            user.AvailableDates.AddRange(dates);
+            user.AvailableDates = user.AvailableDates.Distinct().ToList();
             await _userRepository.UpdateUserAsync(user);
         }
     }

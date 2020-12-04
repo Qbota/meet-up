@@ -1,6 +1,8 @@
 <template>
-  <v-card height="400px">
-  <v-simple-table height="350px">
+  <v-card height="400px" width="800px">
+    <v-container>
+      <v-btn @click="savePreferences()">Save</v-btn>
+  <v-simple-table height="350px" width = "700px">
     <template v-slot:default>
       <thead>
       <tr>
@@ -18,11 +20,11 @@
       </thead>
       <tbody>
       <tr
-          v-for="movie in userMoviePrefs"
+          v-for="movie in movies"
           :key="movie.title"
       >
         <td>{{ movie.title }}</td>
-        <td>{{ movie.rating }}</td>
+        <td>{{ ratings[movie.id]}}</td>
         <td>
           <v-btn
               color="primary"
@@ -37,6 +39,7 @@
       </tbody>
     </template>
   </v-simple-table>
+    </v-container>
     <v-dialog
         v-model="dialog"
         max-width="600"
@@ -77,43 +80,44 @@
   </v-card>
 </template>
 
-
 <script>
 import {API_URL} from "@/config/consts";
 import axios from 'axios'
-
 
 export default {
   name: "MoviePreferencesComponent",
   created() {
     this.token =  this.$store.state.accessToken
     this.user = this.$store.state.user
-    this.fetchPrefs()
+    this.movies = this.user.moviePreference.movies
+    this.ratings = this.user.moviePreference.ratings
   },
   data: function () {
     return {
-      userMoviePrefs: user.MoviePreference.Ratings,
+      movies: [],
+      ratings: [],
       dialog: false,
       selectedMovie: null,
       newRating: 5
     }
   },
   methods: {
-    //add here methods
-    example() {
-      console.log('hi')
-    },
     editMovie(movie){
       console.log(movie.title)
       this.selectedMovie = movie
       this.dialog = true
     },
     updateRank(newRating) {
-      console.log(this.$store.state.user)
-      this.selectedMovie.rating = newRating
+      this.ratings[this.selectedMovie.id] = newRating
       this.dialog = false
+    },
+     savePreferences(){
+        this.user.moviePreference.ratings = this.ratings
+        axios.put(API_URL + '/user', this.user, {
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }})
     }
-
   }
 }
 </script>

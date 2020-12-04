@@ -68,7 +68,7 @@ namespace WebApplication.Application.Users.Commands
             foreach (var groupId in newGroups)
             {
                 var group = await _groupRepository.GetGroupByIdAsync(groupId);
-                group.MemberIDs.ToList().Add(userId);
+                group.MemberIDs.Add(userId);
                 await _groupRepository.UpdateGroupAsync(group);
             }
         }
@@ -79,7 +79,7 @@ namespace WebApplication.Application.Users.Commands
             {
                 if (!updatedGroupsIds.Contains(group.ID))
                 {
-                    group.MemberIDs.ToList().Remove(userId);
+                    group.MemberIDs.Remove(userId);
                     await _groupRepository.UpdateGroupAsync(group);
                 }
             }

@@ -15,9 +15,9 @@ namespace WebApplication.Mongo.Models
         public string Login { get; set; }
         public string Password { get;  set; }
         public byte[] Salt { get; set; }
-        public IEnumerable<DateTime> AvailableDates { get; set; }
-        public IEnumerable<string> GroupIDs { get; set; }
-        public IEnumerable<string> MeetingIDs { get; set; }
+        public List<DateTime> AvailableDates { get; set; }
+        public List<string> GroupIDs { get; set; }
+        public List<string> MeetingIDs { get; set; }
         public MoviePreferenceDO MoviePreference { get; set; }
         public MealPreferenceDO MealPreference { get; set; }
     }

@@ -26,6 +26,8 @@ namespace WebApplication.Application.Meetings.Commands
         {
             _meetingRepository = meetingRepository;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+            _authorizationService = authorizationService;
         }
         public async Task<string> Handle(UpdateMeetingCommand request, CancellationToken cancellationToken)
         {

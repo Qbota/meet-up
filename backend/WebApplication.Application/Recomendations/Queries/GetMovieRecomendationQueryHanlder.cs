@@ -60,13 +60,13 @@ namespace WebApplication.Application.Recomendations.Queries
             return  users.Select(x => x.MoviePreference).ToList();
         }
 
-        private async Task UpdateMeetingAsync(MeetingDO meeting, IEnumerable<MovieDO> movies)
+        private async Task UpdateMeetingAsync(MeetingDO meeting, List<MovieDO> movies)
         {
             meeting.MoviePropositions = movies;
             await _meetingRepository.UpdateMeetingAsync(meeting);
         }
 
-        private async Task AddMoviesToRepositoryAsync(IEnumerable<MovieDO> movies)
+        private async Task AddMoviesToRepositoryAsync(List<MovieDO> movies)
         {
             foreach (var movie in movies)
             {

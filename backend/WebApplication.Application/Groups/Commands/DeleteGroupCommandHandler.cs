@@ -38,7 +38,7 @@ namespace WebApplication.Application.Groups.Commands
             var users = await _userRepository.GetUsersByGroupIdAsync(groupId);
             foreach (var user in users)
             {
-                user.GroupIDs.ToList().Remove(groupId);
+                user.GroupIDs.Remove(groupId);
                 await _userRepository.UpdateUserAsync(user);
             }
         }

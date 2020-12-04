@@ -45,7 +45,7 @@ namespace WebApplication.Mongo.Repositories
 
         public async Task DeleteMeetingAsync(string id)
         {
-            await _context.Meetings.DeleteOneAsync(Builders<MeetingDO>.Filter.Eq("id", id));
+            await _context.Meetings.DeleteOneAsync(x => x.ID == id);
         }
     }
 }

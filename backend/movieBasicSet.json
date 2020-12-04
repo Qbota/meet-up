@@ -1,0 +1,148 @@
+[{
+  "_id": {
+    "$oid": "5fc920b9af5feeab9fd72650"
+  },
+  "ID": "1",
+  "Title": "Toy Story",
+  "Rating": 7.9,
+  "Genres": [
+    "Animation",
+    "Comedy",
+    "Family"
+  ],
+  "Poster": "https://image.tmdb.org/t/p/$SIZE/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg",
+  "Date": "1995-10-30",
+  "IsBasicSet": true
+},{
+  "_id": {
+    "$oid": "5fc9215baf5feeab9fd72694"
+  },
+  "ID": "19",
+  "Title": "Ace Ventura: When Nature Calls",
+  "Rating": 6.3,
+  "Genres": [
+    "Adventure",
+    "Comedy",
+    "Crime"
+  ],
+  "Poster": "https://image.tmdb.org/t/p/$SIZE/wcinCf1ov2D6M3P7BBZkzQFOiIb.jpg",
+  "Date": "1995-11-10",
+  "IsBasicSet": true
+},{
+  "_id": {
+    "$oid": "5fc939677e92c8683885bb26"
+  },
+  "ID": "39",
+  "Title": "Clueless",
+  "Rating": 7.3,
+  "Genres": [
+    "Romance",
+    "Comedy"
+  ],
+  "Poster": "https://image.tmdb.org/t/p/$SIZE/71RW4lkES2Dt7vSLSXvekGYNskG.jpg",
+  "Date": "1995-07-19",
+  "IsBasicSet": true
+},{
+  "_id": {
+    "$oid": "5fc939dd7e92c8683885bb27"
+  },
+  "ID": "1258",
+  "Title": "The Shining",
+  "Rating": 8.2,
+  "Genres": [
+    "Horror",
+    "Thriller"
+  ],
+  "Poster": "https://image.tmdb.org/t/p/$SIZE/b6ko0IKC8MdYBBPkkA1aBPLe2yz.jpg",
+  "Date": "1980-05-23",
+  "IsBasicSet": true
+},{
+  "_id": {
+    "$oid": "5fc93a4d7e92c8683885bb28"
+  },
+  "ID": "4262",
+  "Title": "Scarface",
+  "Rating": 8.2,
+  "Genres": [
+    "Action",
+    "Crime",
+    "Drama",
+    "Thriller"
+  ],
+  "Poster": "https://image.tmdb.org/t/p/$SIZE/nGY6NnlDsWaRKAycWUgXanqLxia.jpg",
+  "Date": "1983-12-08",
+  "IsBasicSet": true
+},{
+  "_id": {
+    "$oid": "5fc93aaf7e92c8683885bb29"
+  },
+  "ID": "3578",
+  "Title": "Gladiator",
+  "Rating": 8.2,
+  "Genres": [
+    "Action",
+    "Drama",
+    "Adventure"
+  ],
+  "Poster": "https://image.tmdb.org/t/p/$SIZE/ofDw0himYNpehWA69OkPWOzXOYK.jpg",
+  "Date": "2000-05-01",
+  "IsBasicSet": true
+},{
+  "_id": {
+    "$oid": "5fc93b3a7e92c8683885bb2a"
+  },
+  "ID": "68157",
+  "Title": "Inglourious Bastards",
+  "Rating": 8.2,
+  "Genres": [
+    "Drama",
+    "Action",
+    "Thriller",
+    "War"
+  ],
+  "Poster": "https://image.tmdb.org/t/p/$SIZE/7sfbEnaARXDDhKm0CZ7D7uc2sbo.jpg",
+  "Date": "2009-08-18",
+  "IsBasicSet": true
+},{
+  "_id": {
+    "$oid": "5fc93baa7e92c8683885bb2b"
+  },
+  "ID": "92259",
+  "Title": "The Intouchables",
+  "Rating": 8.2,
+  "Genres": [
+    "Comedy",
+    "Drama"
+  ],
+  "Poster": "https://image.tmdb.org/t/p/$SIZE/w7WxNbb0mcWpwDMd3pJA7LQRfnt.jpg",
+  "Date": "2011-11-02",
+  "IsBasicSet": true
+},{
+  "_id": {
+    "$oid": "5fc93c6d7e92c8683885bb2c"
+  },
+  "ID": "2571",
+  "Title": "The Matrix",
+  "Rating": 8.1,
+  "Genres": [
+    "Science Fiction",
+    "Action"
+  ],
+  "Poster": "https://image.tmdb.org/t/p/$SIZE/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+  "Date": "1999-03-30",
+  "IsBasicSet": true
+},{
+  "_id": {
+    "$oid": "5fc93ccb7e92c8683885bb2d"
+  },
+  "ID": "40629",
+  "Title": "Pride & Prejudice",
+  "Rating": 8.1,
+  "Genres": [
+    "Drama",
+    "Romance"
+  ],
+  "Poster": "https://image.tmdb.org/t/p/$SIZE/sZEXhhnEKh9hjzoiIi9XgHGqtYm.jpg",
+  "Date": "2005-09-16",
+  "IsBasicSet": true
+}]

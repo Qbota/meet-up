@@ -42,7 +42,7 @@ namespace WebApplication.Application.Users.Commands
             var groups = await _groupRepository.GetGroupByUserIdAsync(userId);
             foreach (var group in groups)
             {
-                group.MemberIDs.ToList().Remove(userId);
+                group.MemberIDs.Remove(userId);
                 await _groupRepository.UpdateGroupAsync(group);
             }
         }

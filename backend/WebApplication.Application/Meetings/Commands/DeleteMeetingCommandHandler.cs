@@ -21,6 +21,8 @@ namespace WebApplication.Application.Meetings.Commands
             IHttpContextAccessor httpContextAccessor)
         {
             _meetingRepository = meetingRepository;
+            _httpContextAccessor = httpContextAccessor;
+            _authorizationService = authorizationService;
         }
         public async Task<string> Handle(DeleteMeetingCommand request, CancellationToken cancellationToken)
         {

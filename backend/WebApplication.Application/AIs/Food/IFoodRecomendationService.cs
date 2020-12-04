@@ -8,6 +8,6 @@ namespace WebApplication.Application.AIs
 {
     public interface IFoodRecomendationService 
     {
-        Task<IEnumerable<MealDO>> GetMealRecomendations(List<MealPreferenceDO> mealPreferences);
+        Task<List<MealDO>> GetMealRecomendations(List<MealPreferenceDO> mealPreferences);
     }
 }

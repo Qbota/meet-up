@@ -15,7 +15,7 @@ namespace WebApplication.Application.AIs
     public class MovieRecomendationService : IMovieRecomendationService
     {
         private const string _uri = "http://localhost:5004";
-        public async Task<IEnumerable<MovieDO>> GetMovieRecomendations(List<MoviePreferenceDO> moviePreferences)
+        public async Task<List<MovieDO>> GetMovieRecomendations(List<MoviePreferenceDO> moviePreferences)
         {
             var request = GenerateMovieRequest(moviePreferences);
             return await GetRecomendationFromAIAsync(request);

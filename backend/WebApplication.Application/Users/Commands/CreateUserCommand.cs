@@ -14,6 +14,6 @@ namespace WebApplication.Application.Users.Commands
         public string Login { get; set; }
         public string Password { get; set; }
         public Dictionary<string,double> Movies { get; set; }
-        public IEnumerable<String> Allergens { get; set; }
+        public List<String> Allergens { get; set; }
     }
 }

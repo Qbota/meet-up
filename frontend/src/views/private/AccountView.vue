@@ -1,12 +1,15 @@
 <template>
   <v-content>
     <v-row justify="center">
-      <v-col cols="6">
+      <v-col cols="8">
         <FoodPreferencesComponent/>
       </v-col>
-      <v-col cols="6">
-        <MoviePreferencesComponent/>
+      <v-col cols="4">
+        <MovieGenresComponent/>
       </v-col>
+    </v-row>
+    <v-row justify="center">
+      <MovieRatingsComponent/>
     </v-row>
     <v-row justify="center">
       <CalendarPreferencesComponent/>
@@ -17,9 +20,11 @@
 <script>
 import CalendarPreferencesComponent from "@/components/CalendarPreferencesComponent";
 import FoodPreferencesComponent from "@/components/FoodPreferencesComponent";
-import MoviePreferencesComponent from "@/components/MoviePreferencesComponent";
+import MovieGenresComponent from "@/components/MovieGenresComponent";
+import MovieRatingsComponent from "@/components/MovieRatingsComponent";
+
 export default {
 name: "AccountView",
-  components: {MoviePreferencesComponent, FoodPreferencesComponent, CalendarPreferencesComponent}
+  components: {MovieRatingsComponent, MovieGenresComponent, FoodPreferencesComponent, CalendarPreferencesComponent}
 }
 </script>

@@ -9,6 +9,6 @@ namespace WebApplication.Mongo.Models
         public string ID { get; set; }
         public string Name { get; set; }
         public string Cuisine { get; set; }
-        public IEnumerable<string> Ingredients { get; set; }
+        public List<string> Ingredients { get; set; }
     }
 }

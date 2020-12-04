@@ -10,9 +10,7 @@ namespace WebApplication.Application.Groups.Commands
     public class CreateGroupCommand : IRequest<string>
     {
         public string Name { get; set; }
-        public IEnumerable<string> MemberIDs { get; set; }
-        public IEnumerable<MovieDto> MovieHistory { get; set; }
-        public IEnumerable<MealDto> MealsHistory { get; set; }
+        public List<string> MemberIDs { get; set; }
         public string Description { get; set; }
         public string Icon { get; set; }
     }

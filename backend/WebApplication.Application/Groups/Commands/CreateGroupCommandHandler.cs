@@ -45,19 +45,18 @@ namespace WebApplication.Application.Groups.Commands
             if (user == null)
                 throw new AuthorizationException();
 
-            if(!group.MemberIDs.ToList().Contains(user.ID))
-                group.MemberIDs.ToList().Add(user.ID);
+            var membersToInvite = request.MemberIDs;
+            group.MemberIDs = new List<string>();
+            group.MemberIDs.Add(user.ID);
 
             await _groupRepository.AddGroupAsync(group);
             await UpdateCreatorAsync(group.ID, user);
-            await InviteUsersAsync(group, user);
+            await InviteUsersAsync(group, user, membersToInvite);
             return group.ID;
         }
 
-        private async Task InviteUsersAsync(GroupDO group, UserDO creator)
+        private async Task InviteUsersAsync(GroupDO group, UserDO creator, List<string> membersToInvite)
         {
-            var membersToInvite = group.MemberIDs.ToList();
-            membersToInvite.Remove(creator.ID);
             foreach (var id in membersToInvite)
             {
                 await _invitationRepository.AddInvitationAsync(new InvitationDO
@@ -74,7 +73,7 @@ namespace WebApplication.Application.Groups.Commands
         {
             if (user.GroupIDs is null)
                 user.GroupIDs = new List<string>();
-           user.GroupIDs.ToList().Add(groupId);
+           user.GroupIDs.Add(groupId);
            await _userRepository.UpdateUserAsync(user);
         }
     }

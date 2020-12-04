@@ -54,7 +54,7 @@ namespace WebApplication.Mongo.Repositories
 
         public  async Task DeleteUserAsync(string id)
         {
-            await _context.Users.DeleteOneAsync(Builders<UserDO>.Filter.Eq("id", id));
+            await _context.Users.DeleteOneAsync(x => x.ID == id);
         }
     }
 }

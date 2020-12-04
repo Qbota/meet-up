@@ -74,7 +74,7 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="12">
-            <v-autocomplete chips deletable-chips multiple v-model="membersToInvite" :items="users"/>
+            <v-autocomplete chips deletable-chips multiple v-model="membersToInvite" :items="names"/>
           </v-col>
         </v-row>
         <v-card-actions>
@@ -91,10 +91,10 @@
         </v-card-title>
           <v-list dense>
             <template v-for="invite in invites">
-              <v-list-item v-bind:key="invite.sender">
+              <v-list-item v-bind:key="invite.senderName">
                 <v-list-item-icon><v-icon>fas fa-user-plus</v-icon></v-list-item-icon>
                 <v-list-item-content>
-                  User {{invite.sender}} invited you to group {{invite.groupName}}!
+                  User {{invite.senderName}} invited you to group {{invite.groupName}}!
                 </v-list-item-content>
                 <v-btn icon @click="acceptInvite(invite)"><v-icon>fas fa-check</v-icon></v-btn>
                 <v-btn icon @click="denyInvite(invite)"><v-icon>fas fa-times</v-icon></v-btn>
@@ -123,9 +123,9 @@
         </v-row>
         <v-row justify="center">
           <v-list>
-            <template v-for="member in selectedGroup.members">
+            <template v-for="member in selectedGroup.memberIDs">
               <v-list-item v-bind:key="member">
-                {{member}}
+                {{getMemberName(member)}}
               </v-list-item>
             </template>
           </v-list>
@@ -155,6 +155,7 @@ export default {
   data: () => ({
     groups: [],
     users: [],
+    names:[],
     icons: [
         'fas fa-bicycle',
         'fas fa-baseball-ball',
@@ -188,10 +189,16 @@ export default {
       headers : {
             'Authorization': 'Bearer '+ this.token
       }})
-      .then(res => this.groups = res.data)
+      .then(res => 
+      {
+        console.log(res.data)
+        this.groups = res.data
+      })
     },
+   
     createGroup() {
       console.log(this.createdGroup)
+      this.createdGroup.memberIDs = this.getMembersId(this.membersToInvite)
       axios.create({
         headers: {
             'Authorization': 'Bearer '+ this.token
@@ -200,7 +207,9 @@ export default {
       .post(API_URL + '/group', this.createdGroup,{})
         .then(res => {
           console.log(res.data)
-          this.groups.push(this.createdGroup)
+          this.createdGroup = {}
+          this.membersToInvite = []
+          this.updateUser()
         })
       this.closeCreateDialog()
     },
@@ -210,7 +219,42 @@ export default {
             'Authorization': 'Bearer '+ this.token
         }
       })
-      .then(res => this.meetings = res.data)
+      .then(res => this.invites = res.data)
+    },
+     getMembersId(members){
+      let list = []
+      members.forEach(name => {
+          list.push(this.getMemberId(name))
+        });
+       return list
+    },
+    getMemberId(name){
+      let temp =  this.users.filter(user =>{
+        return  user.name == name 
+      })
+      temp = temp.map(x => x.id)
+      return temp.toString()
+    },
+    getMemberName(id){
+      let temp = this.users.filter(user =>{
+         return user.id.toLowerCase().includes(id) 
+      })
+      temp =  temp.map(x => x.name)
+      temp.push(this.user.name)
+      return temp
+    },
+     
+    async updateUser(){
+      axios.get(API_URL + '/user/' + this.user.id, {
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
+      .then(res => {
+        this.user = res.data
+        this.$store.state.user = res.data
+        this.fetchGroups()
+        })
     },
     setToday() {
       this.focus = ''
@@ -224,6 +268,10 @@ export default {
         headers: {
             'Authorization': 'Bearer '+ this.token
         }})
+        .then(() => {
+          this.invites.pop(invite)
+          this.updateUser()
+        })
     },
     denyInvite(invite){
       let command = {
@@ -235,14 +283,21 @@ export default {
             'Authorization': 'Bearer '+ this.token
         }
       })
+      .then(() => {
+          this.invites.pop(invite)
+          this.updateUser()
+        })
     },
     fetchNames(){
-      axios.get(API_URL + '/user',{
+      axios.get(API_URL + '/user/names',{
          headers: {
             'Authorization': 'Bearer '+ this.token
         }
       })
-      .then(res => this.users = res.data)
+      .then(res => {
+         this.users = res.data, 
+         this.names = this.users.map(user => user.name)
+      } )
     },
     closeInfoDialog(){
       this.infoDialog = false

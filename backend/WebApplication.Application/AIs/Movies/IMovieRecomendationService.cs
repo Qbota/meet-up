@@ -8,6 +8,6 @@ namespace WebApplication.Application.AIs
 {
     public interface IMovieRecomendationService
     {
-        Task<IEnumerable<MovieDO>> GetMovieRecomendations(List<MoviePreferenceDO> moviePreferences);
+        Task<List<MovieDO>> GetMovieRecomendations(List<MoviePreferenceDO> moviePreferences);
     }
 }

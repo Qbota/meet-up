@@ -15,8 +15,8 @@ namespace WebApplication.Mongo.Models
         public string GroupID { get; set; }
         public string OrganiserID { get; set; }
         public string Description { get; set; }
-        public IEnumerable<DateTime> DatePropositions { get; set; }
-        public IEnumerable<MovieDO> MoviePropositions { get; set; }
-        public IEnumerable<MealDO> MealsPropositions { get; set; }
+        public List<DateTime> DatePropositions { get; set; }
+        public List<MovieDO> MoviePropositions { get; set; }
+        public List<MealDO> MealsPropositions { get; set; }
     }
 }
