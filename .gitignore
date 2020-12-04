@@ -367,3 +367,8 @@ FodyWeavers.xsd
 **/.vscode
 **/ml-latest-small/
 apiKey.py
+
+# Robotframework files
+tests/*.png
+tests/*.xml
+tests/*.html

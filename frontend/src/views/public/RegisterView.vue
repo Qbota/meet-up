@@ -19,16 +19,16 @@
               <v-stepper-content step="1">
                 <v-card class="pa-7" style="margin-left: 20%; margin-right: 20%; margin-bottom: 5%">
                   <v-form v-model="loginDataValid">
-                    <v-text-field label="Login" v-model="registerCommand.Login" :rules="loginRules"></v-text-field>
-                    <v-text-field label="Name" v-model="registerCommand.Name" :rules="nameRules"></v-text-field>
-                    <v-text-field label="Password" v-model="registerCommand.Password" :rules="passwordRules"
+                    <v-text-field id="100" label="Login" v-model="registerCommand.Login" :rules="loginRules"></v-text-field>
+                    <v-text-field id="101" label="Name" v-model="registerCommand.Name" :rules="nameRules"></v-text-field>
+                    <v-text-field id="102" label="Password" v-model="registerCommand.Password" :rules="passwordRules"
                                   type="password"></v-text-field>
-                    <v-text-field label="Confirm password" v-model="passwordConfirmation" :rules="passwordConfirmRules"
+                    <v-text-field id="103" label="Confirm password" v-model="passwordConfirmation" :rules="passwordConfirmRules"
                                   type="password"></v-text-field>
                   </v-form>
                   <v-card-actions>
                     <v-spacer/>
-                    <v-btn @click="stepper++" :disabled="!loginDataValid">Next</v-btn>
+                    <v-btn id="200" @click="stepper++" :disabled="!loginDataValid">Next</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-stepper-content>
@@ -151,9 +151,9 @@ export default {
       loginDataValid: false,
       movies: [],
       registerCommand: {
-        Login: 'test2',
-        Name: 'test2 name',
-        Password: 'test123!',
+        Login: '',
+        Name: '',
+        Password: '',
         Movies: {},
         Allergens: []
       },
@@ -168,7 +168,7 @@ export default {
       ],
       popup: false,
       snackbar: false,
-      passwordConfirmation: 'test123!',
+      passwordConfirmation: '',
       nameRules: [
         v => !!v || 'Name is required',
       ],
