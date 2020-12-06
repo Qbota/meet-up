@@ -59,7 +59,7 @@ namespace WebApplication.Controllers
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeleteGroupAsync([FromRoute] string groupId)
+        public async Task<IActionResult> DeleteGroupAsync( string groupId)
         {
             return Ok(await _mediator.Send(new DeleteGroupCommand { Id = groupId }));
         }

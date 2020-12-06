@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -33,9 +34,10 @@ namespace WebApplication.Application.Groups.Commands
         public async Task<string> Handle(DeleteGroupCommand request, CancellationToken cancellationToken)
         {
             _authorizationService.AuthorizeGroupAccessOrThrow(_httpContextAccessor.HttpContext, request.Id);
+            var group = await _groupRepository.GetGroupByIdAsync(request.Id);
+            await DeleteMeetingsAsync(group.MeetingIDs);
             await _groupRepository.DeleteGroupAsync(request.Id);
             await UpdateUsersAsync(request.Id);
-            await DeleteMeetingsAsync(request.Id);
             return request.Id;
         }
         private async Task UpdateUsersAsync(string groupId)
@@ -47,13 +49,11 @@ namespace WebApplication.Application.Groups.Commands
                 await _userRepository.UpdateUserAsync(user);
             }
         }
-        private async Task DeleteMeetingsAsync(string groupId)
+        private async Task DeleteMeetingsAsync(List<string> meetingIds)
         {
-            var users = await _userRepository.GetUsersByGroupIdAsync(groupId);
-            foreach (var user in users)
+            foreach (var id in meetingIds)
             {
-                user.GroupIDs.Remove(groupId);
-                await _userRepository.UpdateUserAsync(user);
+                await _meetingRepository.DeleteMeetingAsync(id);
             }
         }
     }

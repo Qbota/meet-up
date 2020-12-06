@@ -53,6 +53,8 @@ namespace WebApplication.Application.Meetings.Commands
         private async Task UpdateGroupAsync(MeetingDO meeting)
         {
             var group = await _groupRepository.GetGroupByIdAsync(meeting.GroupID);
+            if (group.MeetingIDs is null)
+                group.MeetingIDs = new List<string>();
             group.MeetingIDs.Add(meeting.ID);
             await _groupRepository.UpdateGroupAsync(group);
         }
