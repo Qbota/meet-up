@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WebApplication.Application.Recomendations.Queries
 {
-    public class GetDateRecomendationQuery : IRequest<IEnumerable<DateTime>>
+    public class GetDateRecomendationQuery : IRequest<DateTime>
     {
         public string MeetingID;
     }

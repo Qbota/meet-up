@@ -111,7 +111,7 @@ export default {
             'Authorization': 'Bearer '+ this.token
         }
       })
-        .then(res => this.meetings = res.data)
+        .then(res => this.invites = res.data)
     },
     setToday() {
       this.focus = ''
@@ -126,6 +126,10 @@ export default {
             'Authorization': 'Bearer '+ this.token
         }
       })
+      .then(() => {
+          this.invites.pop(invite)
+          this.updateUser()
+        })
     },
     denyInvite(invite){
       let command = {
@@ -137,6 +141,22 @@ export default {
             'Authorization': 'Bearer '+ this.token
         }
       })
+      .then(() => {
+          this.invites.pop(invite)
+          this.updateUser()
+        })
+    },
+    async updateUser(){
+      axios.get(API_URL + '/user/' + this.user.id, {
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
+      .then(res => {
+        this.user = res.data
+        this.$store.state.user = res.data
+        this.fetchMeetings()
+        })
     },
     showInboxDialog(){
       this.inboxDialog = true

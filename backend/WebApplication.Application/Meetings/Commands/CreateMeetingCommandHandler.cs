@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using WebApplication.Application.AIs;
 using WebApplication.Application.Authorization;
 using WebApplication.Mongo.Models;
 using WebApplication.Mongo.Repositories;
@@ -22,12 +23,14 @@ namespace WebApplication.Application.Meetings.Commands
         private readonly IMapper _mapper;
         private readonly IAuthorizationService _authorizationService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IRecomendationService _recomendationService;
 
         public CreateMeetingCommandHandler(
         IMeetingRepository meetingRepository,
         IUserRepository userRepository,
         IGroupRepository groupRepository,
         IMapper mapper,
+        IRecomendationService recomendationService,
         IAuthorizationService authorizationService,
         IHttpContextAccessor httpContextAccessor)
         {
@@ -37,6 +40,7 @@ namespace WebApplication.Application.Meetings.Commands
             _mapper = mapper;
             _authorizationService = authorizationService;
             _httpContextAccessor = httpContextAccessor;
+            _recomendationService = recomendationService;
         }
         public async Task<string> Handle(CreateMeetingCommand request, CancellationToken cancellationToken)
         {
@@ -47,6 +51,7 @@ namespace WebApplication.Application.Meetings.Commands
             await UpdateUserAsync(user, request.Dates);
             await _meetingRepository.AddMeetingAsync(meeting);
             await UpdateGroupAsync(meeting);
+            await _recomendationService.GetRecomendations(meeting);
             return meeting.ID;
         }
 

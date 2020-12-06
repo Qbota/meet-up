@@ -58,6 +58,7 @@ namespace WebApplication
             services.AddScoped<IDatePickerService, DatePickerService>();
             services.AddScoped<IFoodRecomendationService, FoodRecomendationService>();
             services.AddScoped<IMovieRecomendationService, MovieRecomendationService>();
+            services.AddScoped<IRecomendationService, RecomendationService>();
 
             var jwtTokenConfig = Configuration.GetSection("jwtTokenConfig").Get<JWTConfiguration>();
             services.AddSingleton(jwtTokenConfig);

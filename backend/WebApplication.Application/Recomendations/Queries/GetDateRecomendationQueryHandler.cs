@@ -15,7 +15,7 @@ using WebApplication.Mongo.Repositories;
 
 namespace WebApplication.Application.Recomendations.Queries
 {
-    public class GetDateRecomendationQueryHandler : IRequestHandler<GetDateRecomendationQuery, IEnumerable<DateTime>>
+    public class GetDateRecomendationQueryHandler : IRequestHandler<GetDateRecomendationQuery, DateTime>
     {
         private readonly IMeetingRepository _meetingRepository;
         private readonly IUserRepository _userRepository;
@@ -35,7 +35,7 @@ namespace WebApplication.Application.Recomendations.Queries
             _httpContextAccessor = httpContextAccessor;
             _datePickerService = datePickerService;
         }
-        public async Task<IEnumerable<DateTime>> Handle(GetDateRecomendationQuery request, CancellationToken cancellationToken)
+        public async Task<DateTime> Handle(GetDateRecomendationQuery request, CancellationToken cancellationToken)
         {
             var meeting = await _meetingRepository.GetMeetingByIdAsync(request.MeetingID);
             _authorizationService.AuthorizeGroupAccessOrThrow(_httpContextAccessor.HttpContext, meeting.GroupID);
