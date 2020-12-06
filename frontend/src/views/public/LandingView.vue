@@ -1,7 +1,7 @@
 <template>
   <div class="fill-height">
       <PublicNavbarComponent/>
-    <v-content>
+    <v-main>
       <v-row justify="center" align="center">
         <v-col cols="8">
           <v-carousel v-model="carousel" hide-delimiters>
@@ -17,12 +17,12 @@
           </v-carousel>
         </v-col>
       </v-row>
-    </v-content>
-    <v-footer absolute>
-      <v-spacer/>
-      Some footer information
-      <v-spacer/>
-    </v-footer>
+    </v-main>
+<!--    <v-footer absolute>-->
+<!--      <v-spacer/>-->
+<!--      Some footer information-->
+<!--      <v-spacer/>-->
+<!--    </v-footer>-->
   </div>
 </template>
 

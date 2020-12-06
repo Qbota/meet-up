@@ -10,7 +10,7 @@
     "Comedy",
     "Family"
   ],
-  "Poster": "https://image.tmdb.org/t/p/$SIZE/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg",
+  "Poster": "https://image.tmdb.org/t/p/w500/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg",
   "Date": "1995-10-30",
   "IsBasicSet": true
 },{
@@ -25,7 +25,7 @@
     "Comedy",
     "Crime"
   ],
-  "Poster": "https://image.tmdb.org/t/p/$SIZE/wcinCf1ov2D6M3P7BBZkzQFOiIb.jpg",
+  "Poster": "https://image.tmdb.org/t/p/w500/wcinCf1ov2D6M3P7BBZkzQFOiIb.jpg",
   "Date": "1995-11-10",
   "IsBasicSet": true
 },{
@@ -39,7 +39,7 @@
     "Romance",
     "Comedy"
   ],
-  "Poster": "https://image.tmdb.org/t/p/$SIZE/71RW4lkES2Dt7vSLSXvekGYNskG.jpg",
+  "Poster": "https://image.tmdb.org/t/p/w500/71RW4lkES2Dt7vSLSXvekGYNskG.jpg",
   "Date": "1995-07-19",
   "IsBasicSet": true
 },{
@@ -53,7 +53,7 @@
     "Horror",
     "Thriller"
   ],
-  "Poster": "https://image.tmdb.org/t/p/$SIZE/b6ko0IKC8MdYBBPkkA1aBPLe2yz.jpg",
+  "Poster": "https://image.tmdb.org/t/p/w500/b6ko0IKC8MdYBBPkkA1aBPLe2yz.jpg",
   "Date": "1980-05-23",
   "IsBasicSet": true
 },{
@@ -69,7 +69,7 @@
     "Drama",
     "Thriller"
   ],
-  "Poster": "https://image.tmdb.org/t/p/$SIZE/nGY6NnlDsWaRKAycWUgXanqLxia.jpg",
+  "Poster": "https://image.tmdb.org/t/p/w500/nGY6NnlDsWaRKAycWUgXanqLxia.jpg",
   "Date": "1983-12-08",
   "IsBasicSet": true
 },{
@@ -84,7 +84,7 @@
     "Drama",
     "Adventure"
   ],
-  "Poster": "https://image.tmdb.org/t/p/$SIZE/ofDw0himYNpehWA69OkPWOzXOYK.jpg",
+  "Poster": "https://image.tmdb.org/t/p/w500/ofDw0himYNpehWA69OkPWOzXOYK.jpg",
   "Date": "2000-05-01",
   "IsBasicSet": true
 },{
@@ -100,7 +100,7 @@
     "Thriller",
     "War"
   ],
-  "Poster": "https://image.tmdb.org/t/p/$SIZE/7sfbEnaARXDDhKm0CZ7D7uc2sbo.jpg",
+  "Poster": "https://image.tmdb.org/t/p/w500/7sfbEnaARXDDhKm0CZ7D7uc2sbo.jpg",
   "Date": "2009-08-18",
   "IsBasicSet": true
 },{
@@ -114,7 +114,7 @@
     "Comedy",
     "Drama"
   ],
-  "Poster": "https://image.tmdb.org/t/p/$SIZE/w7WxNbb0mcWpwDMd3pJA7LQRfnt.jpg",
+  "Poster": "https://image.tmdb.org/t/p/w500/w7WxNbb0mcWpwDMd3pJA7LQRfnt.jpg",
   "Date": "2011-11-02",
   "IsBasicSet": true
 },{
@@ -128,7 +128,7 @@
     "Science Fiction",
     "Action"
   ],
-  "Poster": "https://image.tmdb.org/t/p/$SIZE/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+  "Poster": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
   "Date": "1999-03-30",
   "IsBasicSet": true
 },{
@@ -142,7 +142,7 @@
     "Drama",
     "Romance"
   ],
-  "Poster": "https://image.tmdb.org/t/p/$SIZE/sZEXhhnEKh9hjzoiIi9XgHGqtYm.jpg",
+  "Poster": "https://image.tmdb.org/t/p/w500/sZEXhhnEKh9hjzoiIi9XgHGqtYm.jpg",
   "Date": "2005-09-16",
   "IsBasicSet": true
 }]

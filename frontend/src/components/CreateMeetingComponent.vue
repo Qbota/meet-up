@@ -5,29 +5,29 @@
         Create meeting
       </v-card-title>
       <v-row justify="center">
-        <v-text-field label="Meeting title" v-model="meeting.name"/>
+        <v-text-field label="Meeting title" v-model="meeting.Title"/>
       </v-row>
       <v-row justify="center">
-        <v-text-field label="Meeting description" v-model="meeting.description"/>
+        <v-text-field label="Meeting description" v-model="meeting.Description"/>
       </v-row>
       <v-row justify="center">
-        <v-menu ref="menu" v-model="menu" :close-on-content-click="false" :return-value.sync="meeting.dates" transition="scale-transition" offset-y min-width="290px">
+        <v-menu ref="menu" v-model="menu" :close-on-content-click="false" :return-value.sync="meeting.Dates" transition="scale-transition" offset-y min-width="290px">
           <template v-slot:activator="{ on, attrs }">
-            <v-combobox v-model="meeting.dates" multiple chips small-chips label="Choose dates" readonly v-bind="attrs" v-on="on"/>
+            <v-combobox v-model="meeting.Dates" multiple chips small-chips label="Choose dates" readonly v-bind="attrs" v-on="on"/>
           </template>
-          <v-date-picker v-model="meeting.dates" multiple no-title scrollable>
+          <v-date-picker v-model="meeting.Dates" multiple no-title scrollable>
             <v-spacer/>
             <v-btn text color="primary" @click="menu = false">
               Cancel
             </v-btn>
-            <v-btn text color="primary" @click="$refs.menu.save(meeting.dates)">
+            <v-btn text color="primary" @click="$refs.menu.save(meeting.Dates)">
               Ok
             </v-btn>
           </v-date-picker>
         </v-menu>
       </v-row>
       <v-row justify="center">
-        <v-autocomplete label="Invite guests" chips deletable-chips multiple v-model="meeting.members" :items="users"/>
+        <v-autocomplete label="Choose group" v-model="meeting.GroupId" :items="Groups" item-text="name" item-value="id"/>
       </v-row>
       <v-card-actions>
         <v-btn @click="raiseCloseEvent">Close</v-btn>
@@ -46,17 +46,17 @@ export default {
   created() {
     this.token =  this.$store.state.accessToken
     this.user = this.$store.state.user
-    this.fetchUsers()
+    this.fetchGroups()
   },
   data: function () {
     return {
       menu: false,
-      users: [],
+      Groups: [],
       meeting: {
-        name: '',
-        description: '',
-        dates: [],
-        members: []
+        Title: '',
+        Description: '',
+        Dates: [],
+        GroupId: ''
       }
     }
   },
@@ -70,15 +70,17 @@ export default {
       }
       this.$emit('closeEvent')
     },
-    async fetchUsers(){
-      axios.get(API_URL + '/user/names', 
-      {
+    async fetchGroups() {
+      axios.get(API_URL + '/group', {
         headers: {
-            'Authorization': 'Bearer '+ this.token
+          'Authorization': 'Bearer ' + this.token
         }
       })
-      .then(res => this.users = res.data)
-    },
+          .then(res => {
+            this.Groups = res.data
+          })
+    }
+  ,
     async registerMeeting(){
        axios.post(API_URL + '/meeting', this.meeting, {
         headers: {

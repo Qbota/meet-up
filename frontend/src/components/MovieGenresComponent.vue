@@ -1,17 +1,19 @@
 <template>
   <v-card height="400px">
     <v-container>
-      <v-btn @click="savePreferences()">Save</v-btn>
-            <v-simple-table height="300px" dense>
-              <tbody>
-              <tr v-for="(genre, index) in genres" :key="index">
-                <td>{{genre}}</td>
-                <td>
-                  <v-checkbox dense v-model="selectedGenres" :value="genre"></v-checkbox>
-                </td>
-              </tr>
-              </tbody>
-            </v-simple-table>
+      <v-btn color="primary"
+             text @click="savePreferences()">Save
+      </v-btn>
+      <v-simple-table height="300px" dense>
+        <tbody>
+        <tr v-for="(genre, index) in genres" :key="index">
+          <td>{{ genre }}</td>
+          <td>
+            <v-checkbox dense v-model="selectedGenres" :value="genre"></v-checkbox>
+          </td>
+        </tr>
+        </tbody>
+      </v-simple-table>
     </v-container>
   </v-card>
 </template>
@@ -24,27 +26,27 @@ import axios from 'axios'
 export default {
   name: "MoviePreferencesComponent",
   created() {
-    this.token =  this.$store.state.accessToken
+    this.token = this.$store.state.accessToken
     this.user = this.$store.state.user
     this.selectedGenres = this.user.moviePreference.movieGenres
   },
   data: function () {
     return {
       genres: [
-        'Animation', 
-        'Comedy', 
+        'Animation',
+        'Comedy',
         'Family',
-        'Adventure', 
+        'Adventure',
         'Fantasy',
         'Romance',
         'Drama',
-        'Action', 
-        'Crime', 
+        'Action',
+        'Crime',
         'Thriller',
         'Horror',
         'History',
         'Documentary',
-        'Mystery', 
+        'Mystery',
         'Science Fiction',
         'War',
         'Western'
@@ -53,12 +55,13 @@ export default {
     }
   },
   methods: {
-     savePreferences(){
-        this.user.moviePreference.movieGenres = this.selectedGenres
-        axios.put(API_URL + '/user', this.user, {
+    savePreferences() {
+      this.user.moviePreference.movieGenres = this.selectedGenres
+      axios.put(API_URL + '/user', this.user, {
         headers: {
-            'Authorization': 'Bearer '+ this.token
-        }})
+          'Authorization': 'Bearer ' + this.token
+        }
+      })
     }
   }
 }
