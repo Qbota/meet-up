@@ -12,7 +12,6 @@ namespace WebApplication.Application.Users.Models
         public string Login { get; private set; }
         public List<DateTime> AvailableDates { get; set; }
         public List<string> GroupIDs { get; set; }
-        public List<string> MeetingIDs { get; set; }
         public MoviePreferenceDto MoviePreference { get; set; }
         public MealPreferenceDto MealPreference { get; set; }
 

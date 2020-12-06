@@ -36,6 +36,7 @@ namespace WebApplication.Application.Groups.Commands
         public async Task<string> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
         {
             var group = _mapper.Map<GroupDO>(request);
+            group.MeetingIDs = new List<string>();
 
             if (group.MemberIDs is null)
                 group.MemberIDs = new List<string>();

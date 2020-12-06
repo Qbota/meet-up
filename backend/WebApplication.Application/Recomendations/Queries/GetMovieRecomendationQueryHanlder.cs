@@ -44,8 +44,8 @@ namespace WebApplication.Application.Recomendations.Queries
         }
         public async Task<IEnumerable<MovieDto>> Handle(GetMovieRecomendationQuery request, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeMeetingAccessOrThrow(_httpContextAccessor.HttpContext, request.MeetingID);
             var meeting = await _meetingRepository.GetMeetingByIdAsync(request.MeetingID);
+            _authorizationService.AuthorizeGroupAccessOrThrow(_httpContextAccessor.HttpContext,meeting.GroupID);
             if (meeting is null)
                 throw new NotFoundException();
             var movies = await _movieRecomendationService.GetMovieRecomendations(await GetPreferencesAsync(meeting.GroupID));

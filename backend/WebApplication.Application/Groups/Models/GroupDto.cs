@@ -14,6 +14,7 @@ namespace WebApplication.Application.Groups.Models
         public string Icon { get; set; }
         public string Description { get; set; }
         public List<string> MemberIDs { get; set; }
+        public List<string> MeetingIDs { get; set; }
         public List<MovieDto> MovieHistory { get; set; }
         public List<MealDto> MealsHistory { get; set; }
 

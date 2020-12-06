@@ -31,8 +31,8 @@ namespace WebApplication.Application.Meetings.Commands
         }
         public async Task<string> Handle(UpdateMeetingCommand request, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeMeetingAccessOrThrow(_httpContextAccessor.HttpContext, request.ID);
             var meeting = await _meetingRepository.GetMeetingByIdAsync(request.ID);
+            _authorizationService.AuthorizeGroupAccessOrThrow(_httpContextAccessor.HttpContext, meeting.GroupID);
             var changes = _mapper.Map<MeetingDO>(request);
             var updated = _mapper.Map(meeting, changes);
             await _meetingRepository.UpdateMeetingAsync(updated);

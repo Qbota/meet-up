@@ -52,7 +52,6 @@ namespace WebApplication.Application.Users.Commands
                     MovieGenres = new List<string>() },
                 AvailableDates = new List<DateTime>(),
                 GroupIDs = new List<string>(),
-                MeetingIDs = new List<string>(),
                 Salt = salt,
              };
             await _userRepository.AddUserAsync(user);

@@ -37,8 +37,8 @@ namespace WebApplication.Application.Recomendations.Queries
         }
         public async Task<IEnumerable<DateTime>> Handle(GetDateRecomendationQuery request, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeMeetingAccessOrThrow(_httpContextAccessor.HttpContext, request.MeetingID);
             var meeting = await _meetingRepository.GetMeetingByIdAsync(request.MeetingID);
+            _authorizationService.AuthorizeGroupAccessOrThrow(_httpContextAccessor.HttpContext, meeting.GroupID);
             if (meeting is null)
                 throw new NotFoundException();
             var users = await _userRepository.GetUsersByGroupIdAsync(meeting.GroupID);

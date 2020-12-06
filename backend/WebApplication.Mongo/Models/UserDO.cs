@@ -17,7 +17,6 @@ namespace WebApplication.Mongo.Models
         public byte[] Salt { get; set; }
         public List<DateTime> AvailableDates { get; set; }
         public List<string> GroupIDs { get; set; }
-        public List<string> MeetingIDs { get; set; }
         public MoviePreferenceDO MoviePreference { get; set; }
         public MealPreferenceDO MealPreference { get; set; }
     }

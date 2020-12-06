@@ -13,7 +13,6 @@ namespace WebApplication.Application.Authorization
         void AuthorizeGroupAccessOrThrow(HttpContext httpContext, string groupId);
         void AuthorizeAccessOrThrow(HttpContext httpContext, string userId);
         void FilterResultByUserRights(HttpContext httpContext, ref List<GroupDto> groups);
-        void AuthorizeMeetingAccessOrThrow(HttpContext httpContext, string meetingId);
         void FilterResultByUserRights(HttpContext httpContext, ref List<MeetingDto> meetings);
     }
 }

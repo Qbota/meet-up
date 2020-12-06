@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using MongoDB.Driver.GeoJsonObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace WebApplication.Application.Meetings.Commands
     public class CreateMeetingCommandHandler : IRequestHandler<CreateMeetingCommand, string>
     {
         private readonly IMeetingRepository _meetingRepository;
+        private readonly IGroupRepository _groupRepository;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IAuthorizationService _authorizationService;
@@ -24,11 +26,13 @@ namespace WebApplication.Application.Meetings.Commands
         public CreateMeetingCommandHandler(
         IMeetingRepository meetingRepository,
         IUserRepository userRepository,
+        IGroupRepository groupRepository,
         IMapper mapper,
         IAuthorizationService authorizationService,
         IHttpContextAccessor httpContextAccessor)
         {
             _meetingRepository = meetingRepository;
+            _groupRepository = groupRepository;
             _userRepository = userRepository;
             _mapper = mapper;
             _authorizationService = authorizationService;
@@ -42,7 +46,15 @@ namespace WebApplication.Application.Meetings.Commands
             meeting.OrganiserID = user.ID;
             await UpdateUserAsync(user, request.Dates);
             await _meetingRepository.AddMeetingAsync(meeting);
+            await UpdateGroupAsync(meeting);
             return meeting.ID;
+        }
+
+        private async Task UpdateGroupAsync(MeetingDO meeting)
+        {
+            var group = await _groupRepository.GetGroupByIdAsync(meeting.GroupID);
+            group.MeetingIDs.Add(meeting.ID);
+            await _groupRepository.UpdateGroupAsync(group);
         }
 
         private async Task UpdateUserAsync(UserDO user, List<DateTime> dates)

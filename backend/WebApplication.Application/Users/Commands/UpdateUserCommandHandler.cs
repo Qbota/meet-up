@@ -47,7 +47,6 @@ namespace WebApplication.Application.Users.Commands
                 Name = String.IsNullOrEmpty(changes.Name) ? user.Name : changes.Name,
                 AvailableDates = changes.AvailableDates ?? user.AvailableDates,
                 GroupIDs = changes.GroupIDs ?? user.GroupIDs,
-                MeetingIDs = changes.MeetingIDs ?? user.MeetingIDs,
                 MealPreference = changes.MealPreference != null ? changes.MealPreference : user.MealPreference,
                 MoviePreference = changes.MoviePreference != null ? changes.MoviePreference : user.MoviePreference
             };

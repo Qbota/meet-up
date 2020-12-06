@@ -12,6 +12,7 @@ namespace WebApplication.Application.Groups.Commands
         public string ID { get; set; }
         public string Name { get; set; }
         public List<string> MemberIDs { get; set; }
+        public List<string> MeetingIDs { get; set; }
         public List<MovieDto> MovieHistory { get; set; }
         public List<MealDto> MealsHistory { get; set; }
     }
