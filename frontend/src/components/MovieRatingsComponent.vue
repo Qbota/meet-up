@@ -1,44 +1,46 @@
 <template>
   <v-card height="400px" width="800px">
     <v-container>
-      <v-btn @click="savePreferences()">Save</v-btn>
-  <v-simple-table height="350px" width = "700px">
-    <template v-slot:default>
-      <thead>
-      <tr>
-        <th class="text-left">
-          Title
-        </th>
-        <th class="text-left">
-          Rating
-        </th>
-        <th>
-          Edit rating
-        </th>
+      <v-btn color="primary"
+             text @click="savePreferences()">Save
+      </v-btn>
+      <v-simple-table height="350px" width="700px">
+        <template v-slot:default>
+          <thead>
+          <tr>
+            <th class="text-left">
+              Title
+            </th>
+            <th class="text-left">
+              Rating
+            </th>
+            <th>
+              Edit rating
+            </th>
 
-      </tr>
-      </thead>
-      <tbody>
-      <tr
-          v-for="movie in movies"
-          :key="movie.title"
-      >
-        <td>{{ movie.title }}</td>
-        <td>{{ ratings[movie.id]}}</td>
-        <td>
-          <v-btn
-              color="primary"
-              dark
-              @click="editMovie(movie)"
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+              v-for="movie in movies"
+              :key="movie.title"
           >
-            Edit rate
-          </v-btn>
+            <td>{{ movie.title }}</td>
+            <td>{{ ratings[movie.id] }}</td>
+            <td>
+              <v-btn
+                  color="primary"
+                  dark
+                  @click="editMovie(movie)"
+              >
+                Edit rate
+              </v-btn>
 
-        </td>
-      </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+            </td>
+          </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
     </v-container>
     <v-dialog
         v-model="dialog"
@@ -55,16 +57,16 @@
 
         <v-card-actions>
 
-            <v-rating v-model="newRating" clearable dense size="25" length="10" hover/>
+          <v-rating v-model="newRating" clearable dense size="25" length="10" hover/>
 
-          <v-spacer>          </v-spacer>
+          <v-spacer></v-spacer>
 
           <v-btn
               color="green darken-1"
               text
               @click="dialog = false"
           >
-            Disagree
+            Cancel
           </v-btn>
 
           <v-btn
@@ -72,7 +74,7 @@
               text
               @click="updateRank(newRating)"
           >
-            Agree
+            Confirm
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -87,7 +89,7 @@ import axios from 'axios'
 export default {
   name: "MoviePreferencesComponent",
   created() {
-    this.token =  this.$store.state.accessToken
+    this.token = this.$store.state.accessToken
     this.user = this.$store.state.user
     this.movies = this.user.moviePreference.movies
     this.ratings = this.user.moviePreference.ratings
@@ -102,7 +104,7 @@ export default {
     }
   },
   methods: {
-    editMovie(movie){
+    editMovie(movie) {
       console.log(movie.title)
       this.selectedMovie = movie
       this.dialog = true
@@ -111,12 +113,13 @@ export default {
       this.ratings[this.selectedMovie.id] = newRating
       this.dialog = false
     },
-     savePreferences(){
-        this.user.moviePreference.ratings = this.ratings
-        axios.put(API_URL + '/user', this.user, {
+    savePreferences() {
+      this.user.moviePreference.ratings = this.ratings
+      axios.put(API_URL + '/user', this.user, {
         headers: {
-            'Authorization': 'Bearer '+ this.token
-        }})
+          'Authorization': 'Bearer ' + this.token
+        }
+      })
     }
   }
 }

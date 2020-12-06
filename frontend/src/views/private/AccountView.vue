@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <v-row justify="center">
       <v-col cols="8">
         <FoodPreferencesComponent/>
@@ -9,12 +9,14 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <MovieRatingsComponent/>
+      <v-col cols="6">
+        <CalendarPreferencesComponent/>
+      </v-col>
+      <v-col cols="6">
+        <MovieRatingsComponent/>
+      </v-col>
     </v-row>
-    <v-row justify="center">
-      <CalendarPreferencesComponent/>
-    </v-row>
-  </v-content>
+  </v-main>
 </template>
 
 <script>

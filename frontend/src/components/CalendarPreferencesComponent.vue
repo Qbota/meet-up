@@ -1,5 +1,5 @@
 <template>
-  <v-card class="px-1">
+  <v-card class="px-4">
     <v-row>
       <v-col>
         <v-btn
@@ -10,7 +10,7 @@
           <v-icon>mdi-chevron-left</v-icon>
         </v-btn>
         <v-btn
-            color="green darken-1"
+            color="primary"
             text
             @click="saveDatePreference()"
         >
@@ -23,7 +23,7 @@
         >
           <v-icon>mdi-chevron-right</v-icon>
         </v-btn>
-        <v-sheet height="500" width="800">
+        <v-sheet>
           <v-calendar
               ref="calendar"
             v-model="today"
@@ -33,6 +33,7 @@
             <template v-slot:day="{ date }">
               <v-row
                 justify="center"
+                class="pb-5"
               >
                 <div v-if="pickedDates.includes(date)">
                   <v-icon>fas fa-check</v-icon>

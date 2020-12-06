@@ -75,7 +75,7 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="12">
-            <v-autocomplete chips deletable-chips multiple v-model="membersToInvite" :items="names"/>
+            <v-autocomplete chips deletable-chips multiple v-model="createdGroup.MemberIDs" :items="users" item-text="name" item-value="id"/>
           </v-col>
         </v-row>
         <v-card-actions>
@@ -171,9 +171,12 @@ export default {
       'fas fa-dollar-sign'
     ],
     createdGroup: {
-      icon: ''
+      icon: '',
+      MemberIDs: []
     },
-    selectedGroup: {},
+    selectedGroup: {
+
+    },
     invites: [],
     membersToInvite: [],
     createDialog: false,
@@ -201,9 +204,7 @@ export default {
             this.groups = res.data
           })
     },
-
     createGroup() {
-      this.createdGroup.memberIDs = this.getMembersId(this.membersToInvite)
       axios.create({
         headers: {
           'Authorization': 'Bearer ' + this.token
@@ -225,21 +226,10 @@ export default {
       })
           .then(res => this.invites = res.data)
     },
-    getMembersId(members) {
-      let list = []
-      members.forEach(name => {
-        list.push(this.getMemberId(name))
-      });
-      return list
-    },
-    getMemberId(name) {
-      let temp = this.users.filter(user => {
-        return user.name === name
-      })
-      temp = temp.map(x => x.id)
-      return temp.toString()
-    },
     getMembersNames(members) {
+      if(members === undefined){
+        return []
+      }
       let userNames = this.users.filter(user => members.includes(user.id)).map(user => user.name)
       userNames.push(this.user.name)
       return userNames
