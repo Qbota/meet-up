@@ -70,7 +70,7 @@ namespace WebApplication.Controllers
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeleteUserAsync([FromRoute] string userId)
+        public async Task<IActionResult> DeleteUserAsync(string userId)
         {
             return Ok(await _mediator.Send(new DeleteUserCommand { Id = userId }));
         }
