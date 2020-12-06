@@ -44,9 +44,9 @@
                           <img style="height: 300px" :src="movie.poster"/>
                         </v-row>
                         <v-row justify="center" class="pb-5 pt-2">
-                          {{ translateNumberToRating(movie.rating) }} {{ movie.rating }}
+                          {{ translateNumberToRating(movie.userRating) }} {{ movie.userRating }}
                           <v-icon color="primary">mdi-star</v-icon>
-                          <v-rating v-model="movie.rating" clearable dense size="25" length="10" hover/>
+                          <v-rating v-model="movie.userRating" clearable dense size="25" length="10" hover/>
                         </v-row>
                       </v-card>
                     </template>
@@ -210,7 +210,7 @@ export default {
       )
     },
     saveMoviePreferences() {
-      this.movies.forEach(movie => this.registerCommand.Movies[movie.id.toString()] = movie.rating)
+      this.movies.forEach(movie => this.registerCommand.Movies[movie.id.toString()] = movie.userRating)
     },
     async registerInApi() {
       this.isLoading = true
