@@ -36,7 +36,7 @@
 
 <script>
 import axios from "axios";
-import {API_URL} from "@/config/consts";
+import {ALLERGIES, API_URL, COUSINE_LIST} from "@/config/consts";
 
 export default {
   name: "FoodPreferencesComponent",
@@ -48,42 +48,8 @@ export default {
   },
   data: function () {
     return {
-      cousines: [
-        'Tunisian',
-        'British',
-        'Moroccan',
-        'Canadian',
-        'Vietnamese',
-        'Chinese',
-        'Greek',
-        'French',
-        'American',
-        'Spanish',
-        'Italian',
-        'Egyptian',
-        'Indian',
-        'Jamaican',
-        'Turkish',
-        'Dutch',
-        'Irish',
-        'Mexican',
-        'Thai',
-        'Unknown',
-        'Polish',
-        'Japanese',
-        'Kenyan',
-        'Malaysian',
-        'Russian'
-      ],
-      allergies: [
-        'dairy',
-        'eggs',
-        'seaFood',
-        'nuts',
-        'soy',
-        'wheat',
-        'meat'
-      ],
+      cousines: COUSINE_LIST,
+      allergies: ALLERGIES,
       selectedCousines: [],
       selectedAllergies: []
     }

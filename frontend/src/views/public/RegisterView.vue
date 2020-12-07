@@ -135,7 +135,7 @@
 
 <script>
 import PublicNavbarComponent from "@/components/PublicNavbarComponent";
-import {API_URL} from "@/config/consts";
+import {ALLERGIES, API_URL} from "@/config/consts";
 import axios from 'axios'
 
 export default {
@@ -157,15 +157,7 @@ export default {
         Movies: {},
         Allergens: []
       },
-      allergens: [
-        'dairy',
-        'eggs',
-        'seaFood',
-        'nuts',
-        'soy',
-        'wheat',
-        'meat'
-      ],
+      allergens: ALLERGIES,
       popup: false,
       snackbar: false,
       passwordConfirmation: 'test123!',

@@ -66,10 +66,7 @@ export default {
             'Authorization': 'Bearer '+ this.token
         } 
       })
-        .then(res => {
-          this.meetings = res.data
-          console.log(res.data)}
-          )
+        .then(res => this.meetings = this.formatMeetings(res.data))
     },
     setToday() {
       this.focus = ''
@@ -96,6 +93,17 @@ export default {
         }
       })
     },
+    formatMeetings(meetings){
+      let formatted =  meetings.map(meeting => this.mapToEvent(meeting))
+      return formatted
+    },
+    mapToEvent(meeting){
+      if(meeting.dateProposition.includes('T')){
+        meeting.start = meeting.dateProposition.split('T')[0]
+      }
+      meeting.name = meeting.title
+      return meeting
+    },
     showInboxDialog(){
       this.inboxDialog = true
     },
@@ -117,14 +125,4 @@ export default {
     },
   }
 }
-/*
-1. Okno meetingu (in progress)
-  - podanie preferencji żywieniowych
-  - podanie preferencji filmowych
-  - wypisanie
-  - klepnięcie (tylko organizator)
-2. Okno meetingu (read only)
-
-1. Skrzynka zaproszeń analogicznie do grup
- */
 </script>

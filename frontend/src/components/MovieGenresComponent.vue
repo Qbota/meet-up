@@ -20,7 +20,7 @@
 
 
 <script>
-import {API_URL} from "@/config/consts";
+import {API_URL, MOVIE_GENRES} from "@/config/consts";
 import axios from 'axios'
 
 export default {
@@ -32,25 +32,7 @@ export default {
   },
   data: function () {
     return {
-      genres: [
-        'Animation',
-        'Comedy',
-        'Family',
-        'Adventure',
-        'Fantasy',
-        'Romance',
-        'Drama',
-        'Action',
-        'Crime',
-        'Thriller',
-        'Horror',
-        'History',
-        'Documentary',
-        'Mystery',
-        'Science Fiction',
-        'War',
-        'Western'
-      ],
+      genres: MOVIE_GENRES,
       selectedGenres: null
     }
   },

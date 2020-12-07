@@ -11,22 +11,6 @@
         <v-text-field label="Meeting description" v-model="meeting.Description"/>
       </v-row>
       <v-row justify="center">
-        <v-menu ref="menu" v-model="menu" :close-on-content-click="false" :return-value.sync="meeting.Dates" transition="scale-transition" offset-y min-width="290px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-combobox v-model="meeting.Dates" multiple chips small-chips label="Choose dates" readonly v-bind="attrs" v-on="on"/>
-          </template>
-          <v-date-picker v-model="meeting.Dates" multiple no-title scrollable>
-            <v-spacer/>
-            <v-btn text color="primary" @click="menu = false">
-              Cancel
-            </v-btn>
-            <v-btn text color="primary" @click="$refs.menu.save(meeting.Dates)">
-              Ok
-            </v-btn>
-          </v-date-picker>
-        </v-menu>
-      </v-row>
-      <v-row justify="center">
         <v-autocomplete label="Choose group" v-model="meeting.GroupId" :items="Groups" item-text="name" item-value="id"/>
       </v-row>
       <v-card-actions>
@@ -55,7 +39,6 @@ export default {
       meeting: {
         Title: '',
         Description: '',
-        Dates: [],
         GroupId: ''
       }
     }
@@ -65,7 +48,6 @@ export default {
       this.meeting = {
         title: '',
         description: '',
-        dates: [],
         members: [],
       }
       this.$emit('closeEvent')

@@ -48,10 +48,9 @@ namespace WebApplication.Application.Meetings.Commands
             var meeting = _mapper.Map<MeetingDO>(request);
             var user = _httpContextAccessor.HttpContext.Items["Account"] as UserDO;
             meeting.OrganiserID = user.ID;
-            await UpdateUserAsync(user, request.Dates);
+            await _recomendationService.GetRecomendations(meeting);
             await _meetingRepository.AddMeetingAsync(meeting);
             await UpdateGroupAsync(meeting);
-            await _recomendationService.GetRecomendations(meeting);
             return meeting.ID;
         }
 
