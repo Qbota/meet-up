@@ -39,7 +39,7 @@ class MovieAI():
     def _readDatasetFile(self):
         self.log("Opening dataset...")
         file = os.path.dirname(os.path.abspath(__file__)) + \
-            "\\" + self.datasetFolder
+            "/" + self.datasetFolder
         self.movieDataset = ds.MovieLens(file)
 
     def _loadDataset(self):
