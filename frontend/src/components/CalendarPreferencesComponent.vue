@@ -75,13 +75,13 @@ import {API_URL} from "@/config/consts";
         }
         return dateTime
       },
-      saveDatePreference(){
+      async saveDatePreference(){
         this.user.availableDates = this.pickedDates
         console.log(this.user)
-        axios.put(API_URL + '/user', this.user, {
+        await axios.put(API_URL + '/user', this.user, {
         headers: {
             'Authorization': 'Bearer '+ this.token
-        }}).then(res => console.log(res))
+        }})
       },
       changePreferenceOf(day){
         if(!this.pickedDates.includes(day.date)){
