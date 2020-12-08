@@ -82,7 +82,8 @@ class MealSelector():
         if mealsAmmount is None:
             mealsAmmount = DEF_MEAL_AMMOUNT
         for item in self.noAllergenCol.find():
-            if any(cusine in item['strArea'] for cusine in cusines.keys()):
+            if any(cusine.lower() in item['strArea'].lower()
+                    for cusine in cusines.keys()):
                 mealsList.append(item)
         if len(mealsList) < mealsAmmount:
             print("Could not find that many meals: {}".format(mealsAmmount))
