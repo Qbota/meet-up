@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from alergenDict import ALERGEN_DICT
 from random import shuffle
-
+from random import random
 
 DATABASE = "mealsDatabase"
 COLLECTION = "mealsCollection"
@@ -87,7 +87,11 @@ class MealSelector():
                 mealsList.append(item)
         if len(mealsList) < mealsAmmount:
             print("Could not find that many meals: {}".format(mealsAmmount))
-            mealsAmmount = len(mealsList)
+            while len(mealsList) < mealsAmmount:
+                for item in self.noAllergenCol.find():
+                    if random() < 0.1:
+                        mealsList.append(item)
+                        break
         shuffle(mealsList)
         for i in range(0, len(mealsList)):
             mealsList[i].pop('_id', None)
