@@ -1,5 +1,5 @@
 <template>
-  <v-card class="px-5">
+  <v-card style="font-size: large"  class="px-5">
     <v-container>
     <v-card-title>
       {{ meeting.name }}
@@ -13,7 +13,7 @@
     </v-row>
     <v-divider class="mt-2 mb-2"/>
     <v-row justify="center">
-      <h3>Invited Guests:</h3>
+      <h3>Participants:</h3>
     </v-row>
     <v-row justify="center">
       <v-list>
@@ -23,18 +23,38 @@
       </v-list>
     </v-row>
     <v-divider class="mt-2 mb-2"/>
-    <v-row justify="center">
-      <v-autocomplete label="Choose movie genre" v-model="preferences.moviePreference" :items="moviesGenres"/>
-    </v-row>
-    <v-row justify="center">
-      <v-autocomplete label="Choose food type" v-model="preferences.foodPreference" :items="foodTypes"/>
-    </v-row>
-    <v-card-actions>
+      <v-row justify="center">
+        <v-card v-for="movie in meeting.moviePropositions" v-bind:key="movie.id" class="px-5 mt-2" width="600pt">
+          <v-row>
+            <v-col cols="3">
+                <v-img :src="movie.poster"/>
+            </v-col>
+            <v-col cols="9">
+              <v-row style="font-size: x-large" justify="left">
+                {{movie.title}}
+              </v-row>
+              <v-row style="font-size: x-large" justify="left">
+                {{movie.date}}
+              </v-row>
+              <v-row class="mt-10" style="font-size: x-large" justify="left">
+                <v-icon large color="primary">mdi-star</v-icon> {{movie.rating}}
+              </v-row>
+              <v-row class="mt-15" style="font-size: large" justify="left">
+                  Genres: {{formatGenres(movie.genres)}}
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-row>
+      <v-divider class="mt-2 mb-2"/>
+      <v-data-table :headers="mealsHeaders" show-expand :items="meeting.mealsPropositions" single-expand hide-default-footer>
+        <template v-slot:expanded-item="{item}">
+          {{item.ingredients.join(',')}}
+        </template>
+      </v-data-table>
+      <v-card-actions>
       <v-btn @click="raiseCloseEvent">Close</v-btn>
       <v-spacer/>
-      <v-btn>Calculate suggestions</v-btn>
-      <v-spacer/>
-      <v-btn @click="confirmMeeting">Confirm</v-btn>
     </v-card-actions>
       <v-row justify="center">
       </v-row>
@@ -58,6 +78,20 @@ export default {
       moviesGenres: MOVIE_GENRES,
       foodTypes: COUSINE_LIST,
       organizerName: '',
+      mealsHeaders: [
+        {
+          text: 'Dish',
+          value: 'name'
+        },
+        {
+          text: 'Cuisine',
+          value: 'cuisine'
+        },
+        {
+          text: 'Ingredients',
+          value: 'data-table-expand'
+        },
+      ],
       idToNames: [],
       members: [],
       preferences: {
@@ -97,6 +131,9 @@ export default {
         let memberIds = res.data.memberIDs
         memberIds.forEach(id => this.members.push(this.idToNames.filter(pair => pair.id === id)[0].name))
       })
+    },
+    formatGenres(genres){
+       return genres.map(it => it.replaceAll('\'','')).join(',')
     },
     raiseCloseEvent() {
       this.$emit('closeEvent')

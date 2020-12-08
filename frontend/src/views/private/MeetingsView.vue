@@ -28,7 +28,7 @@
     <v-dialog v-model="createDialog" max-width="400pt">
       <CreateMeetingComponent @closeEvent="closeCreateDialog()" @registeredEvent="fetchMeetings(); closeCreateDialog()"/>
     </v-dialog>
-    <v-dialog v-model="detailsDialog" max-width="400pt">
+    <v-dialog v-model="detailsDialog" max-width="800pt">
       <MeetingDetailsComponent :meeting="selectedEvent" @closeEvent="closeDetailsDialog"/>
     </v-dialog>
   </v-main>

@@ -60,7 +60,6 @@ const routes = [
 ]
 
 function refreshToken(to, from, next){
-  console.log('refreshing token')
   const token = store.state.accessToken
   const refreshToken = store.state.refreshToken
   if(token != null && refreshToken != null)
@@ -73,13 +72,16 @@ function refreshToken(to, from, next){
         .then(res => {
           store.state.accessToken = res.data.accessToken
           store.state.refreshToken = res.data.refreshToken.tokenString
+          next()
         })
         .catch(() => {
-          //localStorage.clear();
-          //log user out
+          console.log('catched')
+          store.state.accessToken = ''
+          store.state.refreshToken = ''
+          store.state.user = null
+          next({name: 'Landing'})
         })
   }
-  next()
 }
 
 const router = new VueRouter({

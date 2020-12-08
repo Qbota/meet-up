@@ -77,7 +77,6 @@ import {API_URL} from "@/config/consts";
       },
       async saveDatePreference(){
         this.user.availableDates = this.pickedDates
-        console.log(this.user)
         await axios.put(API_URL + '/user', this.user, {
         headers: {
             'Authorization': 'Bearer '+ this.token
