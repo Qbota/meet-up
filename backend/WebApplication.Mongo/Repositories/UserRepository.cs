@@ -20,35 +20,55 @@ namespace WebApplication.Mongo.Repositories
 
         public async Task<IEnumerable<UserDO>> GetUsersAsync()
         {
-           return await _context.Users.Find(_ => true).ToListAsync();
+           var users =  await _context.Users.Find(_ => true).ToListAsync();
+           DatesToLocalTime(users);
+           return users; 
         }
+
+        private void DatesToLocalTime(List<UserDO> users)
+        {
+            foreach (var user in users)
+            {
+                user.AvailableDates = user.AvailableDates.Select(x => x.ToLocalTime()).ToList();
+            }
+        }
+
         public async Task<IEnumerable<UserDO>> GetUsersByGroupIdAsync(string groupId)
         {
-            return await _context.Users
+            var users =  await _context.Users
                             .Find(user => user.GroupIDs.Contains(groupId))
                             .ToListAsync();
+            DatesToLocalTime(users);
+            return users;
+
         }
         public async Task<UserDO> GetUserByLoginAsync(string login)
         {
-            return await _context.Users
+            var user =  await _context.Users
                             .Find(user => user.Login == login)
                             .FirstOrDefaultAsync();
+            user.AvailableDates = user.AvailableDates.Select(x => x.ToLocalTime()).ToList();
+            return user; 
         }
 
         public async Task<UserDO> GetUserByIdAsync(string id)
         {
-            return await _context.Users
+            var user =  await _context.Users
                             .Find(user => user.ID == id)
                             .FirstOrDefaultAsync();
+            user.AvailableDates = user.AvailableDates.Select(x => x.ToLocalTime()).ToList();
+            return user;
         }
 
         public async Task AddUserAsync(UserDO user)
         {
+            user.AvailableDates = user.AvailableDates.Select(x => x.ToUniversalTime()).ToList();
             await _context.Users.InsertOneAsync(user);
         }
 
         public async Task UpdateUserAsync(UserDO user)
         {
+            user.AvailableDates = user.AvailableDates.Select(x => x.ToUniversalTime()).ToList();
             await _context.Users.ReplaceOneAsync(x => x.ID == user.ID, user); 
         }
 

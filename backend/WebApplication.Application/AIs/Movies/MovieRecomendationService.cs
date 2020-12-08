@@ -91,7 +91,9 @@ namespace WebApplication.Application.AIs
 
         private List<string> GetGenres(string genresArray)
         {
-            genresArray = genresArray.Trim(new Char[] { '[', ']', '\'', ' ' });
+            genresArray = genresArray.Trim(new Char[] { '[', ']', '\'' });
+            genresArray = genresArray.Replace("\'",string.Empty);
+            genresArray = genresArray.Replace(" ", string.Empty);
             List<string> result = genresArray.Split(new char[] { ',' }).ToList();
             return result;
         }
