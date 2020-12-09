@@ -101,7 +101,10 @@ class MealSelector():
     def recommendMeals(self, allergens, cusines, mealsAmmount):
         self._createAllergenFreeTempCollection(allergens)
         meals = self._recommendMeals(cusines, mealsAmmount)
-        #meals.sort(key=lambda meal: cusines[meal['strArea']])
+        for meal in meals:
+            if meal['strArea'].capitalize() not in cusines:
+                cusines[meal['strArea'].capitalize()] = 0
+        meals.sort(key=lambda meal: cusines[meal['strArea'].capitalize()], reverse=True)
         return meals
 
 
