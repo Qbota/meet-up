@@ -15,7 +15,7 @@ using WebApplication.Application.Users.Queries;
 namespace WebApplication.Controllers
 {
     [ApiController]
-    //[Authorize]
+    [Authorize]
     [EnableCors("VueCorsPolicy")]
     [Route("api/meet-up/user")]
     public class UserController : ControllerBase

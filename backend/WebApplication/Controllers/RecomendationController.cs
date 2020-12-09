@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,7 @@ namespace WebApplication.Controllers
 {
     [ApiController]
     [EnableCors("VueCorsPolicy")]
-    //[Authorize]
+    [Authorize]
     [Route("api/meet-up/recomendation")]
     public class RecomendationController : ControllerBase
     {

@@ -101,7 +101,7 @@ class MealSelector():
     def recommendMeals(self, allergens, cusines, mealsAmmount):
         self._createAllergenFreeTempCollection(allergens)
         meals = self._recommendMeals(cusines, mealsAmmount)
-        meals.sort(key=lambda meal: cusines[meal['strArea']])
+        #meals.sort(key=lambda meal: cusines[meal['strArea']])
         return meals
 
 

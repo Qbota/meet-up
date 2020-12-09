@@ -16,7 +16,7 @@ namespace WebApplication.Controllers
 {
     [ApiController]
     [EnableCors("VueCorsPolicy")]
-    //[Authorize]
+    [Authorize]
     [Route("api/meet-up/invitation")]
     public class InvitationController : ControllerBase
     {
