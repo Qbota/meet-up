@@ -44,9 +44,9 @@
                           <img style="height: 300px" :src="movie.poster"/>
                         </v-row>
                         <v-row justify="center" class="pb-5 pt-2">
-                          {{ translateNumberToRating(movie.rating) }} {{ movie.rating }}
+                          {{ translateNumberToRating(movie.userRating) }} {{ movie.userRating }}
                           <v-icon color="primary">mdi-star</v-icon>
-                          <v-rating v-model="movie.rating" clearable dense size="25" length="10" hover/>
+                          <v-rating v-model="movie.userRating" clearable dense size="25" length="10" hover/>
                         </v-row>
                       </v-card>
                     </template>
@@ -135,7 +135,7 @@
 
 <script>
 import PublicNavbarComponent from "@/components/PublicNavbarComponent";
-import {API_URL} from "@/config/consts";
+import {ALLERGIES, API_URL} from "@/config/consts";
 import axios from 'axios'
 
 export default {
@@ -157,15 +157,7 @@ export default {
         Movies: {},
         Allergens: []
       },
-      allergens: [
-        'dairy',
-        'eggs',
-        'seaFood',
-        'nuts',
-        'soy',
-        'wheat',
-        'meat'
-      ],
+      allergens: ALLERGIES,
       popup: false,
       snackbar: false,
       passwordConfirmation: '',
@@ -201,7 +193,7 @@ export default {
       return passwordPattern.test(password)
     },
     async fetchMoviesToRate() {
-      axios.get(API_URL + '/movies')
+      axios.get(API_URL + '/movie')
           .then(res => this.movies = res.data)
     },
     removeFromPreferences(item) {
@@ -210,7 +202,7 @@ export default {
       )
     },
     saveMoviePreferences() {
-      this.movies.forEach(movie => this.registerCommand.Movies[movie.id.toString()] = movie.rating)
+      this.movies.forEach(movie => this.registerCommand.Movies[movie.id.toString()] = movie.userRating)
     },
     async registerInApi() {
       this.isLoading = true

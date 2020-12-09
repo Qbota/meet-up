@@ -35,7 +35,7 @@ namespace WebApplication.Mongo.Repositories
 
         public async Task DeleteInvitationAsync(string id)
         {
-            await _context.Invitations.DeleteOneAsync(Builders<InvitationDO>.Filter.Eq("id", id));
+            await _context.Invitations.DeleteOneAsync(x => x.Id == id);
         }
     }
 }

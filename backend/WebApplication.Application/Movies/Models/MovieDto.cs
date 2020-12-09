@@ -10,7 +10,6 @@ namespace WebApplication.Application.Movies.Models
     {
         public string ID { get; private set; }
         public string Title { get; set; }
-        public string Director { get; set; }
         public double Rating { get; set; }
         public List<string> Genres { get; set; }
         public string Date { get; set; }

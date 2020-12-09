@@ -6,8 +6,8 @@ using WebApplication.Mongo.Models;
 
 namespace WebApplication.Application.AIs
 {
-    public interface IFoodRecomendationService 
+    public interface IRecomendationService
     {
-        Task<List<MealDO>> GetMealRecomendations(List<MealPreferenceDO> mealPreferences);
+        Task<MeetingDO> GetRecomendations(MeetingDO meeting);
     }
 }

@@ -16,45 +16,66 @@ namespace WebApplication.Application.Groups.Commands
     public class CreateGroupCommandHandler : IRequestHandler<CreateGroupCommand, string>
     {
         private readonly IGroupRepository _groupRepository;
+        private readonly IInvitationRepository _invitationRepository;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public CreateGroupCommandHandler(
             IGroupRepository groupRepository,
             IUserRepository userRepository,
+            IInvitationRepository invitationRepository,
             IMapper mapper, 
             IHttpContextAccessor httpContextAccessor)
         {
             _groupRepository = groupRepository;
             _userRepository = userRepository;
+            _invitationRepository = invitationRepository;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
         }
         public async Task<string> Handle(CreateGroupCommand request, CancellationToken cancellationToken)
         {
             var group = _mapper.Map<GroupDO>(request);
+            group.MeetingIDs = new List<string>();
 
             if (group.MemberIDs is null)
                 group.MemberIDs = new List<string>();
+
             var user = _httpContextAccessor.HttpContext.Items["Account"] as UserDO;
+
             if (user == null)
-            {
                 throw new AuthorizationException();
-            }
-            group.MemberIDs.ToList().Add(user.ID);
+
+            var membersToInvite = request.MemberIDs;
+            group.MemberIDs = new List<string>();
+            group.MemberIDs.Add(user.ID);
+
             await _groupRepository.AddGroupAsync(group);
-            await UpdateUsersAsync(group);
+            await UpdateCreatorAsync(group.ID, user);
+            await InviteUsersAsync(group, user, membersToInvite);
             return group.ID;
         }
 
-        private async Task UpdateUsersAsync(GroupDO group)
+        private async Task InviteUsersAsync(GroupDO group, UserDO creator, List<string> membersToInvite)
         {
-            foreach (var id in group.MemberIDs)
+            foreach (var id in membersToInvite)
             {
-                var user = await _userRepository.GetUserByIdAsync(id);
-                user.GroupIDs.ToList().Add(group.ID);
-                await _userRepository.UpdateUserAsync(user);
+                await _invitationRepository.AddInvitationAsync(new InvitationDO
+                {
+                    GroupId = group.ID,
+                    GroupName = group.Name,
+                    SenderName = creator.Name,
+                    UserId = id
+                });
             }
+        }
+
+        private async Task UpdateCreatorAsync(string groupId, UserDO user)
+        {
+            if (user.GroupIDs is null)
+                user.GroupIDs = new List<string>();
+           user.GroupIDs.Add(groupId);
+           await _userRepository.UpdateUserAsync(user);
         }
     }
 }

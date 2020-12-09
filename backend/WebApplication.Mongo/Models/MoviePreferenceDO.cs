@@ -7,6 +7,6 @@ namespace WebApplication.Mongo.Models
     public class MoviePreferenceDO
     {
         public Dictionary<string, double> Ratings { get; set; }
-        public IEnumerable<string> MovieGenres { get; set; }
+        public List<string> MovieGenres { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace WebApplication.Application.AIs
     public class FoodRecomendationService : IFoodRecomendationService
     {
         private const string _uri = "http://localhost:5002";
-        public async Task<IEnumerable<MealDO>> GetMealRecomendations(List<MealPreferenceDO> mealPreferences)
+        public async Task<List<MealDO>> GetMealRecomendations(List<MealPreferenceDO> mealPreferences)
         {
             var request = GenerateFoodRequest(mealPreferences);
             return  await GetRecomendationFromAIAsync(request);
@@ -64,7 +64,7 @@ namespace WebApplication.Application.AIs
             foreach (var preference in mealPreferences)
             {
                 allergens.AddRange(preference.Allergens);
-                AddCouisnes(ref cousines, preference.Cuisines.ToList());
+                AddCouisnes(ref cousines, preference.Cousines.ToList());
             }
             return new FoodRequest
             {

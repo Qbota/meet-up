@@ -94,15 +94,6 @@ export default {
     goToRegister() {
       this.$router.push('/register')
     },
-    getUser(id, token){
-      axios.create({
-        headers: {
-            'Authorization': 'Bearer '+ token
-        }
-     })
-      .get( API_URL + '/user/'+ id)
-      .then(res => this.$store.state.user = res.data)
-    },
   }
 }
 </script>

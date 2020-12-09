@@ -27,11 +27,13 @@ namespace WebApplication.Application.Meetings.Queries
         {
             _meetingRepository = meetingRepository;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+            _authorizationService = authorizationService;
         }
         public async Task<MeetingDto> Handle(GetMeetingQuery getMeetingQuery, CancellationToken cancellationToken)
         {
-            _authorizationService.AuthorizeMeetingAccessOrThrow(_httpContextAccessor.HttpContext, getMeetingQuery.Id);
             var meeting = await _meetingRepository.GetMeetingByIdAsync(getMeetingQuery.Id);
+            _authorizationService.AuthorizeGroupAccessOrThrow(_httpContextAccessor.HttpContext, meeting.GroupID);
             var mappedMeeting = _mapper.Map<MeetingDO, MeetingDto>(meeting);
             return mappedMeeting;
         }

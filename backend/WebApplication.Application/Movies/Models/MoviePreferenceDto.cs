@@ -7,8 +7,8 @@ namespace WebApplication.Application.Movies.Models
 {
     public class MoviePreferenceDto
     {
-        public MovieDto Movies { get; set; }
+        public List<MovieDto> Movies { get; set; }
         public Dictionary<string, double> Ratings { get; set; }
-        public IEnumerable<string> MovieGenres { get; set; }
+        public List<string> MovieGenres { get; set; }
     }
 }

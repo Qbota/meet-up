@@ -55,7 +55,7 @@ namespace WebApplication.Application.Groups.Commands
             foreach (var userId in newUsers)
             {
                 var user = await _userRepository.GetUserByIdAsync(userId);
-                user.GroupIDs.ToList().Add(groupId);
+                user.GroupIDs.Add(groupId);
                 await _userRepository.UpdateUserAsync(user);
             }
         }
@@ -67,7 +67,7 @@ namespace WebApplication.Application.Groups.Commands
                 if (!updatedUsersIds.Contains(userId))
                 {
                     var user = await _userRepository.GetUserByIdAsync(userId);
-                    user.GroupIDs.ToList().Remove(groupId);
+                    user.GroupIDs.Remove(groupId);
                     await _userRepository.UpdateUserAsync(user);
                 }
             }

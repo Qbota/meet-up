@@ -9,7 +9,7 @@
         >
           <v-icon>mdi-chevron-left</v-icon>
         </v-btn>
-        <v-btn @click="setToday()">Today</v-btn>
+        <v-btn text color="primary" @click="setToday()">Today</v-btn>
         <v-btn
             icon
             class="ma-2"
@@ -25,46 +25,12 @@
         <v-btn @click="showCreateDialog()">Create meeting</v-btn>
       </v-row>
     </v-container>
-    <v-dialog v-model="inboxDialog" max-width="400pt">
-      <v-card class="px-5">
-        <v-card-title>
-          Group Invites
-        </v-card-title>
-        <v-list dense>
-          <template v-for="invite in invites">
-            <v-list-item v-bind:key="invite.sender">
-              <v-list-item-icon><v-icon>fas fa-user-plus</v-icon></v-list-item-icon>
-              <v-list-item-content>
-                User {{invite.organizer}} invited you to meeting: {{invite.title}}!
-              </v-list-item-content>
-              <v-btn icon ><v-icon>fas fa-check</v-icon></v-btn>
-              <v-btn icon ><v-icon>fas fa-times</v-icon></v-btn>
-            </v-list-item>
-          </template>
-        </v-list>
-        <v-card-actions>
-          <v-btn @click="closeInboxDialog()">Close</v-btn>
-          <v-spacer/>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
     <v-dialog v-model="createDialog" max-width="400pt">
       <CreateMeetingComponent @closeEvent="closeCreateDialog()" @registeredEvent="fetchMeetings(); closeCreateDialog()"/>
     </v-dialog>
-    <v-dialog v-model="detailsDialog" max-width="400pt">
+    <v-dialog v-model="detailsDialog" max-width="800pt">
       <MeetingDetailsComponent :meeting="selectedEvent" @closeEvent="closeDetailsDialog"/>
     </v-dialog>
-    <v-btn
-        fab
-        color="primary"
-        top
-        right
-        absolute
-        style="margin-top: 20pt"
-        @click="showInboxDialog()"
-    >
-      <v-icon>mdi-message</v-icon>
-    </v-btn>
   </v-main>
 </template>
 
@@ -81,7 +47,6 @@ export default {
     this.token = this.$store.state.accessToken
     this.user = this.$store.state.user
     this.fetchMeetings()
-    this.fetchInvites()
   },
   data: () => ({
     focus: '',
@@ -92,39 +57,52 @@ export default {
       name: '',
       start: new Date()
     },
-    invites: [
-    ],
     meetings: []
   }),
   methods: {
     async fetchMeetings(){
-      axios.create({
-        headers: {
+      axios.get(API_URL + '/meeting', {
+       headers: {
             'Authorization': 'Bearer '+ this.token
-        }
+        } 
       })
-      .get(API_URL + '/meeting')
-        .then(res => this.meetings = res.data)
-    },
-    async fetchInvites(){
-      axios.create({
-        headers: {
-            'Authorization': 'Bearer '+ this.token
-        }
-      })
-      .get(API_URL + '/invitation/' + this.user.id)
-        .then(res => this.meetings = res.data)
+        .then(res => this.meetings = this.formatMeetings(res.data))
     },
     setToday() {
       this.focus = ''
     },
     acceptInvite(invite){
-      invite.accepted = true
-      axios.post(API_URL + '/meeting/invite', invite, {})
+      let command = {
+        invitationId: invite.id,
+        decision: true
+      }
+      axios.put(API_URL + '/invitation', command, {
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
     },
     denyInvite(invite){
-      invite.accepted = false
-      axios.post(API_URL + '/meeting/invite', invite, {})
+      let command = {
+        invitationId: invite.id,
+        decision: false
+      }
+      axios.put(API_URL + '/invitation', command, {
+        headers: {
+            'Authorization': 'Bearer '+ this.token
+        }
+      })
+    },
+    formatMeetings(meetings){
+      let formatted =  meetings.map(meeting => this.mapToEvent(meeting))
+      return formatted
+    },
+    mapToEvent(meeting){
+      if(meeting.dateProposition.includes('T')){
+        meeting.start = meeting.dateProposition.split('T')[0]
+      }
+      meeting.name = meeting.title
+      return meeting
     },
     showInboxDialog(){
       this.inboxDialog = true

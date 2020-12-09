@@ -13,9 +13,10 @@ namespace WebApplication.Application.Meetings.Models
         public string Title { get; set; }
         public string GroupID { get; set; }
         public string OrganiserID { get; set; }
-        public IEnumerable<DateTime> DatePropositions { get; set; }
-        public IEnumerable<MovieDto> MoviePropositions { get; set; }
-        public IEnumerable<MealDto> MealsPropositions { get; set; }
+        public string Description { get; set; }
+        public DateTime DateProposition { get; set; }
+        public List<MovieDto> MoviePropositions { get; set; }
+        public List<MealDto> MealsPropositions { get; set; }
 
     }
 }

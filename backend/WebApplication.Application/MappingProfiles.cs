@@ -25,7 +25,9 @@ namespace WebApplication.Application
             CreateMap<UserDO, UserDO>();
             CreateMap<UpdateUserCommand, UserDO>();
 
-            CreateMap<MovieDto, MovieDO>();
+            CreateMap<MovieDto, MovieDO>()
+                .ForMember(dest => dest.IsBasicSet, opt => opt.Ignore())
+                .ForMember(dest => dest._id, opt => opt.Ignore() );
             CreateMap<MovieDO, MovieDto>();
             CreateMap<MoviePreferenceDto, MoviePreferenceDO>();
             CreateMap<MoviePreferenceDO, MoviePreferenceDto>();

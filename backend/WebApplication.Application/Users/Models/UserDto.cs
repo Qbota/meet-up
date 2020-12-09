@@ -10,9 +10,8 @@ namespace WebApplication.Application.Users.Models
         public string ID { get; private set; }
         public string Name { get; set; }
         public string Login { get; private set; }
-        public IEnumerable<DateTime> AvailableDates { get; set; }
-        public IEnumerable<string> GroupIDs { get; set; }
-        public IEnumerable<string> MeetingIDs { get; set; }
+        public List<DateTime> AvailableDates { get; set; }
+        public List<string> GroupIDs { get; set; }
         public MoviePreferenceDto MoviePreference { get; set; }
         public MealPreferenceDto MealPreference { get; set; }
 

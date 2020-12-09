@@ -39,15 +39,6 @@ namespace WebApplication.Application.Authorization
             groups = groups.Where(x => user.GroupIDs.Contains(x.ID)).ToList();
         }
 
-        public void AuthorizeMeetingAccessOrThrow(HttpContext httpContext, string meetingId)
-        {
-            var user = httpContext.Items["Account"] as UserDO;
-            if (user == null || !user.MeetingIDs.Contains(meetingId))
-            {
-                throw new AuthorizationException("No access to this meeting");
-            }
-        }
-
         public void FilterResultByUserRights(HttpContext httpContext, ref List<MeetingDto> meetings)
         {
             var user = httpContext.Items["Account"] as UserDO;
@@ -55,7 +46,7 @@ namespace WebApplication.Application.Authorization
             {
                 throw new AuthorizationException("No access to groups");
             }
-            meetings = meetings?.Where(x => user.MeetingIDs.Contains(x.ID))?.ToList();
+            meetings = meetings?.Where(x => user.GroupIDs.Contains(x.GroupID))?.ToList();
         }
     }
 }

@@ -60,7 +60,7 @@ namespace WebApplication.Controllers
         [Produces("application/json")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeleteMeetingAsync([FromRoute] string meetingId)
+        public async Task<IActionResult> DeleteMeetingAsync( string meetingId)
         {
             return Ok(await _mediator.Send(new DeleteMeetingCommand { Id = meetingId }));
         }

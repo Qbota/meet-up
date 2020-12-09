@@ -10,7 +10,7 @@ def find_meals():
     prefs = request.json
     print(prefs)
     selector = MealSelector()
-    data = selector.recommendMeals(prefs['allergenes'],
-                                   prefs['cusines'],
-                                   prefs['mealsAmmount'])
+    data = selector.recommendMeals(prefs['Allergens'],
+                                   prefs['Cusines'],
+                                   prefs['MealsAmount'])
     return json.dumps(data)

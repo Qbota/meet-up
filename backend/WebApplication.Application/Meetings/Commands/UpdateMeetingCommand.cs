@@ -11,7 +11,6 @@ namespace WebApplication.Application.Meetings.Commands
     {
         public string ID { get; private set; }
         public string Title { get; set; }
-        public string GroupID { get; set; }
         public IEnumerable<DateTime> DatePropositions { get; set; }
         public IEnumerable<MovieDto> MoviePropositions { get; set; }
         public IEnumerable<MealDto> MealsPropositions { get; set; }

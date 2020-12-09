@@ -6,6 +6,6 @@ namespace WebApplication.Application.AIs
 {
     public interface IDatePickerService
     {
-        List<DateTime> PickDate(List<DateTime> selectedDates);
+        DateTime PickDate(List<DateTime> selectedDates);
     }
 }

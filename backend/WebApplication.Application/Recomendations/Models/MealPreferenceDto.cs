@@ -8,7 +8,7 @@ namespace WebApplication.Application.Meals.Models
 {
     public class MealPreferenceDto
     {
-        public IEnumerable<string> Cuisines { get; set; }
-        public IEnumerable<string> Allergens { get; set; }
+        public List<string> Cousines { get; set; }
+        public List<string> Allergens { get; set; }
     }
 }

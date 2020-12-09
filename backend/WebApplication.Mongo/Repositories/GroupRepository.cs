@@ -49,7 +49,7 @@ namespace WebApplication.Mongo.Repositories
 
         public async Task DeleteGroupAsync(string id)
         {
-            await _context.Groups.DeleteOneAsync(Builders<GroupDO>.Filter.Eq("id", id));
+            await _context.Groups.DeleteOneAsync(x => x.ID == id);
         }
     }
 }
