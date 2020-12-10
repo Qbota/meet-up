@@ -1,5 +1,8 @@
 <template>
-  <v-card height="400px">
+  <v-card height="450px">
+    <v-card-title>
+      Pick your food preference
+    </v-card-title>
     <v-container>
       <v-btn color="primary"
              text @click="savePreferences()">Save
@@ -7,6 +10,16 @@
       <v-row justify="center">
         <v-col cols="6">
           <v-simple-table height="300px" dense>
+            <thead>
+            <tr>
+              <th class="text-left">
+                Cuisine
+              </th>
+              <th class="text-left">
+                Do you like that?
+              </th>
+            </tr>
+            </thead>
             <tbody>
             <tr v-for="(cousine, index) in cousines" :key="index">
               <td>{{ cousine }}</td>
@@ -18,12 +31,22 @@
           </v-simple-table>
         </v-col>
         <v-col cols="6">
-          <v-simple-table height="300px" dense>
+          <v-simple-table fixed-header height="300px" dense>
+            <thead>
+            <tr>
+              <th class="text-left">
+                Food
+              </th>
+              <th class="text-left">
+                Can you eat that?
+              </th>
+            </tr>
+            </thead>
             <tbody>
             <tr v-for="(allergy, index) in allergies" :key="index">
               <td>{{ allergy }}</td>
               <td>
-                <v-checkbox dense v-model="selectedAllergies" :value="allergy"></v-checkbox>
+                <v-checkbox dense on-icon="fas fa-times" color="error" v-model="selectedAllergies" :value="allergy"></v-checkbox>
               </td>
             </tr>
             </tbody>

@@ -1,5 +1,8 @@
 <template>
   <v-card class="px-4">
+    <v-card-title>
+      Pick your availability
+    </v-card-title>
     <v-row>
       <v-col>
         <v-btn

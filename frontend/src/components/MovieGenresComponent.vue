@@ -1,10 +1,23 @@
 <template>
-  <v-card height="400px">
+  <v-card height="450px">
+    <v-card-title>
+      Pick you favourite foods
+    </v-card-title>
     <v-container>
       <v-btn color="primary"
              text @click="savePreferences()">Save
       </v-btn>
       <v-simple-table height="300px" dense>
+        <thead>
+        <tr>
+          <th class="text-left">
+            Movie Genre
+          </th>
+          <th class="text-left">
+            Do you like that?
+          </th>
+        </tr>
+        </thead>
         <tbody>
         <tr v-for="(genre, index) in genres" :key="index">
           <td>{{ genre }}</td>

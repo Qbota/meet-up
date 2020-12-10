@@ -1,5 +1,8 @@
 <template>
-  <v-card height="400px" width="800px">
+  <v-card height="500px" width="800px">
+    <v-card-title>
+      Rate movies
+    </v-card-title>
     <v-container>
       <v-btn color="primary"
              text @click="savePreferences()">Save
