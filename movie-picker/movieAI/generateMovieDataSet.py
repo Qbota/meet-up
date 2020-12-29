@@ -21,7 +21,7 @@ def generateLinks():
     return links
 
 
-def combineDataset(mDb):
+def combineDataset(mDb, devTest=False):
     # https://developers.themoviedb.org/3/movies/get-movie-details
     tmdb.API_KEY = TMDB_API_KEY
     mDb["genres"] = ""
@@ -49,12 +49,14 @@ def combineDataset(mDb):
                                                    str(movie.title)))
         except Exception as e:
             log("Exception {}! Skipping this movie.".format(e))
+        if index >= 100 and devTest:
+            break
     end = datetime.now()
 
     log("Script started at {}".format(start.strftime("%m/%d/%Y, %H:%M:%S")))
     log("Script ended at {}".format(end.strftime("%m/%d/%Y, %H:%M:%S")))
     log("It took {} minutes".format(round((end-start).total_seconds() / 60.0, 2)))
-    return mDb
+    return mDb, round((end-start).total_seconds())
 
 
 def loadToMongo(file):
@@ -79,6 +81,6 @@ def loadToMongo(file):
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    result = combineDataset(generateLinks())
+    result, _ = combineDataset(generateLinks())
     result.to_json("movieDataset.json")
     loadToMongo("movieDataset.json")
