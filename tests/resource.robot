@@ -4,7 +4,7 @@ Library           SeleniumLibrary
 *** Variables ***
 ${SERVER}         localhost:8080
 ${BROWSER}        Chrome
-${DELAY}          0.3
+${DELAY}          0.5
 ${MAIN URL}       http://${SERVER}
 ${LOGIN URL}      http://${SERVER}/login
 ${REGISTER URL}   http://${SERVER}/register
@@ -41,3 +41,15 @@ Input Login
 
 Submit Credentials
     Click Button    200
+
+Click movie rate
+    [Arguments]     ${id}   ${xoffset}
+    Click Element At Coordinates    ${id}   ${xoffset}    0
+
+Get screenshot
+    [Arguments]     ${id}
+    Capture Element Screenshot      ${id}
+
+Click allergy
+    [Arguments]     ${id}   ${xoffset}
+    Click Element At Coordinates    ${id}   ${xoffset}    0
