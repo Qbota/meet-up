@@ -5,18 +5,18 @@
         Create meeting
       </v-card-title>
       <v-row justify="center">
-        <v-text-field label="Meeting title" v-model="meeting.Title"/>
+        <v-text-field id="302" label="Meeting title" v-model="meeting.Title"/>
       </v-row>
       <v-row justify="center">
-        <v-text-field label="Meeting description" v-model="meeting.Description"/>
+        <v-text-field id="303" label="Meeting description" v-model="meeting.Description"/>
       </v-row>
       <v-row justify="center">
-        <v-autocomplete label="Choose group" v-model="meeting.GroupId" :items="Groups" item-text="name" item-value="id"/>
+        <v-autocomplete id="304" label="Choose group" v-model="meeting.GroupId" :items="Groups" item-text="name" item-value="id"/>
       </v-row>
       <v-card-actions>
         <v-btn @click="raiseCloseEvent">Close</v-btn>
         <v-spacer/>
-        <v-btn @click="registerMeeting()">Create Meeting</v-btn>
+        <v-btn id="305" @click="registerMeeting()">Create Meeting</v-btn>
       </v-card-actions>
     </v-container>
   </v-card>
