@@ -7,7 +7,7 @@
         color="primary"
     >
       <v-list nav dense>
-        <v-list-item to="/home/groups">
+        <v-list-item id="groupsButton" to="/home/groups">
           <v-list-item-icon>
             <v-icon>fas fa-user-friends</v-icon>
           </v-list-item-icon>
