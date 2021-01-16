@@ -16,7 +16,8 @@ namespace WebApplication.Application.AIs
         private ConcurrentDictionary<string,
             TaskCompletionSource<string>> pendingMessages;
 
-        private const string requestQueueName = "requestqueue";
+        private const string requestQueueNameMeals = "requestqueuemeals";
+        private const string requestQueueNameMovies = "requestqueuemovies";
         private const string responseQueueName = "responsequeue";
         private const string exchangeName = ""; // default exchange
 
@@ -27,7 +28,8 @@ namespace WebApplication.Application.AIs
             this.connection = factory.CreateConnection();
             this.channel = connection.CreateModel();
 
-            this.channel.QueueDeclare(requestQueueName, true, false, false, null);
+            this.channel.QueueDeclare(requestQueueNameMeals, true, false, false, null);
+            this.channel.QueueDeclare(requestQueueNameMovies, true, false, false, null);
             this.channel.QueueDeclare(responseQueueName, true, false, false, null);
 
             this.consumer = new EventingBasicConsumer(this.channel);
@@ -37,26 +39,26 @@ namespace WebApplication.Application.AIs
             this.pendingMessages = new ConcurrentDictionary<string,
                 TaskCompletionSource<string>>();
         }
-        public Task<string> SendAsync(string message)
+        public Task<string> SendAsync(string message, string queueName)
         {
             var tcs = new TaskCompletionSource<string>();
             var correlationId = Guid.NewGuid().ToString();
 
             this.pendingMessages[correlationId] = tcs;
 
-            this.Publish(message, correlationId);
+            this.Publish(message, correlationId, queueName);
 
             return tcs.Task;
         }
 
-        private void Publish(string message, string correlationId)
+        private void Publish(string message, string correlationId, string queueName)
         {
             var props = this.channel.CreateBasicProperties();
             props.CorrelationId = correlationId;
             props.ReplyTo = responseQueueName;
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(message);
-            this.channel.BasicPublish(exchangeName, requestQueueName, props, messageBytes);
+            this.channel.BasicPublish(exchangeName, queueName, props, messageBytes);
         }
 
         private void Consumer_Received(object sender, BasicDeliverEventArgs e)

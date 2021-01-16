@@ -30,7 +30,7 @@ namespace WebApplication.Application.AIs
         private async Task<List<MovieDO>> GetRecomendationFromAIRabbit(MovieRequest request)
         {
             JArray array;
-            string resultContent = await _rpcClient.SendAsync(JsonSerializer.Serialize(request));
+            string resultContent = await _rpcClient.SendAsync(JsonSerializer.Serialize(request), "requestqueuemovies");
             array = JArray.Parse(resultContent);
             return GetMovieList(array);
         }

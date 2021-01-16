@@ -7,6 +7,6 @@ namespace WebApplication.Application.AIs
 {
     public interface IRPCClient
     {
-       Task<string> SendAsync(string message);
+       Task<string> SendAsync(string message, string queueName);
     }
 }

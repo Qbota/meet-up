@@ -47,7 +47,7 @@ namespace WebApplication.Application.AIs
         private async Task<List<MealDO>> GetRecomendationFromAIRabbit(FoodRequest request)
         {
             JArray array;
-            string resultContent = await _rpcClient.SendAsync(JsonSerializer.Serialize(request));
+            string resultContent = await _rpcClient.SendAsync(JsonSerializer.Serialize(request), "requestqueuemeals");
             array = JArray.Parse(resultContent);
             return GetMealList(array);
         }
