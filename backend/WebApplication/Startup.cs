@@ -105,6 +105,7 @@ namespace WebApplication
 
                 options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
             });
+            services.AddSingleton<IRPCClient, RpcClient>();
 
         }
 
