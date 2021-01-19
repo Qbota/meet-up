@@ -14,11 +14,17 @@ namespace WebApplication.Application.AIs
 {
     public class FoodRecomendationService : IFoodRecomendationService
     {
+
         private const string _uri = "http://localhost:5002";
+        private IRPCClient _rpcClient;
+        public FoodRecomendationService(IRPCClient client)
+        {
+            _rpcClient = client;
+        }
         public async Task<List<MealDO>> GetMealRecomendations(List<MealPreferenceDO> mealPreferences)
         {
             var request = GenerateFoodRequest(mealPreferences);
-            return  await GetRecomendationFromAIAsync(request);
+            return  await GetRecomendationFromAIRabbit(request);
         }
 
         private async Task<List<MealDO>> GetRecomendationFromAIAsync(FoodRequest request)
@@ -38,7 +44,13 @@ namespace WebApplication.Application.AIs
             }
             return GetMealList(array);
         }
-
+        private async Task<List<MealDO>> GetRecomendationFromAIRabbit(FoodRequest request)
+        {
+            JArray array;
+            string resultContent = await _rpcClient.SendAsync(JsonSerializer.Serialize(request), "requestqueuemeals");
+            array = JArray.Parse(resultContent);
+            return GetMealList(array);
+        }
         private List<MealDO> GetMealList(JArray array)
         {
             var list = new List<MealDO>();

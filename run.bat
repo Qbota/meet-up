@@ -3,6 +3,6 @@ start yarn serve
 cd ../backend/WebApplication
 start dotnet run
 cd ../../meal-picker
-start run.bat
+start python mealService.py
 cd ../movie-picker/movieAI
-start run.bat
+start python movieService.py

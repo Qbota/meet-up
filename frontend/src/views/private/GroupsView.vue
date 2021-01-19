@@ -26,7 +26,7 @@
             Create group
           </v-card-title>
           <v-row justify="center" align="center">
-            <v-btn fab color="primary" @click="showCreatDialog()">
+            <v-btn id="enterGroupCreation" fab color="primary" @click="showCreatDialog()">
               <v-icon x-large>
                 mdi-plus
               </v-icon>
@@ -53,10 +53,10 @@
         </v-card-title>
         <v-row justify="center">
           <v-col cols="6">
-            <v-text-field label="Group name" v-model="createdGroup.name"></v-text-field>
+            <v-text-field id="groupName" label="Group name" v-model="createdGroup.name"></v-text-field>
           </v-col>
           <v-col cols="6">
-            <v-text-field label="Group Description" v-model="createdGroup.description"></v-text-field>
+            <v-text-field id="groupDescription" label="Group Description" v-model="createdGroup.description"></v-text-field>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -64,8 +64,8 @@
         </v-row>
         <v-row class="mb-5" justify="center">
           <template v-for="icon in icons">
-            <v-btn @click="createdGroup.icon = icon" :disabled="createdGroup.icon === icon" large icon
-                   v-bind:key="icon">
+            <v-btn  @click="createdGroup.icon = icon" :disabled="createdGroup.icon === icon" large icon
+                   v-bind:key="icon" v-bind:id="icon">
               <v-icon>{{ icon }}</v-icon>
             </v-btn>
           </template>
@@ -75,13 +75,13 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="12">
-            <v-autocomplete chips deletable-chips multiple v-model="createdGroup.MemberIDs" :items="users" item-text="name" item-value="id"/>
+            <v-autocomplete id="members" chips deletable-chips multiple v-model="createdGroup.MemberIDs" :items="users" item-text="name" item-value="id"/>
           </v-col>
         </v-row>
         <v-card-actions>
           <v-btn @click="closeCreateDialog()">Close</v-btn>
           <v-spacer/>
-          <v-btn @click="createGroup()">Create</v-btn>
+          <v-btn id="createGroup" @click="createGroup()">Create</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

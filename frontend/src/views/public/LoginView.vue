@@ -28,13 +28,13 @@
           </v-snackbar>
           <v-form>
             <v-row>
-              <v-text-field label="Username of e-mail" v-model="user.login"></v-text-field>
+              <v-text-field id="101" label="Username of e-mail" v-model="user.login"></v-text-field>
             </v-row>
             <v-row>
-              <v-text-field label="Password" type="password" v-model="user.password"></v-text-field>
+              <v-text-field id="102" label="Password" type="password" v-model="user.password"></v-text-field>
             </v-row>
             <v-row justify="center" class="mb-5">
-              <v-btn color="primary" large @click="loginAction()" :loading="isLoading">
+              <v-btn id="200" color="primary" large @click="loginAction()" :loading="isLoading">
                 <div class="px-5">
                   Login
                 </div>

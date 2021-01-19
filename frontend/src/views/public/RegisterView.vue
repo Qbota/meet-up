@@ -46,7 +46,7 @@
                         <v-row justify="center" class="pb-5 pt-2">
                           {{ translateNumberToRating(movie.userRating) }} {{ movie.userRating }}
                           <v-icon color="primary">mdi-star</v-icon>
-                          <v-rating v-model="movie.userRating" clearable dense size="25" length="10" hover/>
+                          <v-rating v-bind:id="movie.id" v-model="movie.userRating" clearable dense size="25" length="10" hover/>
                         </v-row>
                       </v-card>
                     </template>
@@ -54,7 +54,7 @@
                   <v-card-actions>
                     <v-btn @click="stepper--">Back</v-btn>
                     <v-spacer/>
-                    <v-btn @click="stepper++; saveMoviePreferences()">Next</v-btn>
+                    <v-btn id="110" @click="stepper++; saveMoviePreferences()">Next</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-stepper-content>
@@ -87,15 +87,15 @@
                             {{ preference }}
                           </v-list-item-content>
                           <v-list-item-action>
-                            <v-btn icon @click="removeFromPreferences(preference)">
-                              <v-icon>mdi-food-variant-off</v-icon>
+                            <v-btn  icon @click="removeFromPreferences(preference)">
+                              <v-icon v-bind:id="preference">mdi-food-variant-off</v-icon>
                             </v-btn>
                           </v-list-item-action>
                         </v-list-item>
                       </template>
                       <v-list-item>
                         <v-list-item-action>
-                          <v-btn @click="popup = true">Add allergy</v-btn>
+                          <v-btn id="111" @click="popup = true">Add allergy</v-btn>
                         </v-list-item-action>
                       </v-list-item>
                     </v-list>
@@ -103,7 +103,7 @@
                   <v-card-actions>
                     <v-btn @click="stepper--">Back</v-btn>
                     <v-spacer/>
-                    <v-btn @click="registerInApi()" :loading="isLoading">Confirm</v-btn>
+                    <v-btn id="120" @click="registerInApi()" :loading="isLoading">Confirm</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-stepper-content>
@@ -126,7 +126,7 @@
         </v-list>
         <v-card-actions>
           <v-spacer/>
-          <v-btn @click="popup = false">Close</v-btn>
+          <v-btn id="119" @click="popup = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

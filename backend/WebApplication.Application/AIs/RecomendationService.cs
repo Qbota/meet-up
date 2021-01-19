@@ -32,8 +32,11 @@ namespace WebApplication.Application.AIs
             var mealPreferences = users.Select(x => x.MealPreference).ToList();
             var moviePreferences = users.Select(x => x.MoviePreference).ToList();
             var dates = GetDates(users);
-            meeting.MealsPropositions = await _foodRecomendationService.GetMealRecomendations(mealPreferences);
-            meeting.MoviePropositions = await _movieRecomendationService.GetMovieRecomendations(moviePreferences);
+            var mealTask = _foodRecomendationService.GetMealRecomendations(mealPreferences);
+            var movieTask = _movieRecomendationService.GetMovieRecomendations(moviePreferences);
+            await Task.WhenAll(mealTask, movieTask);
+            meeting.MealsPropositions = mealTask.Result;
+            meeting.MoviePropositions = movieTask.Result;
             meeting.DateProposition =  _datePickerService.PickDate(dates);
             return meeting;
         }

@@ -22,7 +22,7 @@
         <v-calendar ref="calendar" v-model="focus" type="month" :events="meetings" @click:event="showDetailsDialog"/>
       </v-sheet>
       <v-row class="mx-3" justify="end">
-        <v-btn @click="showCreateDialog()">Create meeting</v-btn>
+        <v-btn id="301" @click="showCreateDialog()">Create meeting</v-btn>
       </v-row>
     </v-container>
     <v-dialog v-model="createDialog" max-width="400pt">

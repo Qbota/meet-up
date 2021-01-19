@@ -15,10 +15,24 @@ namespace WebApplication.Application.AIs
     public class MovieRecomendationService : IMovieRecomendationService
     {
         private const string _uri = "http://localhost:5004";
+
+        private IRPCClient _rpcClient;
+        public MovieRecomendationService(IRPCClient client)
+        {
+            _rpcClient = client;
+        }
         public async Task<List<MovieDO>> GetMovieRecomendations(List<MoviePreferenceDO> moviePreferences)
         {
             var request = GenerateMovieRequest(moviePreferences);
-            return await GetRecomendationFromAIAsync(request);
+            return await GetRecomendationFromAIRabbit(request);
+        }
+
+        private async Task<List<MovieDO>> GetRecomendationFromAIRabbit(MovieRequest request)
+        {
+            JArray array;
+            string resultContent = await _rpcClient.SendAsync(JsonSerializer.Serialize(request), "requestqueuemovies");
+            array = JArray.Parse(resultContent);
+            return GetMovieList(array);
         }
 
         private MovieRequest GetMockRequest()

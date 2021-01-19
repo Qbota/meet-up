@@ -7,19 +7,19 @@
         color="primary"
     >
       <v-list nav dense>
-        <v-list-item to="/home/groups">
+        <v-list-item id="groupsButton" to="/home/groups">
           <v-list-item-icon>
             <v-icon>fas fa-user-friends</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Groups</v-list-item-title>
         </v-list-item>
-        <v-list-item to="/home/meetings">
+        <v-list-item id="300" to="/home/meetings">
           <v-list-item-icon>
             <v-icon>fas fa-handshake</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Meetings</v-list-item-title>
         </v-list-item>
-        <v-list-item to="/home/account">
+        <v-list-item id="299" to="/home/account">
           <v-list-item-icon>
             <v-icon>fas fa-user-edit</v-icon>
           </v-list-item-icon>

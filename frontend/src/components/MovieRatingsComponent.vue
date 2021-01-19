@@ -4,7 +4,7 @@
       Rate movies
     </v-card-title>
     <v-container>
-      <v-btn color="primary"
+      <v-btn id="320" color="primary"
              text @click="savePreferences()">Save
       </v-btn>
       <v-simple-table height="350px" width="700px">
@@ -31,7 +31,7 @@
             <td>{{ movie.title }}</td>
             <td>{{ ratings[movie.id] }}</td>
             <td>
-              <v-btn
+              <v-btn v-bind:id="movie.id"
                   color="primary"
                   dark
                   @click="editMovie(movie)"
@@ -73,6 +73,7 @@
           </v-btn>
 
           <v-btn
+              id="310"
               color="green darken-1"
               text
               @click="updateRank(newRating)"

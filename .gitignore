@@ -369,6 +369,6 @@ FodyWeavers.xsd
 apiKey.py
 
 # Robotframework files
-tests/*.png
-tests/*.xml
-tests/*.html
+tests/robot/*.png
+tests/robot/*.xml
+tests/robot/*.html
