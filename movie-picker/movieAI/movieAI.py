@@ -109,7 +109,7 @@ class MovieAI():
         '''
         combinedRatings = {}
         for userDict in ratings:
-            print(ratings)
+            self.log(ratings)
             for film in userDict:
                 r = []
                 for _userDict in ratings:
