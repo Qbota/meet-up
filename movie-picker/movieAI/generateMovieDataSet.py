@@ -8,7 +8,7 @@ import json
 from pymongo import MongoClient
 
 TMDB_API_KEY = apiKey.TMDB_API_KEY
-
+FILE_NAME = "movieDataset.json"
 
 def log(text):
     print(datetime.now().strftime("%m/%d/%Y, %H:%M:%S") + " | " + text)
@@ -81,6 +81,7 @@ def loadToMongo(file):
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    result, _ = combineDataset(generateLinks())
-    result.to_json("movieDataset.json")
-    loadToMongo("movieDataset.json")
+    if not os.path.isfile(FILE_NAME):
+        result, _ = combineDataset(generateLinks())
+        result.to_json(FILE_NAME)
+    loadToMongo(FILE_NAME)
